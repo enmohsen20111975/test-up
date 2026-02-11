@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="visualWorkflow.pageTitle">Visual Workflow Builder - EngiSuite Analytics Pro</title>
+    <link rel="stylesheet" href="shared/css/engisuite-theme.css">
+    <link rel="stylesheet" href="shared/css/calculators.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .workflow-container {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+        
+        .workflow-sidebar {
+            width: 300px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .workflow-sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .workflow-sidebar-header h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .workflow-components {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        
+        .workflow-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .workflow-toolbar {
+            padding: 1rem;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .workflow-canvas-container {
+            flex: 1;
+            position: relative;
+            background: var(--bg-secondary);
+            overflow: hidden;
+        }
+        
+        #visual-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+        }
+        
+        #visual-canvas:active {
+            cursor: grabbing;
+        }
+        
+        .workflow-properties {
+            width: 320px;
+            background: var(--card-bg);
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .workflow-properties-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .workflow-properties-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .workflow-properties-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        
+        .component-categories {
+            margin-bottom: 1rem;
+        }
+        
+        .category-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .category-items {
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .draggable-component {
+            padding: 10px 12px;
+            cursor: grab;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+        }
+        
+        .draggable-component:hover {
+            background: var(--bg-secondary);
+            border-color: var(--primary-color);
+            transform: translateX(4px);
+        }
+        
+        .draggable-component:active {
+            cursor: grabbing;
+        }
+        
+        .component-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+        
+        .component-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .workflow-stats {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-left: auto;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        
+        .node-properties {
+            font-size: 0.9rem;
+        }
+        
+        .node-properties h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .node-properties label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .node-properties input,
+        .node-properties select {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+        }
+        
+        .node-properties input:focus,
+        .node-properties select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        
+        .input-group input,
+        .input-group select {
+            margin-bottom: 0;
+        }
+        
+        .data-flow-section {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+        }
+        
+        .data-flow-section h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .connection-item {
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            background: var(--card-bg);
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        
+        .results-section {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 6px;
+            border-left: 3px solid #22c55e;
+        }
+        
+        .results-section h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #22c55e;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+            font-size: 0.85rem;
+        }
+        
+        .error-message {
+            padding: 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            border-radius: 6px;
+            color: #fca5a5;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .examples-menu {
+            position: absolute;
+            top: 60px;
+            right: 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 280px;
+            width: 360px;
+            max-height: 70vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+            overflow: hidden;
+        }
+        
+        .examples-menu h4 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .examples-search {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+        }
+
+        .examples-list {
+            max-height: 55vh;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .examples-section {
+            margin-bottom: 0.75rem;
+        }
+
+        .examples-section h5 {
+            margin: 0.5rem 0 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        
+        .example-item {
+            padding: 0.75rem;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            transition: background 0.2s;
+        }
+        
+        .example-item:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .example-item h5 {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .example-item p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 1200px) {
+            .workflow-sidebar,
+            .workflow-properties {
+                width: 250px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .workflow-container {
+                flex-direction: column;
+            }
+            
+            .workflow-sidebar,
+            .workflow-properties {
+                width: 100%;
+                height: 300px;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .workflow-canvas-container {
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <select id="language-select" data-i18n-lang>
+            <option value="ar" data-i18n="language.arabic">العربية</option>
+            <option value="en" data-i18n="language.english">English</option>
+            <option value="fr" data-i18n="language.french">Français</option>
+        </select>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1><i class="fas fa-calculator"></i> <span data-i18n="app.shortName">EngiSuite</span></h1>
+            <p data-i18n="app.taglineShort">Advanced Engineering Tools</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i class="fas fa-home"></i> <span data-i18n="nav.dashboard">Dashboard</span></a></li>
+            <li><a href="calculators.html"><i class="fas fa-calculator"></i> <span data-i18n="nav.calculators">Engineering Calculations</span></a></li>
+            <li><a href="visual-workflow.html" class="active"><i class="fas fa-project-diagram"></i> <span data-i18n="nav.visualWorkflow">Visual Workflow Builder</span></a></li>
+            <li><a href="analytics.html"><i class="fas fa-chart-line"></i> <span data-i18n="nav.analytics">Data Analysis</span></a></li>
+            <li><a href="reports.html"><i class="fas fa-file-pdf"></i> <span data-i18n="nav.reports">Reports</span></a></li>
+            <li><a href="ai-assistant.html"><i class="fas fa-robot"></i> <span data-i18n="nav.aiAssistant">AI Assistant</span></a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i> <span data-i18n="nav.profile">Profile</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="user-profile">
+                <div class="user-avatar">م</div>
+                <div>
+                    <div style="font-weight: bold;" data-i18n="user.placeholderName">Loading...</div>
+                    <div style="font-size: 12px; color: #7f8c8d;" data-i18n="user.placeholderRole">Loading...</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="credits-display" data-i18n="common.loading">
+                    <i class="fas fa-coins"></i> Loading...
+                </div>
+                <button onclick="authService.logout()" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> <span data-i18n="common.logout">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Workflow Container -->
+        <div class="workflow-container">
+            <!-- Left Sidebar: Components -->
+            <div class="workflow-sidebar">
+                <div class="workflow-sidebar-header">
+                    <h2 data-i18n="visualWorkflow.components">Components</h2>
+                </div>
+                <div class="workflow-components" id="builder-components">
+                    <!-- Components will be dynamically populated -->
+                </div>
+            </div>
+
+            <!-- Main Canvas -->
+            <div class="workflow-content">
+                <div class="workflow-toolbar">
+                    <button onclick="VisualWorkflow.zoomIn()" class="btn btn-primary btn-icon" title="Zoom In">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                    <button onclick="VisualWorkflow.zoomOut()" class="btn btn-primary btn-icon" title="Zoom Out">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <button onclick="VisualWorkflow.resetView()" class="btn btn-primary btn-icon" title="Reset View">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button onclick="VisualWorkflow.fitToScreen()" class="btn btn-primary btn-icon" title="Fit to Screen">
+                        <i class="fas fa-arrows-alt"></i>
+                    </button>
+                    <div style="width: 1px; height: 30px; background: var(--border-color); margin: 0 0.5rem;"></div>
+                    <button id="undo-btn" onclick="VisualWorkflow.undo()" class="btn btn-primary btn-icon" title="Undo">
+                        <i class="fas fa-undo"></i>
+                    </button>
+                    <button id="redo-btn" onclick="VisualWorkflow.redo()" class="btn btn-primary btn-icon" title="Redo">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <div style="width: 1px; height: 30px; background: var(--border-color); margin: 0 0.5rem;"></div>
+                    <button onclick="VisualWorkflow.saveWorkflow()" class="btn btn-primary btn-small" title="Save Workflow">
+                        <i class="fas fa-save"></i> <span data-i18n="visualWorkflow.save">Save</span>
+                    </button>
+                    <button onclick="VisualWorkflow.loadWorkflow()" class="btn btn-primary btn-small" title="Load Workflow">
+                        <i class="fas fa-folder-open"></i> <span data-i18n="visualWorkflow.load">Load</span>
+                    </button>
+                    <button onclick="VisualWorkflow.clearWorkflow()" class="btn btn-danger btn-small" title="Clear Workflow">
+                        <i class="fas fa-trash"></i> <span data-i18n="visualWorkflow.clear">Clear</span>
+                    </button>
+                    <div style="width: 1px; height: 30px; background: var(--border-color); margin: 0 0.5rem;"></div>
+                    <button onclick="VisualWorkflow.showExamplesMenu()" class="btn btn-primary btn-small" title="Examples">
+                        <i class="fas fa-lightbulb"></i> <span data-i18n="visualWorkflow.examples">Examples</span>
+                    </button>
+                    <button onclick="VisualWorkflow.executeWorkflow()" class="btn btn-success btn-small" title="Execute Workflow">
+                        <i class="fas fa-play"></i> <span data-i18n="visualWorkflow.execute">Execute</span>
+                    </button>
+                    <button onclick="VisualWorkflow.generateWorkflowReport()" class="btn btn-info btn-small" title="Generate Report">
+                        <i class="fas fa-file-alt"></i> <span data-i18n="visualWorkflow.report">Report</span>
+                    </button>
+                    <div class="workflow-stats">
+                        <span><i class="fas fa-layer-group"></i> <span id="node-count">0</span> nodes</span>
+                        <span><i class="fas fa-link"></i> <span id="connection-count">0</span> connections</span>
+                    </div>
+                </div>
+
+                <div class="workflow-canvas-container">
+                    <canvas id="visual-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Right Sidebar: Properties -->
+            <div class="workflow-properties">
+                <div class="workflow-properties-header">
+                    <h3 data-i18n="visualWorkflow.properties">Properties</h3>
+                </div>
+                <div class="workflow-properties-content" id="builder-props-content">
+                    <p data-i18n="visualWorkflow.selectNode">Select a calculator node to edit properties</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Examples Menu -->
+    <div class="examples-menu" id="examples-menu">
+        <h4 data-i18n="visualWorkflow.exampleWorkflows">Example Workflows</h4>
+        <input id="examples-search" class="examples-search" type="text" placeholder="Search library...">
+        <div class="examples-list">
+            <div class="examples-section">
+                <h5>Featured Examples</h5>
+                <div id="examples-featured"></div>
+            </div>
+            <div class="examples-section">
+                <h5>Workflow Library</h5>
+                <div id="workflows-library"></div>
+            </div>
+            <div class="examples-section">
+                <h5>Calculation Examples</h5>
+                <div id="examples-library"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared/js/i18n.js"></script>
+    <script src="shared/js/auth.js"></script>
+    <script src="shared/js/ai-service.js"></script>
+    <script src="shared/js/calculators.js"></script>
+    <script src="shared/js/visual-workflow.js"></script>
+    
+    <script>
+        // Initialize workflow engine when page loads and i18n is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait for i18n system to initialize
+            const checkI18n = setInterval(() => {
+                if (typeof i18n !== 'undefined' && i18n.getTranslation) {
+                    clearInterval(checkI18n);
+                    VisualWorkflow.init();
+                    
+                    // Update stats counter
+                    setInterval(() => {
+                        document.getElementById('node-count').textContent = VisualWorkflow.nodes.length;
+                        document.getElementById('connection-count').textContent = VisualWorkflow.connections.length;
+                    }, 100);
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

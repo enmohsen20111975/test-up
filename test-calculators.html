@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test Calculators</title>
+</head>
+<body>
+    <div id="test-output"></div>
+    
+    <script src="frontend/shared/js/calculators.js"></script>
+    <script>
+        try {
+            console.log('Calculators object:', typeof Calculators);
+            console.log('Calculators:', Calculators);
+            if (Calculators && Calculators.modules) {
+                console.log('Modules:', Object.keys(Calculators.modules));
+                Object.entries(Calculators.modules).forEach(([moduleKey, module]) => {
+                    console.log(`Module: ${moduleKey} - ${module.name}`);
+                    console.log(`Calculators:`, Object.keys(module.calculators));
+                });
+            }
+            
+            document.getElementById('test-output').innerHTML = `
+                <pre>
+Calculators object type: ${typeof Calculators}
+Calculators: ${JSON.stringify(Calculators, null, 2)}
+                </pre>
+            `;
+        } catch (error) {
+            console.error('Error testing Calculators:', error);
+            document.getElementById('test-output').innerHTML = `
+                <div style="color: red;">
+                    <h3>Error Testing Calculators</h3>
+                    <p>${error.message}</p>
+                    <pre>${error.stack}</pre>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

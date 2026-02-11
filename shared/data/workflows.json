@@ -1,0 +1,213 @@
+{
+  "version": "1.0",
+  "domains": ["civil", "electrical", "mechanical"],
+  "workflows": [
+    {
+      "id": "civil_earthworks_volume",
+      "domain": "civil",
+      "title": "Earthworks Volume and Balance",
+      "description": "Estimate cut/fill volumes and balance for grading plans.",
+      "inputs": ["surface_data", "design_levels", "bulking_factor", "shrink_factor"],
+      "outputs": ["cut_volume", "fill_volume", "net_balance"],
+      "steps": ["import_surface", "define_design_levels", "compute_cut_fill", "apply_factors", "summarize_balance"]
+    },
+    {
+      "id": "civil_rebar_takeoff",
+      "domain": "civil",
+      "title": "Rebar Takeoff",
+      "description": "Quantify reinforcing steel for beams, slabs, and columns.",
+      "inputs": ["member_geometry", "bar_sizes", "spacing", "laps"],
+      "outputs": ["bar_count", "bar_length", "total_weight"],
+      "steps": ["select_members", "assign_bars", "compute_lengths", "apply_laps", "aggregate_weight"]
+    },
+    {
+      "id": "civil_slab_design",
+      "domain": "civil",
+      "title": "Slab Thickness and Reinforcement",
+      "description": "Check slab thickness, deflection, and reinforcement.",
+      "inputs": ["span", "loads", "concrete_grade", "steel_grade"],
+      "outputs": ["slab_thickness", "reinforcement_area", "deflection_ratio"],
+      "steps": ["compute_loads", "select_thickness", "check_deflection", "design_rebar"]
+    },
+    {
+      "id": "civil_column_design",
+      "domain": "civil",
+      "title": "Column Design",
+      "description": "Design RC column with axial and bending interaction.",
+      "inputs": ["axial_load", "moment", "section_dims", "material_strengths"],
+      "outputs": ["rebar_ratio", "bar_layout", "utilization"],
+      "steps": ["select_section", "check_interaction", "size_rebar", "verify_details"]
+    },
+    {
+      "id": "civil_footing_sizing",
+      "domain": "civil",
+      "title": "Footing Sizing",
+      "description": "Size isolated footings for bearing and punching.",
+      "inputs": ["column_load", "soil_bearing", "depth_limits"],
+      "outputs": ["footing_area", "thickness", "soil_pressure"],
+      "steps": ["compute_area", "check_bearing", "check_punching", "design_rebar"]
+    },
+    {
+      "id": "civil_retaining_wall",
+      "domain": "civil",
+      "title": "Retaining Wall Stability",
+      "description": "Check sliding, overturning, and bearing for retaining walls.",
+      "inputs": ["wall_geometry", "soil_properties", "surcharge", "water_table"],
+      "outputs": ["safety_factors", "base_pressure", "stability_ok"],
+      "steps": ["compute_earth_pressure", "check_sliding", "check_overturning", "check_bearing"]
+    },
+    {
+      "id": "civil_pavement_design",
+      "domain": "civil",
+      "title": "Flexible Pavement Design",
+      "description": "Determine layer thicknesses based on traffic and subgrade.",
+      "inputs": ["traffic_esal", "subgrade_cbr", "material_coeffs"],
+      "outputs": ["layer_thicknesses", "design_life"],
+      "steps": ["compute_structural_number", "select_layers", "verify_life"]
+    },
+    {
+      "id": "civil_concrete_mix",
+      "domain": "civil",
+      "title": "Concrete Mix Estimation",
+      "description": "Estimate mix proportions and quantities.",
+      "inputs": ["target_strength", "slump", "aggregate_sizes", "cement_type"],
+      "outputs": ["cement_qty", "water_qty", "aggregate_qty"],
+      "steps": ["select_w_c_ratio", "estimate_water", "compute_cement", "compute_aggregates"]
+    },
+    {
+      "id": "electrical_load_calc",
+      "domain": "electrical",
+      "title": "Electrical Load Calculation",
+      "description": "Calculate connected and demand load for buildings.",
+      "inputs": ["load_schedule", "demand_factors", "diversity_factors"],
+      "outputs": ["connected_load", "demand_load", "service_size"],
+      "steps": ["sum_connected", "apply_demand", "apply_diversity", "select_service"]
+    },
+    {
+      "id": "electrical_panel_schedule",
+      "domain": "electrical",
+      "title": "Panel Schedule",
+      "description": "Build panel schedules with circuit balancing.",
+      "inputs": ["circuits", "phase_config", "breaker_sizes"],
+      "outputs": ["phase_balance", "panel_loads"],
+      "steps": ["assign_circuits", "balance_phases", "check_breakers"]
+    },
+    {
+      "id": "electrical_cable_sizing",
+      "domain": "electrical",
+      "title": "Cable Sizing",
+      "description": "Size cables for ampacity and voltage drop.",
+      "inputs": ["load_current", "length", "installation_method", "ambient_temp"],
+      "outputs": ["cable_size", "voltage_drop", "ampacity_ok"],
+      "steps": ["compute_current", "select_cable", "check_drop", "apply_corrections"]
+    },
+    {
+      "id": "electrical_short_circuit",
+      "domain": "electrical",
+      "title": "Short Circuit Calculation",
+      "description": "Estimate fault current for equipment ratings.",
+      "inputs": ["source_impedance", "transformer_data", "cable_impedance"],
+      "outputs": ["fault_current", "interrupting_rating"],
+      "steps": ["build_impedance", "compute_fault", "select_breaker"]
+    },
+    {
+      "id": "electrical_lighting_layout",
+      "domain": "electrical",
+      "title": "Lighting Layout",
+      "description": "Determine fixture count using lumen method.",
+      "inputs": ["area", "target_lux", "fixture_lumens", "utilization_factor"],
+      "outputs": ["fixture_count", "spacing"],
+      "steps": ["compute_total_lumens", "select_fixtures", "layout_spacing"]
+    },
+    {
+      "id": "electrical_grounding",
+      "domain": "electrical",
+      "title": "Grounding and Earthing",
+      "description": "Size grounding conductors and verify resistance.",
+      "inputs": ["fault_current", "soil_resistivity", "electrode_type"],
+      "outputs": ["ground_conductor_size", "estimated_resistance"],
+      "steps": ["size_conductor", "estimate_resistance", "verify_limits"]
+    },
+    {
+      "id": "electrical_transformer_sizing",
+      "domain": "electrical",
+      "title": "Transformer Sizing",
+      "description": "Select transformer size based on demand and losses.",
+      "inputs": ["demand_load", "voltage_level", "power_factor"],
+      "outputs": ["transformer_kva", "loading_pct"],
+      "steps": ["compute_kva", "select_standard", "check_loading"]
+    },
+    {
+      "id": "electrical_solar_pv",
+      "domain": "electrical",
+      "title": "Solar PV Sizing",
+      "description": "Estimate PV array size and inverter rating.",
+      "inputs": ["energy_demand", "solar_irradiance", "system_losses"],
+      "outputs": ["pv_kwp", "inverter_kw"],
+      "steps": ["compute_daily_kwh", "select_pv_size", "select_inverter"]
+    },
+    {
+      "id": "mechanical_hvac_load",
+      "domain": "mechanical",
+      "title": "HVAC Load Calculation",
+      "description": "Estimate cooling and heating loads for zones.",
+      "inputs": ["zone_area", "occupancy", "envelope_data", "weather_data"],
+      "outputs": ["cooling_load", "heating_load"],
+      "steps": ["compute_sensible", "compute_latent", "sum_loads"]
+    },
+    {
+      "id": "mechanical_duct_sizing",
+      "domain": "mechanical",
+      "title": "Duct Sizing",
+      "description": "Size ducts for airflow and pressure limits.",
+      "inputs": ["airflow", "velocity_limit", "duct_material"],
+      "outputs": ["duct_dimensions", "pressure_drop"],
+      "steps": ["select_velocity", "compute_area", "pick_dimensions", "check_pressure"]
+    },
+    {
+      "id": "mechanical_pump_sizing",
+      "domain": "mechanical",
+      "title": "Pump Sizing",
+      "description": "Select pump based on flow and head.",
+      "inputs": ["flow_rate", "total_head", "efficiency"],
+      "outputs": ["pump_power", "pump_model"],
+      "steps": ["compute_head", "compute_power", "select_pump"]
+    },
+    {
+      "id": "mechanical_pipe_sizing",
+      "domain": "mechanical",
+      "title": "Pipe Sizing",
+      "description": "Size pipes for flow and pressure constraints.",
+      "inputs": ["flow_rate", "velocity_limit", "fluid_properties"],
+      "outputs": ["pipe_diameter", "pressure_drop"],
+      "steps": ["select_velocity", "compute_diameter", "check_pressure"]
+    },
+    {
+      "id": "mechanical_pressure_drop",
+      "domain": "mechanical",
+      "title": "Pressure Drop",
+      "description": "Calculate system pressure losses.",
+      "inputs": ["pipe_lengths", "fittings", "flow_rate", "fluid_properties"],
+      "outputs": ["pressure_drop_total"],
+      "steps": ["compute_major_losses", "compute_minor_losses", "sum_losses"]
+    },
+    {
+      "id": "mechanical_chiller_selection",
+      "domain": "mechanical",
+      "title": "Chiller Selection",
+      "description": "Select chiller capacity based on cooling load.",
+      "inputs": ["cooling_load", "delta_t", "efficiency"],
+      "outputs": ["chiller_tons", "chiller_model"],
+      "steps": ["compute_tons", "select_standard", "check_loading"]
+    },
+    {
+      "id": "mechanical_boiler_sizing",
+      "domain": "mechanical",
+      "title": "Boiler Sizing",
+      "description": "Size boiler capacity based on heating load.",
+      "inputs": ["heating_load", "efficiency", "fuel_type"],
+      "outputs": ["boiler_capacity", "boiler_model"],
+      "steps": ["compute_capacity", "select_standard", "check_efficiency"]
+    }
+  ]
+}

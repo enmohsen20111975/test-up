@@ -1,0 +1,199 @@
+{
+  "version": "1.0",
+  "examples": [
+    {
+      "id": "civil_beam_deflection_example",
+      "domain": "civil",
+      "title": "Simply supported beam deflection",
+      "scenario": "A 6 m simply supported RC beam carries 12 kN/m UDL.",
+      "inputs": {
+        "w": 12000,
+        "L": 6,
+        "E": 25e9,
+        "I": 0.00032
+      },
+      "outputs": {
+        "delta_max": 0.0122
+      },
+      "units": {
+        "w": "N/m",
+        "L": "m",
+        "E": "Pa",
+        "I": "m^4",
+        "delta_max": "m"
+      }
+    },
+    {
+      "id": "civil_footing_bearing_example",
+      "domain": "civil",
+      "title": "Footing bearing pressure",
+      "scenario": "A column load of 1800 kN is carried by a 3 m x 3 m footing.",
+      "inputs": {
+        "P": 1800000,
+        "A": 9
+      },
+      "outputs": {
+        "q": 200000
+      },
+      "units": {
+        "P": "N",
+        "A": "m^2",
+        "q": "Pa"
+      }
+    },
+    {
+      "id": "civil_manning_example",
+      "domain": "civil",
+      "title": "Open channel flow",
+      "scenario": "A trapezoidal channel conveys stormwater with slope 0.001.",
+      "inputs": {
+        "n": 0.015,
+        "A": 4.2,
+        "R": 0.75,
+        "S": 0.001
+      },
+      "outputs": {
+        "Q": 8.22
+      },
+      "units": {
+        "n": "-",
+        "A": "m^2",
+        "R": "m",
+        "S": "-",
+        "Q": "m^3/s"
+      }
+    },
+    {
+      "id": "electrical_load_example",
+      "domain": "electrical",
+      "title": "Building demand load",
+      "scenario": "Office building with 180 kW connected load and 0.7 demand factor.",
+      "inputs": {
+        "connected_load": 180000,
+        "demand_factor": 0.7
+      },
+      "outputs": {
+        "demand_load": 126000
+      },
+      "units": {
+        "connected_load": "W",
+        "demand_factor": "-",
+        "demand_load": "W"
+      }
+    },
+    {
+      "id": "electrical_voltage_drop_example",
+      "domain": "electrical",
+      "title": "Three-phase voltage drop",
+      "scenario": "50 m feeder at 120 A with R=0.0003 ohm/m and X=0.00008 ohm/m, pf 0.85.",
+      "inputs": {
+        "I": 120,
+        "R": 0.0003,
+        "X": 0.00008,
+        "L": 50,
+        "phi": 0.554
+      },
+      "outputs": {
+        "Vd": 3.71
+      },
+      "units": {
+        "I": "A",
+        "R": "ohm/m",
+        "X": "ohm/m",
+        "L": "m",
+        "phi": "rad",
+        "Vd": "V"
+      }
+    },
+    {
+      "id": "electrical_ground_example",
+      "domain": "electrical",
+      "title": "Ground rod resistance",
+      "scenario": "Single 3 m rod in soil resistivity 100 ohm*m.",
+      "inputs": {
+        "rho": 100,
+        "L": 3,
+        "d": 0.016
+      },
+      "outputs": {
+        "Rg": 33.0
+      },
+      "units": {
+        "rho": "ohm*m",
+        "L": "m",
+        "d": "m",
+        "Rg": "ohm"
+      }
+    },
+    {
+      "id": "mechanical_reynolds_example",
+      "domain": "mechanical",
+      "title": "Reynolds number",
+      "scenario": "Water at 20 C flows at 1.5 m/s through a 50 mm pipe.",
+      "inputs": {
+        "rho": 998,
+        "v": 1.5,
+        "D": 0.05,
+        "mu": 0.001
+      },
+      "outputs": {
+        "Re": 74850
+      },
+      "units": {
+        "rho": "kg/m^3",
+        "v": "m/s",
+        "D": "m",
+        "mu": "Pa*s",
+        "Re": "-"
+      }
+    },
+    {
+      "id": "mechanical_pump_power_example",
+      "domain": "mechanical",
+      "title": "Pump power",
+      "scenario": "Pump 0.05 m^3/s against 25 m head at 70% efficiency.",
+      "inputs": {
+        "rho": 1000,
+        "g": 9.81,
+        "Q": 0.05,
+        "H": 25,
+        "eta": 0.7
+      },
+      "outputs": {
+        "P": 17536
+      },
+      "units": {
+        "rho": "kg/m^3",
+        "g": "m/s^2",
+        "Q": "m^3/s",
+        "H": "m",
+        "eta": "-",
+        "P": "W"
+      }
+    },
+    {
+      "id": "mechanical_heat_transfer_example",
+      "domain": "mechanical",
+      "title": "Conduction heat flow",
+      "scenario": "Heat loss through a wall with k=1.2 W/mK, area 12 m^2, thickness 0.2 m, deltaT 20 K.",
+      "inputs": {
+        "k": 1.2,
+        "A": 12,
+        "T1": 303,
+        "T2": 283,
+        "L": 0.2
+      },
+      "outputs": {
+        "Q": 1440
+      },
+      "units": {
+        "k": "W/m*K",
+        "A": "m^2",
+        "T1": "K",
+        "T2": "K",
+        "L": "m",
+        "Q": "W"
+      }
+    }
+  ]
+}

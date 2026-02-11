@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="analytics.pageTitle">Data Analysis - EngiSuite Analytics Pro</title>
+    <link rel="stylesheet" href="shared/css/engisuite-theme.css">
+    <link rel="stylesheet" href="shared/css/analytics.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <select id="language-select" data-i18n-lang>
+            <option value="ar" data-i18n="language.arabic">العربية</option>
+            <option value="en" data-i18n="language.english">English</option>
+            <option value="fr" data-i18n="language.french">Français</option>
+        </select>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1><i class="fas fa-calculator"></i> <span data-i18n="app.shortName">EngiSuite</span></h1>
+            <p data-i18n="app.taglineShort">Advanced Engineering Tools</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i class="fas fa-home"></i> <span data-i18n="nav.dashboard">Dashboard</span></a></li>
+            <li><a href="calculators.html"><i class="fas fa-calculator"></i> <span data-i18n="nav.calculators">Engineering Calculations</span></a></li>
+            <li><a href="analytics.html" class="active"><i class="fas fa-chart-line"></i> <span data-i18n="nav.analytics">Data Analysis</span></a></li>
+            <li><a href="reports.html"><i class="fas fa-file-pdf"></i> <span data-i18n="nav.reports">Reports</span></a></li>
+            <li><a href="ai-assistant.html"><i class="fas fa-robot"></i> <span data-i18n="nav.aiAssistant">AI Assistant</span></a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i> <span data-i18n="nav.profile">Profile</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="user-profile">
+                <div class="user-avatar">?</div>
+                <div>
+                    <div style="font-weight: bold;" data-i18n="user.placeholderName">Loading...</div>
+                    <div style="font-size: 12px; color: #7f8c8d;" data-i18n="user.placeholderRole">Loading...</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="credits-display">
+                    <i class="fas fa-coins"></i> <span data-i18n="common.loading">Loading...</span>
+                </div>
+                <button onclick="authService.logout()" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> <span data-i18n="common.logout">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Analytics Container -->
+        <div class="analytics-container">
+            <h2 style="margin-bottom: 20px;"><i class="fas fa-chart-line"></i> <span data-i18n="analytics.header">Advanced Data Analysis</span></h2>
+            
+            <div class="analytics-tabs">
+                <button class="analytics-tab active" data-tab="query" data-i18n="analytics.tabs.query">Query Builder</button>
+                <button class="analytics-tab" data-tab="upload" data-i18n="analytics.tabs.upload">File Upload</button>
+                <button class="analytics-tab" data-tab="analysis" data-i18n="analytics.tabs.analysis">Data Analysis</button>
+                <button class="analytics-tab" data-tab="dashboard" data-i18n="analytics.tabs.dashboard">Dashboard</button>
+                <button class="analytics-tab" data-tab="templates" data-i18n="analytics.tabs.templates">Templates</button>
+            </div>
+
+            <!-- Query Builder Tab Content -->
+            <div id="query-tab" class="tab-content active">
+                <div class="query-builder-container">
+                    <!-- Tables Sidebar -->
+                    <div class="query-sidebar">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="margin: 0; color: #333;" data-i18n="analytics.tables.available">Available Tables</h3>
+                            <button onclick="loadSampleData()" class="btn btn-sm btn-primary">
+                                <i class="fas fa-database"></i> <span data-i18n="analytics.tables.sampleData">Sample Databases</span>
+                            </button>
+                        </div>
+                        <div id="tables-list">
+                            <div class="loading">
+                                <i class="fas fa-spinner fa-spin"></i> <span data-i18n="common.loading">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Query Canvas -->
+                    <div class="query-canvas" id="queryCanvas">
+                        <div style="position: absolute; top: 20px; left: 20px; color: #666;">
+                            <i class="fas fa-info-circle"></i> <span data-i18n="analytics.canvasHint">Drag tables here to build your query</span>
+                        </div>
+                    </div>
+
+                    <!-- Query Panel -->
+                    <div class="query-panel">
+                        <div class="query-section">
+                            <h4>
+                                <i class="fas fa-filter"></i> 
+                                <span data-i18n="analytics.filters.title">Filters</span>
+                                <button onclick="addFilter()" class="btn btn-sm btn-primary" style="margin-right: 10px;">
+                                    <i class="fas fa-plus"></i> <span data-i18n="common.add">Add</span>
+                                </button>
+                            </h4>
+                            <div id="filters-container"></div>
+                        </div>
+
+                        <div class="query-section">
+                            <h4>
+                                <i class="fas fa-layer-group"></i> 
+                                <span data-i18n="analytics.groupBy.title">Group By</span>
+                                <button onclick="addGroupBy()" class="btn btn-sm btn-primary" style="margin-right: 10px;">
+                                    <i class="fas fa-plus"></i> <span data-i18n="common.add">Add</span>
+                                </button>
+                            </h4>
+                            <div id="groupby-container"></div>
+                        </div>
+
+                        <div class="query-section">
+                            <h4>
+                                <i class="fas fa-sort"></i> 
+                                <span data-i18n="analytics.orderBy.title">Order By</span>
+                                <button onclick="addOrderBy()" class="btn btn-sm btn-primary" style="margin-right: 10px;">
+                                    <i class="fas fa-plus"></i> <span data-i18n="common.add">Add</span>
+                                </button>
+                            </h4>
+                            <div id="orderby-container"></div>
+                        </div>
+
+                        <div class="query-section">
+                            <h4>
+                                <i class="fas fa-calculator"></i> 
+                                <span data-i18n="analytics.calculatedFields.title">Calculated Fields</span>
+                                <button onclick="addCalculatedField()" class="btn btn-sm btn-primary" style="margin-right: 10px;">
+                                    <i class="fas fa-plus"></i> <span data-i18n="common.add">Add</span>
+                                </button>
+                            </h4>
+                            <div id="calculated-fields-container"></div>
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <button onclick="executeQuery()" class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-play"></i> <span data-i18n="analytics.execute">Run Query</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel" style="margin-top: 20px;">
+                    <div class="results-header">
+                        <h3><i class="fas fa-table"></i> <span data-i18n="analytics.results.title">Query Results</span></h3>
+                        <div class="results-summary">
+                            <span id="results-count" data-i18n="analytics.results.count">0 results</span>
+                            <span id="results-time">0.0s</span>
+                        </div>
+                    </div>
+                    <div id="results-table-container">
+                        <p style="text-align: center; color: #666; padding: 40px;">
+                            <i class="fas fa-table fa-3x" style="margin-bottom: 10px; display: block;"></i>
+                            <span data-i18n="analytics.results.empty">No results yet</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Tab Content -->
+            <div id="upload-tab" class="tab-content">
+                <div class="page-container">
+                    <!-- Progress Indicator -->
+                    <div class="progress-overlay" id="progress-overlay">
+                        <div class="progress-content">
+                            <div class="progress-spinner"></div>
+                            <div class="progress-message" id="progress-message">Processing...</div>
+                            <div class="progress-details" id="progress-details"></div>
+                        </div>
+                    </div>
+
+                    <div class="page-content">
+                        <div class="files-panel" id="filesPanel">
+                            <div class="upload-section">
+                                <div class="upload-drop-zone" id="uploadDropZone">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <h3 data-i18n="analytics.upload.title">Choose files or drag them here</h3>
+                                    <p data-i18n="analytics.upload.supported">Supports Excel, CSV, JSON</p>
+                                    <input type="file" id="fileInput" style="display: none;" multiple accept=".csv,.xlsx,.xls,.json">
+                                    <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                                        <i class="fas fa-folder-open"></i> <span data-i18n="analytics.upload.button">Choose Files</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="files-list" id="filesList">
+                                <!-- Uploaded files will appear here -->
+                            </div>
+                        </div>
+
+                        <div class="data-viewer">
+                            <div class="sheets-section" id="sheetsSection" style="display: none;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                    <h3 style="margin: 0; color: #333;" data-i18n="analytics.sheets.title">Excel Sheets</h3>
+                                    <div>
+                                        <button id="selectAllSheetsBtn" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-check"></i> <span data-i18n="analytics.sheets.selectAll">Select All</span>
+                                        </button>
+                                        <button id="clearSheetSelectionBtn" class="btn btn-sm btn-secondary">
+                                            <i class="fas fa-times"></i> <span data-i18n="analytics.sheets.clear">Clear</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="sheets-checkboxes" id="sheetsCheckboxes">
+                                    <!-- Sheet checkboxes will appear here -->
+                                </div>
+                            </div>
+
+                            <div class="data-preview" id="dataPreview">
+                                <div style="text-align: center; color: #666; padding: 40px;">
+                                    <i class="fas fa-table fa-3x" style="margin-bottom: 10px; display: block;"></i>
+                                    <p data-i18n="analytics.upload.selectFile">Select a file to preview data</p>
+                                </div>
+                            </div>
+
+                            <div class="action-buttons">
+                                <button id="clearAllFilesBtn" class="btn btn-secondary">
+                                    <i class="fas fa-trash"></i> <span data-i18n="analytics.upload.clear">Clear All</span>
+                                </button>
+                                <button id="processSelectedFilesBtn" class="btn btn-primary">
+                                    <i class="fas fa-play"></i> <span data-i18n="analytics.upload.process">Process Files</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Database Connection Section -->
+                    <div class="database-section">
+                        <h3 data-i18n="analytics.database.title">Connect to Database</h3>
+                        <div class="form-group">
+                            <label for="dbType" data-i18n="analytics.database.type">Database Type:</label>
+                            <select id="dbType" class="form-control">
+                                <option value="">-- Select --</option>
+                                <option value="postgresql">PostgreSQL</option>
+                                <option value="mysql">MySQL</option>
+                                <option value="sqlite">SQLite</option>
+                                <option value="sqlserver">SQL Server</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dbHost" data-i18n="analytics.database.host">Host:</label>
+                            <input type="text" id="dbHost" class="form-control" placeholder="e.g., localhost">
+                        </div>
+                        <div class="form-group">
+                            <label for="dbPort" data-i18n="analytics.database.port">Port:</label>
+                            <input type="text" id="dbPort" class="form-control" placeholder="e.g., 5432">
+                        </div>
+                        <div class="form-group">
+                            <label for="dbName" data-i18n="analytics.database.name">Database Name:</label>
+                            <input type="text" id="dbName" class="form-control" placeholder="e.g., analytics_db">
+                        </div>
+                        <div class="form-group">
+                            <label for="dbUser" data-i18n="analytics.database.username">Username:</label>
+                            <input type="text" id="dbUser" class="form-control" placeholder="e.g., admin">
+                        </div>
+                        <div class="form-group">
+                            <label for="dbPassword" data-i18n="analytics.database.password">Password:</label>
+                            <input type="password" id="dbPassword" class="form-control" placeholder="********">
+                        </div>
+                        <button id="connectDatabaseBtn" class="btn btn-primary">
+                            <i class="fas fa-database"></i> <span data-i18n="analytics.database.connect">Connect</span>
+                        </button>
+                        <div id="dbTablesList" class="files-list" style="margin-top: 20px;">
+                            <!-- Connected database tables will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Tab Content -->
+            <div id="analysis-tab" class="tab-content">
+                <div class="analysis-section">
+                    <div class="data-preview">
+                        <h3 data-i18n="analytics.analysis.preview">Data Preview</h3>
+                        <div id="analysisDataPreview">
+                            <p data-i18n="analytics.analysis.selectFile">Please select a file to analyze</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3 data-i18n="analytics.analysis.chart">Visualization</h3>
+                        <div class="chart-controls">
+                            <select id="chartTypeSelect" class="form-control">
+                                <option value="bar" data-i18n="analytics.chart.type.bar">Bar Chart</option>
+                                <option value="line" data-i18n="analytics.chart.type.line">Line Chart</option>
+                                <option value="pie" data-i18n="analytics.chart.type.pie">Pie Chart</option>
+                                <option value="doughnut" data-i18n="analytics.chart.type.doughnut">Doughnut Chart</option>
+                            </select>
+                            <select id="xAxisSelect" class="form-control">
+                                <option value="" data-i18n="analytics.chart.selectXAxis">Select X-Axis</option>
+                            </select>
+                            <select id="yAxisSelect" class="form-control">
+                                <option value="" data-i18n="analytics.chart.selectYAxis">Select Y-Axis</option>
+                            </select>
+                            <button id="renderChartBtn" class="btn btn-primary"><i class="fas fa-chart-bar"></i> <span data-i18n="analytics.chart.render">Render Chart</span></button>
+                        </div>
+                        <div id="analysisChartContainer">
+                            <canvas id="myChart"></canvas>
+                            <p id="noChartDataMessage" style="text-align: center; color: #666; padding: 40px; display: none;">
+                                <i class="fas fa-chart-line fa-3x" style="margin-bottom: 10px; display: block;"></i>
+                                <span data-i18n="analytics.analysis.noData">No data available for analysis</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ai-analysis-section">
+                        <h3 data-i18n="analytics.aiAnalysis.title">AI-Powered Analysis</h3>
+                        <div class="form-group">
+                            <label for="aiAnalysisType" data-i18n="analytics.aiAnalysis.type">Analysis Type:</label>
+                            <select id="aiAnalysisType" class="form-control">
+                                <option value="">-- Select AI Analysis --</option>
+                                <option value="descriptive" data-i18n="analytics.aiAnalysis.type.descriptive">Descriptive Statistics</option>
+                                <option value="correlation" data-i18n="analytics.aiAnalysis.type.correlation">Correlation Analysis</option>
+                                <option value="prediction" data-i18n="analytics.aiAnalysis.type.prediction">Predictive Modeling</option>
+                                <option value="clustering" data-i18n="analytics.aiAnalysis.type.clustering">Clustering</option>
+                            </select>
+                        </div>
+                        <div id="aiAnalysisParameters" class="form-group" style="display: none;">
+                            <!-- Dynamic parameters based on analysis type -->
+                        </div>
+                        <button id="runAiAnalysisBtn" class="btn btn-primary">
+                            <i class="fas fa-robot"></i> <span data-i18n="analytics.aiAnalysis.run">Run AI Analysis</span>
+                        </button>
+                        <div id="aiAnalysisResults" style="margin-top: 20px;">
+                            <!-- AI analysis results will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Tab Content -->
+            <div id="dashboard-tab" class="tab-content">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-users"></i> <span data-i18n="analytics.dashboard.activeUsers">Active Users</span></h3>
+                        <div class="dashboard-value">2,543</div>
+                        <div class="dashboard-change positive">
+                            <i class="fas fa-arrow-up"></i> <span data-i18n="analytics.dashboard.change.up12">+12% from last month</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-chart-pie"></i> <span data-i18n="analytics.dashboard.avgUsage">Average Usage</span></h3>
+                        <div class="dashboard-value">12.5 kWh</div>
+                        <div class="dashboard-change negative">
+                            <i class="fas fa-arrow-down"></i> <span data-i18n="analytics.dashboard.change.down5">-5% from last month</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-file-pdf"></i> <span data-i18n="analytics.dashboard.reportsAvailable">Reports Available</span></h3>
+                        <div class="dashboard-value">156</div>
+                        <div class="dashboard-change positive">
+                            <i class="fas fa-arrow-up"></i> <span data-i18n="analytics.dashboard.change.up8">+8% from last month</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-cogs"></i> <span data-i18n="analytics.dashboard.performance">Performance Rate</span></h3>
+                        <div class="dashboard-value">98%</div>
+                        <div class="dashboard-change positive">
+                            <i class="fas fa-arrow-up"></i> <span data-i18n="analytics.dashboard.change.up2">+2% from last month</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-clock"></i> <span data-i18n="analytics.dashboard.responseTime">Response Time</span></h3>
+                        <div class="dashboard-value">1.2s</div>
+                        <div class="dashboard-change negative">
+                            <i class="fas fa-arrow-down"></i> <span data-i18n="analytics.dashboard.change.down03">-0.3s from last month</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-shield-alt"></i> <span data-i18n="analytics.dashboard.security">Security Level</span></h3>
+                        <div class="dashboard-value">95%</div>
+                        <div class="dashboard-change positive">
+                            <i class="fas fa-arrow-up"></i> <span data-i18n="analytics.dashboard.change.up3">+3% from last month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h4><i class="fas fa-chart-line"></i> <span data-i18n="analytics.dashboard.monthlyRevenue">Monthly Revenue</span></h4>
+                        <div class="chart-wrapper" id="monthlyRevenueChart">
+                            <i class="fas fa-chart-line fa-5x" style="color: #ddd;"></i>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h4><i class="fas fa-chart-pie"></i> <span data-i18n="analytics.dashboard.salesDistribution">Sales Distribution</span></h4>
+                        <div class="chart-wrapper" id="salesDistributionChart">
+                            <i class="fas fa-chart-pie fa-5x" style="color: #ddd;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Templates Tab Content -->
+            <div id="templates-tab" class="tab-content">
+                <div class="dashboard-grid">
+                    <div class="calculator-card">
+                        <div class="calculator-icon" style="color: #3498db;">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3 data-i18n="analytics.templates.dailySite.title">Daily Site Report</h3>
+                        <p data-i18n="analytics.templates.dailySite.desc">Daily report for the site</p>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-download"></i> <span data-i18n="analytics.templates.use">Use</span>
+                        </button>
+                    </div>
+                    <div class="calculator-card">
+                        <div class="calculator-icon" style="color: #2ecc71;">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <h3 data-i18n="analytics.templates.consumption.title">Consumption Analysis</h3>
+                        <p data-i18n="analytics.templates.consumption.desc">Monthly electricity consumption analysis</p>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-download"></i> <span data-i18n="analytics.templates.use">Use</span>
+                        </button>
+                    </div>
+                    <div class="calculator-card">
+                        <div class="calculator-icon" style="color: #f39c12;">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3 data-i18n="analytics.templates.monthly.title">Monthly Report</h3>
+                        <p data-i18n="analytics.templates.monthly.desc">Monthly project report</p>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-download"></i> <span data-i18n="analytics.templates.use">Use</span>
+                        </button>
+                    </div>
+                    <div class="calculator-card">
+                        <div class="calculator-icon" style="color: #e74c3c;">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 data-i18n="analytics.templates.security.title">Security Report</h3>
+                        <p data-i18n="analytics.templates.security.desc">Safety and security performance report</p>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-download"></i> <span data-i18n="analytics.templates.use">Use</span>
+                        </button>
+                    </div>
+                    <div class="calculator-card">
+                        <div class="calculator-icon" style="color: #9b59b6;">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3 data-i18n="analytics.templates.performance.title">Performance Analysis</h3>
+                        <p data-i18n="analytics.templates.performance.desc">Equipment performance analysis</p>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-download"></i> <span data-i18n="analytics.templates.use">Use</span>
+                        </button>
+                    </div>
+                    <div class="calculator-card">
+                        <div class="calculator-icon" style="color: #1abc9c;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 data-i18n="analytics.templates.users.title">User Report</h3>
+                        <p data-i18n="analytics.templates.users.desc">User activity and task distribution</p>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-download"></i> <span data-i18n="analytics.templates.use">Use</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { fileUploadModule } from './shared/js/file-upload-module.js';
+        import { i18n } from './shared/js/i18n.js';
+        import { authService } from './shared/js/auth.js';
+        import { analyticsService } from './shared/js/analytics-service.js';
+        import { aiService } from './shared/js/ai-service.js';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fileUploadModule.init(); // Initialize the file upload module
+            i18n.init(); // Initialize i18n
+
+            // Tab switching
+            document.querySelectorAll('.analytics-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    
+                    document.querySelectorAll('.analytics-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                    
+                    if (tabId === 'query') {
+                        loadTables();
+                    }
+                    // Clear file upload/preview when switching tabs
+                    if (tabId !== 'upload') {
+                        fileUploadModule.clearDataPreview();
+                        fileUploadModule.hideSheetsSection();
+                    }
+                });
+            });
+
+            const langSelect = document.getElementById('language-select');
+            if (langSelect) {
+                langSelect.addEventListener('change', (event) => {
+                    i18n.setLanguage(event.target.value);
+                });
+            }
+
+            // Initial load for query tab
+            loadTables();
+
+            // Database connection event listener
+            document.getElementById('connectDatabaseBtn').addEventListener('click', async () => {
+                const dbType = document.getElementById('dbType').value;
+                const dbHost = document.getElementById('dbHost').value;
+                const dbPort = document.getElementById('dbPort').value;
+                const dbName = document.getElementById('dbName').value;
+                const dbUser = document.getElementById('dbUser').value;
+                const dbPassword = document.getElementById('dbPassword').value;
+
+                if (!dbType || !dbHost || !dbName || !dbUser) {
+                    fileUploadModule.showError(i18n.getTranslation('analytics.database.fillAllFields'));
+                    return;
+                }
+
+                fileUploadModule.showProgressOverlay(i18n.getTranslation('analytics.database.connecting'));
+
+                try {
+                    const connectionParams = {
+                        db_type: dbType,
+                        host: dbHost,
+                        port: dbPort,
+                        database: dbName,
+                        username: dbUser,
+                        password: dbPassword
+                    };
+                    const response = await analyticsService.processDatabaseConnection(connectionParams);
+                    if (response.success) {
+                        fileUploadModule.renderDbTablesList(response.tables);
+                        fileUploadModule.showSuccess(i18n.getTranslation('analytics.database.connectedSuccessfully'));
+                    } else {
+                        fileUploadModule.showError(i18n.getTranslation('analytics.database.connectionError', { error: response.error }));
+                    }
+                } catch (error) {
+                    fileUploadModule.showError(i18n.getTranslation('analytics.database.connectionError', { error: error.message }));
+                } finally {
+                    fileUploadModule.hideProgressOverlay();
+                }
+            });
+        });
+
+        // Load tables (kept global for now, consider moving into a module if it grows)
+        async function loadTables() {
+            const container = document.getElementById('tables-list');
+            try {
+                container.innerHTML = `
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i> ${i18n.getTranslation('analytics.tables.loading')}
+                    </div>
+                `;
+
+                // Load sample tables
+                const sampleTables = [
+                    {
+                        id: 'sales_data',
+                        name: i18n.getTranslation('analytics.tables.sample.salesData'),
+                        columns: [i18n.getTranslation('analytics.tables.sample.date'), i18n.getTranslation('analytics.tables.sample.product'), i18n.getTranslation('analytics.tables.sample.quantity'), i18n.getTranslation('analytics.tables.sample.price'), i18n.getTranslation('analytics.tables.sample.total'), i18n.getTranslation('analytics.tables.sample.region')],
+                        rowCount: 156
+                    },
+                    {
+                        id: 'customer_data',
+                        name: i18n.getTranslation('analytics.tables.sample.customerData'),
+                        columns: [i18n.getTranslation('analytics.tables.sample.name'), i18n.getTranslation('analytics.tables.sample.email'), i18n.getTranslation('analytics.tables.sample.phone'), i18n.getTranslation('analytics.tables.sample.city'), i18n.getTranslation('analytics.tables.sample.registrationDate'), i18n.getTranslation('analytics.tables.sample.customerType')],
+                        rowCount: 234
+                    },
+                    {
+                        id: 'inventory_data',
+                        name: i18n.getTranslation('analytics.tables.sample.inventoryData'),
+                        columns: [i18n.getTranslation('analytics.tables.sample.product'), i18n.getTranslation('analytics.tables.sample.quantity'), i18n.getTranslation('analytics.tables.sample.unitPrice'), i18n.getTranslation('analytics.tables.sample.remainingStock'), i18n.getTranslation('analytics.tables.sample.additionDate')],
+                        rowCount: 89
+                    }
+                ];
+
+                renderTablesList(sampleTables);
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i> 
+                        ${i18n.getTranslation('analytics.tables.loadError')}: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        function renderTablesList(tables) {
+            const container = document.getElementById('tables-list');
+            
+            if (tables.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p style="text-align: center; color: #666;">${i18n.getTranslation('analytics.tables.emptyTitle')}</p>
+                        <p style="text-align: center; color: #999; font-size: 0.9rem;">
+                            ${i18n.getTranslation('analytics.tables.emptyDescription')}
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = tables.map(table => `
+                <div class="table-item" draggable="true" data-table-id="${table.id}">
+                    <div class="table-name">
+                        <i class="fas fa-table"></i> ${table.name}
+                    </div>
+                    <div class="table-info">
+                        ${table.columns.length} ${i18n.getTranslation('analytics.tables.columns')} • ${table.rowCount} ${i18n.getTranslation('analytics.tables.rows')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Set up drag and drop
+            container.querySelectorAll('.table-item').forEach(item => {
+                item.addEventListener('dragstart', handleTableDragStart);
+            });
+        }
+
+        function handleTableDragStart(e) {
+            const tableId = e.target.dataset.tableId;
+            e.dataTransfer.setData('tableId', tableId);
+            e.dataTransfer.effectAllowed = 'copy';
+        }
+
+        function addFilter() {
+            const container = document.getElementById('filters-container');
+            const filterIndex = document.querySelectorAll('.filter-item').length;
+            
+            const filterItem = document.createElement('div');
+            filterItem.className = 'filter-item';
+            filterItem.innerHTML = `
+                <select class="filter-column">
+                    <option value="">${i18n.getTranslation('analytics.filters.selectColumn')}</option>
+                    <option value="product">${i18n.getTranslation('analytics.filters.columns.product')}</option>
+                    <option value="quantity">${i18n.getTranslation('analytics.filters.columns.quantity')}</option>
+                    <option value="price">${i18n.getTranslation('analytics.filters.columns.price')}</option>
+                    <option value="region">${i18n.getTranslation('analytics.filters.columns.region')}</option>
+                </select>
+                <select class="filter-operator">
+                    <option value="equals">${i18n.getTranslation('analytics.filters.operators.equals')}</option>
+                    <option value="greater_than">${i18n.getTranslation('analytics.filters.operators.greaterThan')}</option>
+                    <option value="less_than">${i18n.getTranslation('analytics.filters.operators.lessThan')}</option>
+                    <option value="contains">${i18n.getTranslation('analytics.filters.operators.contains')}</option>
+                </select>
+                <input type="text" class="filter-value" placeholder="${i18n.getTranslation('analytics.filters.valuePlaceholder')}">
+                <button class="btn-remove" onclick="removeFilter(this)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            
+            container.appendChild(filterItem);
+        }
+
+        function removeFilter(button) {
+            button.closest('.filter-item').remove();
+        }
+
+        function addGroupBy() {
+            const container = document.getElementById('groupby-container');
+            
+            const groupItem = document.createElement('div');
+            groupItem.className = 'filter-item';
+            groupItem.innerHTML = `
+                <select class="group-column">
+                    <option value="">${i18n.getTranslation('analytics.groupBy.selectColumn')}</option>
+                    <option value="product">${i18n.getTranslation('analytics.filters.columns.product')}</option>
+                    <option value="region">${i18n.getTranslation('analytics.filters.columns.region')}</option>
+                    <option value="category">${i18n.getTranslation('analytics.groupBy.columns.category')}</option>
+                </select>
+                <button class="btn-remove" onclick="removeGroupBy(this)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            
+            container.appendChild(groupItem);
+        }
+
+        function removeGroupBy(button) {
+            button.closest('.filter-item').remove();
+        }
+
+        function addOrderBy() {
+            const container = document.getElementById('orderby-container');
+            
+            const orderItem = document.createElement('div');
+            orderItem.className = 'filter-item';
+            orderItem.innerHTML = `
+                <select class="order-column">
+                    <option value="">${i18n.getTranslation('analytics.orderBy.selectColumn')}</option>
+                    <option value="date">${i18n.getTranslation('analytics.orderBy.columns.date')}</option>
+                    <option value="product">${i18n.getTranslation('analytics.orderBy.columns.product')}</option>
+                    <option value="price">${i18n.getTranslation('analytics.orderBy.columns.price')}</option>
+                    <option value="total">${i18n.getTranslation('analytics.orderBy.columns.total')}</option>
+                </select>
+                <select class="order-direction">
+                    <option value="asc">${i18n.getTranslation('analytics.orderBy.direction.asc')}</option>
+                    <option value="desc">${i18n.getTranslation('analytics.orderBy.direction.desc')}</option>
+                </select>
+                <button class="btn-remove" onclick="removeOrderBy(this)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            
+            container.appendChild(orderItem);
+        }
+
+        function removeOrderBy(button) {
+            button.closest('.filter-item').remove();
+        }
+
+        function addCalculatedField() {
+            const container = document.getElementById('calculated-fields-container');
+            
+            const fieldItem = document.createElement('div');
+            fieldItem.className = 'calculated-field';
+            fieldItem.innerHTML = `
+                <input type="text" class="field-name" placeholder="${i18n.getTranslation('analytics.calculatedFields.namePlaceholder')}">
+                <input type="text" class="field-expression" placeholder="${i18n.getTranslation('analytics.calculatedFields.expressionPlaceholder')}">
+                <button class="btn-remove" onclick="removeCalculatedField(this)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            
+            container.appendChild(fieldItem);
+        }
+
+        function removeCalculatedField(button) {
+            button.closest('.calculated-field').remove();
+        }
+
+        async function executeQuery() {
+            try {
+                const resultsContainer = document.getElementById('results-table-container');
+                resultsContainer.innerHTML = `
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i> ${i18n.getTranslation('analytics.execute.loading')}
+                    </div>
+                `;
+
+                // Simulate query execution
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Generate mock results
+                const mockResults = generateMockResults();
+                
+                renderResultsTable(mockResults);
+                updateResultsSummary(mockResults.length, 0.8);
+            } catch (error) {
+                document.getElementById('results-table-container').innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i> 
+                        ${i18n.getTranslation('analytics.execute.error')}: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        function generateMockResults() {
+            const products = [i18n.getTranslation('analytics.mockData.product1'), i18n.getTranslation('analytics.mockData.product2'), i18n.getTranslation('analytics.mockData.product3'), i18n.getTranslation('analytics.mockData.product4'), i18n.getTranslation('analytics.mockData.product5')];
+            const regions = [i18n.getTranslation('analytics.mockData.region1'), i18n.getTranslation('analytics.mockData.region2'), i18n.getTranslation('analytics.mockData.region3'), i18n.getTranslation('analytics.mockData.region4')];
+            
+            const results = [];
+            for (let i = 1; i <= 50; i++) {
+                const product = products[Math.floor(Math.random() * products.length)];
+                const region = regions[Math.floor(Math.random() * regions.length)];
+                const quantity = Math.floor(Math.random() * 100) + 1;
+                const price = (Math.random() * 500 + 100).toFixed(2);
+                const total = (quantity * price).toFixed(2);
+                
+                results.push({
+                    id: i,
+                    product,
+                    quantity,
+                    price,
+                    total,
+                    region,
+                    date: new Date(Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0]
+                });
+            }
+            
+            return results;
+        }
+
+        function renderResultsTable(data) {
+            const container = document.getElementById('results-table-container');
+            
+            if (data.length === 0) {
+                container.innerHTML = `
+                    <p style="text-align: center; color: #666; padding: 40px;">
+                        <i class="fas fa-inbox fa-3x" style="margin-bottom: 10px; display: block;"></i>
+                        ${i18n.getTranslation('analytics.results.noResults')}
+                    </p>
+                `;
+                return;
+            }
+
+            const columns = Object.keys(data[0]);
+            
+            let html = `
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            ${columns.map(col => `<th>${col}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            data.slice(0, 50).forEach(row => {
+                html += '<tr>';
+                columns.forEach(col => {
+                    html += `<td>${row[col]}</td>`;
+                });
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            
+            if (data.length > 50) {
+                html += `
+                    <div style="text-align: center; margin-top: 10px; color: #666;">
+                        <i class="fas fa-info-circle"></i> ${i18n.getTranslation('analytics.results.showingFirstRows', { count: 50, total: data.length })}
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function updateResultsSummary(count, time) {
+            document.getElementById('results-count').textContent = `${count} ${i18n.getTranslation('analytics.results.countText')}`;
+            document.getElementById('results-time').textContent = `${time.toFixed(1)}s`;
+        }
+
+        function loadSampleData() {
+            const notify = {
+                info: (msg) => alert(msg),
+                success: (msg) => alert(msg)
+            };
+            
+            notify.info(i18n.getTranslation('analytics.tables.loadingSampleData'));
+            
+            setTimeout(() => {
+                loadTables();
+                notify.success(i18n.getTranslation('analytics.tables.sampleDataLoaded'));
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

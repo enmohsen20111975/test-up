@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitle">EngiSuite Analytics Pro</title>
+    <meta name="description" data-i18n="pageDescription" content="Unified SaaS platform for engineering calculations and data analysis">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2a5298;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #2a5298;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .language-switcher select {
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #2a5298;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1e3c72;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #2a5298;
+            border: 2px solid #2a5298;
+        }
+        
+        .btn-secondary:hover {
+            background: #2a5298;
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #2a5298;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: #2a5298;
+            margin-bottom: 60px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2a5298, #1e3c72);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+        }
+        
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .feature-card p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+        
+        /* Calculators Section */
+        .calculators {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .calculator-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .category-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .category-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .calculator-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .calculator-list li {
+            padding: 5px 0;
+            color: #7f8c8d;
+        }
+        
+        /* Analytics Section */
+        .analytics {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .analytics-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        /* AI Section */
+        .ai-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #2a5298, #1e3c72);
+            color: white;
+        }
+        
+        .ai-section h2 {
+            color: white;
+        }
+        
+        .ai-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .ai-feature {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .pricing-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2a5298;
+            margin-bottom: 20px;
+        }
+        
+        .price span {
+            font-size: 18px;
+            color: #7f8c8d;
+            font-weight: normal;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+        
+        .footer-section a {
+            color: #95a5a6;
+            text-decoration: none;
+            display: block;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #34495e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            color: #95a5a6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features-grid,
+            .calculator-categories,
+            .analytics-features,
+            .ai-features,
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-calculator"></i>
+                    <span data-i18n="pageTitle">EngiSuite Analytics Pro</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features" data-i18n="navFeatures">Features</a>
+                    <a href="#calculators" data-i18n="navCalculators">Calculators</a>
+                    <a href="#analytics" data-i18n="navAnalytics">Data Analysis</a>
+                    <a href="#ai" data-i18n="navAIAssistant">AI Assistant</a>
+                    <a href="#pricing" data-i18n="navPricing">Pricing</a>
+                </div>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-secondary" data-i18n="loginButton">Login</a>
+                    <a href="register.html" class="btn btn-primary" data-i18n="registerButton">Register</a>
+                </div>
+                <div class="language-switcher">
+                    <select id="language-select" data-i18n-lang>
+                        <option value="ar" data-i18n="language.arabic">العربية</option>
+                        <option value="en" data-i18n="language.english">English</option>
+                        <option value="fr" data-i18n="language.french">Français</option>
+                    </select>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1 data-i18n="heroTitle">The Integrated Engineering Platform for All Your Needs</h1>
+            <p data-i18n="heroDescription">50 advanced engineering calculation tools + professional data analysis with a high-level AI assistant, specially designed for engineers in Egypt</p>
+            <div class="cta-buttons">
+                <a href="register.html" class="btn btn-primary" data-i18n="startFreeButton">Start Now for Free</a>
+                <a href="#features" class="btn btn-secondary" data-i18n="discoverMoreButton">Discover More</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title" data-i18n="featuresSectionTitle">Platform Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 data-i18n="feature50CalculatorsTitle">50 Professional Engineering Calculators</h3>
+                    <p data-i18n="feature50CalculatorsDescription">Advanced electrical, mechanical, and civil calculations following international standards like IEC and ACI</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 data-i18n="featureDataAnalysisTitle">Professional Data Analysis</h3>
+                    <p data-i18n="featureDataAnalysisDescription">Analyze data from Excel/CSV/JSON files with a visual interface for query building and PDF reports</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 data-i18n="featureAIAssistantTitle">Expert AI Assistant</h3>
+                    <p data-i18n="featureAIAssistantDescription">High-level AI assistant explains calculations, performs analysis, and generates reports in Arabic</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3 data-i18n="featureProfessionalReportTitle">Professional Report</h3>
+                    <p data-i18n="featureProfessionalReportDescription">Professional report generator with high-quality designs and integration with engineering rules</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 data-i18n="featureCloudStorageTitle">Cloud Storage</h3>
+                    <p data-i18n="featureCloudStorageDescription">Save and manage your statistics from anywhere using cloud storage</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 data-i18n="featureMobileCompatibleTitle">Mobile Compatible</h3>
+                    <p data-i18n="featureMobileCompatibleDescription">Responsive interface compatible with all devices</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculators" class="calculators">
+        <div class="container">
+            <h2 class="section-title" data-i18n="calculatorsSectionTitle">Available Engineering Statistics</h2>
+            <div class="calculator-categories">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-bolt" style="color: #f39c12;"></i>
+                    </div>
+                    <h3 data-i18n="electricalCalculatorsTitle">Electrical (20 Calculators)</h3>
+                    <ul class="calculator-list">
+                        <li data-i18n="calcLoadCalculation">Load Calculation</li>
+                        <li data-i18n="calcElectricityCalculation">Electricity Calculation</li>
+                        <li data-i18n="calcConversionCalculation">Conversion Calculation</li>
+                        <li data-i18n="calcExclusionCalculation">Exclusion Calculation</li>
+                        <li data-i18n="calcVoltageAnalysis">Voltage Analysis</li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-cog" style="color: #3498db;"></i>
+                    </div>
+                    <h3 data-i18n="mechanicalCalculatorsTitle">Mechanical (15 Calculators)</h3>
+                    <ul class="calculator-list">
+                        <li data-i18n="calcHVACAnalysis">HVAC Analysis</li>
+                        <li data-i18n="calcPumpCalculation">Pump Calculation</li>
+                        <li data-i18n="calcPipeCalculation">Pipe Calculation</li>
+                        <li data-i18n="calcCoolingDetermination">Cooling Determination</li>
+                        <li data-i18n="calcHeatingAnalysis">Heating Analysis</li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-building" style="color: #2ecc71;"></i>
+                    </div>
+                    <h3 data-i18n="civilCalculatorsTitle">Civil (15 Calculators)</h3>
+                    <ul class="calculator-list">
+                        <li data-i18n="calcCementCalculation">Cement Calculation</li>
+                        <li data-i18n="calcSteelCalculation">Steel Calculation</li>
+                        <li data-i18n="calcOperationsInsurance">Operations Insurance</li>
+                        <li data-i18n="calcColumnDesign">Column Design</li>
+                        <li data-i18n="calcPlateauAnalysis">Plateau Analysis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="analytics" class="analytics">
+        <div class="container">
+            <h2 class="section-title" data-i18n="analyticsSectionTitle">Engineering Data Analysis</h2>
+            <div class="analytics-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h3 data-i18n="analyticsFileUploadTitle">File Upload</h3>
+                    <p data-i18n="analyticsFileUploadDescription">Upload Excel, CSV, JSON files easily</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 data-i18n="analyticsDataManagementTitle">Data Management</h3>
+                    <p data-i18n="analyticsDataManagementDescription">Efficiently manage and organize engineering data</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 data-i18n="analyticsVisualReportTitle">Visual Report</h3>
+                    <p data-i18n="analyticsVisualReportDescription">Represent data with professional graphics</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3 data-i18n="analyticsPDFReportTitle">PDF Report</h3>
+                    <p data-i18n="analyticsPDFReportDescription">Generate professional reports in PDF format</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai" class="ai-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="aiSectionTitle">Engineering AI Assistant</h2>
+            <div class="ai-features">
+                <div class="ai-feature">
+                    <i class="fas fa-comments fa-3x"></i>
+                    <h3 data-i18n="aiCalculationsAnalysisTitle">Calculations Analysis</h3>
+                    <p data-i18n="aiCalculationsAnalysisDescription">Detailed explanation of engineering calculations</p>
+                </div>
+                <div class="ai-feature">
+                    <i class="fas fa-lightbulb fa-3x"></i>
+                    <h3 data-i18n="aiDataAnalysisTitle">Data Analysis</h3>
+                    <p data-i18n="aiDataAnalysisDescription">Analyze data and provide recommendations</p>
+                </div>
+                <div class="ai-feature">
+                    <i class="fas fa-edit fa-3x"></i>
+                    <h3 data-i18n="aiReportGenerationTitle">Report Generation</h3>
+                    <p data-i18n="aiReportGenerationDescription">Automatic generation of professional reports</p>
+                </div>
+                <div class="ai-feature">
+                    <i class="fas fa-robot fa-3x"></i>
+                    <h3 data-i18n="aiLiveChatTitle">Live Chat</h3>
+                    <p data-i18n="aiLiveChatDescription">Ask anything you want with the AI Assistant</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title" data-i18n="pricingSectionTitle">Subscription Plans</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3 data-i18n="pricingFreeVersionTitle">Free Version</h3>
+                    <div class="price" data-i18n="pricingFreeVersionPrice">0 EGP</div>
+                    <ul class="feature-list">
+                        <li data-i18n="pricingFreeVersionFeature1">3 calculations daily</li>
+                        <li data-i18n="pricingFreeVersionFeature2">1 report monthly</li>
+                        <li data-i18n="pricingFreeVersionFeature3">Basic AI Assistant</li>
+                        <li data-i18n="pricingFreeVersionFeature4">Limited storage space</li>
+                    </ul>
+                    <a href="register.html" class="btn btn-secondary" data-i18n="pricingStartFreeButton">Start for Free</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 data-i18n="pricingProVersionTitle">Professional Version</h3>
+                    <div class="price" data-i18n="pricingProVersionPrice">199 EGP<span data-i18n="pricingProVersionPerMonth">/monthly</span></div>
+                    <ul class="feature-list">
+                        <li data-i18n="pricingProVersionFeature1">Unlimited calculations</li>
+                        <li data-i18n="pricingProVersionFeature2">10 reports monthly</li>
+                        <li data-i18n="pricingProVersionFeature3">Full AI Assistant</li>
+                        <li data-i18n="pricingProVersionFeature4">5GB storage space</li>
+                        <li data-i18n="pricingProVersionFeature5">24/7 technical support</li>
+                    </ul>
+                    <a href="register.html" class="btn btn-primary" data-i18n="pricingSubscribeNowButton">Subscribe Now</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 data-i18n="pricingTeamVersionTitle">Team Version</h3>
+                    <div class="price" data-i18n="pricingTeamVersionPrice">499 EGP<span data-i18n="pricingTeamVersionPerMonth">/monthly</span></div>
+                    <ul class="feature-list">
+                        <li data-i18n="pricingTeamVersionFeature1">Unlimited calculations</li>
+                        <li data-i18n="pricingTeamVersionFeature2">Unlimited reports</li>
+                        <li data-i18n="pricingTeamVersionFeature3">Full AI Assistant</li>
+                        <li data-i18n="pricingTeamVersionFeature4">20GB storage space</li>
+                        <li data-i18n="pricingTeamVersionFeature5">24/7 technical support</li>
+                        <li data-i18n="pricingTeamVersionFeature6">User management</li>
+                    </ul>
+                    <a href="register.html" class="btn btn-primary" data-i18n="pricingSubscribeNowButton">Subscribe Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 data-i18n="footerEngiSuiteTitle">EngiSuite Analytics Pro</h3>
+                    <p data-i18n="footerEngiSuiteDescription">The Integrated Engineering Platform for All Your Needs</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 data-i18n="footerHelpTitle">Help</h3>
+                    <a href="#" data-i18n="footerFAQ">FAQ</a>
+                    <a href="#" data-i18n="footerUserGuide">User Guide</a>
+                    <a href="#" data-i18n="footerSupport">Technical Support</a>
+                    <a href="#" data-i18n="footerTerms">Terms and Conditions</a>
+                </div>
+                <div class="footer-section">
+                    <h3 data-i18n="footerProjectsTitle">Projects</h3>
+                    <a href="#" data-i18n="footerElectricalCalculations">Electrical Calculations</a>
+                    <a href="#" data-i18n="footerMechanicalCalculations">Mechanical Calculations</a>
+                    <a href="#" data-i18n="footerCivilCalculations">Civil Calculations</a>
+                    <a href="#" data-i18n="footerDataAnalysis">Data Analysis</a>
+                </div>
+                <div class="footer-section">
+                    <h3 data-i18n="footerContactUsTitle">Contact Us</h3>
+                    <a href="#" data-i18n="footerEmail">info@engisuite.com</a>
+                    <a href="#" data-i18n="footerPhone">+20 100 123 4567</a>
+                    <a href="#" data-i18n="footerAddress">Cairo, Egypt</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p data-i18n="footerCopyright">&copy; 2024 EngiSuite Analytics Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all feature cards
+        document.querySelectorAll('.feature-card, .category-card, .pricing-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+    <script src="shared/js/i18n.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langSelect = document.getElementById('language-select');
+            if (langSelect) {
+                langSelect.addEventListener('change', (event) => {
+                    i18n.setLanguage(event.target.value);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="reports.pageTitle">Reports - EngiSuite Analytics Pro</title>
+    <link rel="stylesheet" href="shared/css/engisuite-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .reports-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            min-height: 600px;
+        }
+
+        .reports-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .reports-header h2 { color: #2c3e50; margin: 0; }
+
+        .report-actions { display: flex; gap: 10px; }
+        .btn-sm { padding: 8px 15px; font-size: 12px; }
+
+        /* Report type cards */
+        .report-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .report-type-card {
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .report-type-card:hover {
+            border-color: #3498db;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.15);
+        }
+
+        .report-type-card.selected {
+            border-color: #3498db;
+            background: #f0f7ff;
+        }
+
+        .report-type-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 28px;
+            color: white;
+        }
+
+        .report-type-card h3 { margin: 0 0 8px 0; color: #2c3e50; font-size: 16px; }
+        .report-type-card p { margin: 0; color: #7f8c8d; font-size: 13px; line-height: 1.5; }
+
+        /* Report form */
+        .report-form { display: none; margin-top: 20px; }
+        .report-form.active { display: block; }
+
+        .form-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-section h3 {
+            margin: 0 0 15px 0;
+            color: #2c3e50;
+            font-size: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 12px; }
+        .form-row.full { grid-template-columns: 1fr; }
+
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #34495e; font-size: 13px; }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 13px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-group textarea { min-height: 80px; resize: vertical; }
+
+        /* Dynamic input/output rows */
+        .dynamic-rows { margin-top: 10px; }
+
+        .dynamic-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 80px 40px;
+            gap: 8px;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+
+        .dynamic-row input { padding: 8px 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px; }
+        .btn-remove { background: #e74c3c; color: white; border: none; border-radius: 5px; padding: 8px; cursor: pointer; font-size: 12px; }
+        .btn-remove:hover { background: #c0392b; }
+        .btn-add-row { background: none; border: 1px dashed #3498db; color: #3498db; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 12px; margin-top: 5px; }
+        .btn-add-row:hover { background: #f0f7ff; }
+
+        /* Preview panel */
+        .report-preview {
+            display: none;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .report-preview.active { display: block; }
+
+        .preview-header {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-header h3 { margin: 0; font-size: 14px; }
+
+        .preview-actions { display: flex; gap: 8px; }
+        .preview-actions button { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; }
+        .preview-actions button:hover { background: rgba(255,255,255,0.3); }
+
+        .preview-iframe {
+            width: 100%;
+            min-height: 600px;
+            border: none;
+            background: white;
+        }
+
+        /* Report history */
+        .reports-list { margin-top: 20px; }
+
+        .report-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: white;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .report-item:hover {
+            transform: translateX(-2px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-info { display: flex; align-items: center; gap: 15px; flex: 1; }
+
+        .report-icon {
+            width: 50px; height: 50px;
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
+        }
+
+        .report-details { flex: 1; }
+        .report-details h4 { margin: 0 0 5px 0; color: #2c3e50; font-size: 14px; }
+        .report-details p { margin: 0; color: #7f8c8d; font-size: 12px; }
+        .report-meta { display: flex; gap: 15px; margin-top: 5px; font-size: 11px; }
+        .report-date, .report-type-tag { display: flex; align-items: center; gap: 5px; color: #95a5a6; }
+
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; }
+        .badge-calc { background: #fef3cd; color: #856404; }
+        .badge-workflow { background: #d1ecf1; color: #0c5460; }
+        .badge-analytics { background: #d4edda; color: #155724; }
+
+        .empty-state { text-align: center; padding: 60px 20px; color: #7f8c8d; }
+        .empty-state i { font-size: 64px; color: #ddd; margin-bottom: 20px; }
+        .empty-state h3 { margin: 0 0 10px 0; color: #2c3e50; }
+
+        /* Filter tabs */
+        .filter-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .filter-tab { padding: 10px 20px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; font-weight: bold; color: #7f8c8d; transition: all 0.2s ease; }
+        .filter-tab.active, .filter-tab:hover { background: #3498db; color: white; border-color: #3498db; }
+
+        @media (max-width: 768px) {
+            .reports-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .report-type-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .dynamic-row { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <select id="language-select" data-i18n-lang>
+            <option value="ar" data-i18n="language.arabic">العربية</option>
+            <option value="en" data-i18n="language.english">English</option>
+            <option value="fr" data-i18n="language.french">Français</option>
+        </select>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1><i class="fas fa-calculator"></i> <span data-i18n="app.shortName">EngiSuite</span></h1>
+            <p data-i18n="app.taglineShort">Advanced Engineering Tools</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i class="fas fa-home"></i> <span data-i18n="nav.dashboard">Dashboard</span></a></li>
+            <li><a href="calculators.html"><i class="fas fa-calculator"></i> <span data-i18n="nav.calculators">Engineering Calculations</span></a></li>
+            <li><a href="visual-workflow.html"><i class="fas fa-project-diagram"></i> <span data-i18n="nav.visualWorkflow">Visual Workflow</span></a></li>
+            <li><a href="analytics.html"><i class="fas fa-chart-line"></i> <span data-i18n="nav.analytics">Data Analysis</span></a></li>
+            <li><a href="reports.html" class="active"><i class="fas fa-file-pdf"></i> <span data-i18n="nav.reports">Reports</span></a></li>
+            <li><a href="ai-assistant.html"><i class="fas fa-robot"></i> <span data-i18n="nav.aiAssistant">AI Assistant</span></a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i> <span data-i18n="nav.profile">Profile</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="user-profile">
+                <div class="user-avatar">?</div>
+                <div>
+                    <div style="font-weight: bold;" data-i18n="user.placeholderName">Loading...</div>
+                    <div style="font-size: 12px; color: #7f8c8d;" data-i18n="user.placeholderRole">Loading...</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="credits-display">
+                    <i class="fas fa-coins"></i> <span data-i18n="common.loading">Loading...</span>
+                </div>
+                <button onclick="authService.logout()" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> <span data-i18n="common.logout">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Reports Container -->
+        <div class="reports-container">
+            <div class="reports-header">
+                <h2><i class="fas fa-file-pdf"></i> <span data-i18n="reports.header">Technical Reports</span></h2>
+                <div class="report-actions">
+                    <button class="btn btn-primary btn-sm" onclick="showReportCreator()">
+                        <i class="fas fa-plus"></i> Create New Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Report Type Selection -->
+            <div id="reportTypeSelector" style="display: none;">
+                <h3 style="margin-bottom: 15px; color: #34495e;">Select Report Type</h3>
+                <div class="report-type-grid">
+                    <div class="report-type-card" onclick="selectReportType('calculation')">
+                        <div class="report-type-icon" style="background: linear-gradient(135deg, #f39c12, #e67e22);"><i class="fas fa-calculator"></i></div>
+                        <h3>Calculation Report</h3>
+                        <p>Professional technical calculation sheet with inputs, results, compliance status, and engineering standards reference.</p>
+                    </div>
+                    <div class="report-type-card" onclick="selectReportType('workflow')">
+                        <div class="report-type-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);"><i class="fas fa-project-diagram"></i></div>
+                        <h3>Workflow Report</h3>
+                        <p>Detailed workflow execution report showing node details, data flow connections, and step-by-step results.</p>
+                    </div>
+                    <div class="report-type-card" onclick="selectReportType('analytics')">
+                        <div class="report-type-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);"><i class="fas fa-chart-bar"></i></div>
+                        <h3>Analytics Report</h3>
+                        <p>Data analysis report with statistics, column summaries, key metrics, and data visualization tables.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculation Report Form -->
+            <div id="calcReportForm" class="report-form">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0; color: #2c3e50;"><i class="fas fa-calculator" style="color: #f39c12;"></i> Calculation Report</h3>
+                    <button class="btn btn-secondary btn-sm" onclick="backToSelector()"><i class="fas fa-arrow-left"></i> Back</button>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-info-circle"></i> Project Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Report Title</label>
+                            <input type="text" id="calc-title" placeholder="e.g., Cable Sizing Calculation">
+                        </div>
+                        <div class="form-group">
+                            <label>Project Name</label>
+                            <input type="text" id="calc-project" placeholder="e.g., Commercial Tower Phase 2">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="calc-location" placeholder="e.g., Cairo, Egypt">
+                        </div>
+                        <div class="form-group">
+                            <label>Client</label>
+                            <input type="text" id="calc-client" placeholder="e.g., ABC Construction">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Engineer Name</label>
+                            <input type="text" id="calc-engineer" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label>Discipline</label>
+                            <select id="calc-discipline">
+                                <option value="Electrical">Electrical</option>
+                                <option value="Mechanical">Mechanical</option>
+                                <option value="Civil">Civil</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Calculation Type</label>
+                            <input type="text" id="calc-type" placeholder="e.g., Cable Sizing per IEC 60364">
+                        </div>
+                        <div class="form-group">
+                            <label>Reference Standards</label>
+                            <input type="text" id="calc-standards" placeholder="e.g., IEC 60364, BS 7671 (comma-separated)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-superscript"></i> Design Basis</h3>
+                    <div class="form-group">
+                        <label>Equation / Formula</label>
+                        <input type="text" id="calc-equation" placeholder="e.g., I = P / (V * cos(φ) * √3)">
+                    </div>
+                    <div class="form-group">
+                        <label>Methodology Steps (one per line)</label>
+                        <textarea id="calc-methodology" placeholder="1. Determine design current&#10;2. Apply correction factors&#10;3. Select cable size from tables&#10;4. Verify voltage drop"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-sign-in-alt"></i> Input Parameters</h3>
+                    <div id="calc-inputs" class="dynamic-rows">
+                        <div class="dynamic-row">
+                            <input type="text" placeholder="Parameter name" class="input-name">
+                            <input type="text" placeholder="Value" class="input-value">
+                            <input type="text" placeholder="Unit" class="input-unit">
+                            <button class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <button class="btn-add-row" onclick="addInputRow()"><i class="fas fa-plus"></i> Add Input Parameter</button>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-sign-out-alt"></i> Calculation Results</h3>
+                    <div id="calc-results" class="dynamic-rows">
+                        <div class="dynamic-row">
+                            <input type="text" placeholder="Result name" class="result-name">
+                            <input type="text" placeholder="Value" class="result-value">
+                            <input type="text" placeholder="Unit" class="result-unit">
+                            <button class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <button class="btn-add-row" onclick="addResultRow()"><i class="fas fa-plus"></i> Add Result</button>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-check-circle"></i> Compliance & Notes</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Compliance Status</label>
+                            <select id="calc-compliance">
+                                <option value="Compliant">Compliant / Pass</option>
+                                <option value="Non-Compliant">Non-Compliant / Fail</option>
+                                <option value="N/A">Not Applicable</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Reviewer Name</label>
+                            <input type="text" id="calc-reviewer" placeholder="Reviewer name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Remarks / Recommendations</label>
+                        <textarea id="calc-remarks" placeholder="Any additional notes, assumptions, or recommendations..."></textarea>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button class="btn btn-secondary" onclick="backToSelector()"><i class="fas fa-times"></i> Cancel</button>
+                    <button class="btn btn-primary" onclick="generateCalcReport()"><i class="fas fa-file-alt"></i> Generate Report</button>
+                </div>
+            </div>
+
+            <!-- Workflow Report Form -->
+            <div id="workflowReportForm" class="report-form">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0; color: #2c3e50;"><i class="fas fa-project-diagram" style="color: #3498db;"></i> Workflow Report</h3>
+                    <button class="btn btn-secondary btn-sm" onclick="backToSelector()"><i class="fas fa-arrow-left"></i> Back</button>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-info-circle"></i> Workflow Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Workflow Title</label>
+                            <input type="text" id="wf-title" placeholder="e.g., Power Distribution System Design">
+                        </div>
+                        <div class="form-group">
+                            <label>Project Name</label>
+                            <input type="text" id="wf-project" placeholder="e.g., Industrial Plant Expansion">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Engineer Name</label>
+                        <input type="text" id="wf-engineer" placeholder="Your name">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-layer-group"></i> Workflow Nodes</h3>
+                    <div id="wf-nodes" class="dynamic-rows"></div>
+                    <button class="btn-add-row" onclick="addWorkflowNode()"><i class="fas fa-plus"></i> Add Workflow Node</button>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-link"></i> Data Flow Connections</h3>
+                    <div id="wf-connections" class="dynamic-rows"></div>
+                    <button class="btn-add-row" onclick="addWorkflowConnection()"><i class="fas fa-plus"></i> Add Connection</button>
+                </div>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button class="btn btn-secondary" onclick="backToSelector()"><i class="fas fa-times"></i> Cancel</button>
+                    <button class="btn btn-primary" onclick="generateWorkflowReport()"><i class="fas fa-file-alt"></i> Generate Report</button>
+                </div>
+            </div>
+
+            <!-- Analytics Report Form -->
+            <div id="analyticsReportForm" class="report-form">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0; color: #2c3e50;"><i class="fas fa-chart-bar" style="color: #2ecc71;"></i> Analytics Report</h3>
+                    <button class="btn btn-secondary btn-sm" onclick="backToSelector()"><i class="fas fa-arrow-left"></i> Back</button>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-info-circle"></i> Report Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Report Title</label>
+                            <input type="text" id="an-title" placeholder="e.g., Monthly Material Usage Analysis">
+                        </div>
+                        <div class="form-group">
+                            <label>Data Source</label>
+                            <input type="text" id="an-source" placeholder="e.g., site_materials.xlsx">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Template</label>
+                        <select id="an-template">
+                            <option value="Custom">Custom</option>
+                            <option value="Daily Site Report">Daily Site Report</option>
+                            <option value="Material Usage">Material Usage</option>
+                            <option value="Quality Control">Quality Control</option>
+                            <option value="Cost Analysis">Cost Analysis</option>
+                            <option value="Safety Report">Safety Report</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-chart-pie"></i> Key Metrics</h3>
+                    <div id="an-metrics" class="dynamic-rows">
+                        <div class="dynamic-row" style="grid-template-columns: 1fr 1fr 40px;">
+                            <input type="text" placeholder="Metric name" class="metric-name">
+                            <input type="text" placeholder="Value" class="metric-value">
+                            <button class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <button class="btn-add-row" onclick="addMetricRow()"><i class="fas fa-plus"></i> Add Metric</button>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-columns"></i> Column Statistics</h3>
+                    <div id="an-columns" class="dynamic-rows"></div>
+                    <button class="btn-add-row" onclick="addColumnStat()"><i class="fas fa-plus"></i> Add Column</button>
+                </div>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button class="btn btn-secondary" onclick="backToSelector()"><i class="fas fa-times"></i> Cancel</button>
+                    <button class="btn btn-primary" onclick="generateAnalyticsReport()"><i class="fas fa-file-alt"></i> Generate Report</button>
+                </div>
+            </div>
+
+            <!-- Report Preview -->
+            <div id="reportPreview" class="report-preview">
+                <div class="preview-header">
+                    <h3><i class="fas fa-eye"></i> Report Preview</h3>
+                    <div class="preview-actions">
+                        <button onclick="downloadReportHTML()"><i class="fas fa-download"></i> Download HTML</button>
+                        <button onclick="printReport()"><i class="fas fa-print"></i> Print / PDF</button>
+                        <button onclick="closePreview()"><i class="fas fa-times"></i> Close</button>
+                    </div>
+                </div>
+                <iframe id="previewFrame" class="preview-iframe"></iframe>
+            </div>
+
+            <!-- Filter Tabs (for history) -->
+            <div id="historySection">
+                <h3 style="margin: 20px 0 15px; color: #34495e;"><i class="fas fa-history"></i> Report History</h3>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all" onclick="filterReports('all')">All</button>
+                    <button class="filter-tab" data-filter="calculation" onclick="filterReports('calculation')">Calculations</button>
+                    <button class="filter-tab" data-filter="workflow" onclick="filterReports('workflow')">Workflows</button>
+                    <button class="filter-tab" data-filter="analytics" onclick="filterReports('analytics')">Analytics</button>
+                </div>
+
+                <div class="reports-list" id="reportsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared/js/i18n.js"></script>
+    <script src="shared/js/auth.js"></script>
+    <script>
+        let generatedReports = JSON.parse(localStorage.getItem('engisuite_reports') || '[]');
+        let currentReportHTML = '';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderReportHistory();
+
+            const langSelect = document.getElementById('language-select');
+            if (langSelect) {
+                langSelect.addEventListener('change', (event) => {
+                    i18n.setLanguage(event.target.value);
+                });
+            }
+        });
+
+        function showReportCreator() {
+            document.getElementById('reportTypeSelector').style.display = 'block';
+            document.getElementById('historySection').style.display = 'none';
+        }
+
+        function backToSelector() {
+            document.querySelectorAll('.report-form').forEach(f => f.classList.remove('active'));
+            document.getElementById('reportTypeSelector').style.display = 'block';
+        }
+
+        function selectReportType(type) {
+            document.getElementById('reportTypeSelector').style.display = 'none';
+            document.querySelectorAll('.report-form').forEach(f => f.classList.remove('active'));
+
+            if (type === 'calculation') {
+                document.getElementById('calcReportForm').classList.add('active');
+            } else if (type === 'workflow') {
+                document.getElementById('workflowReportForm').classList.add('active');
+            } else if (type === 'analytics') {
+                document.getElementById('analyticsReportForm').classList.add('active');
+            }
+        }
+
+        // Dynamic row helpers
+        function addInputRow() {
+            const container = document.getElementById('calc-inputs');
+            const row = document.createElement('div');
+            row.className = 'dynamic-row';
+            row.innerHTML = `
+                <input type="text" placeholder="Parameter name" class="input-name">
+                <input type="text" placeholder="Value" class="input-value">
+                <input type="text" placeholder="Unit" class="input-unit">
+                <button class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            container.appendChild(row);
+        }
+
+        function addResultRow() {
+            const container = document.getElementById('calc-results');
+            const row = document.createElement('div');
+            row.className = 'dynamic-row';
+            row.innerHTML = `
+                <input type="text" placeholder="Result name" class="result-name">
+                <input type="text" placeholder="Value" class="result-value">
+                <input type="text" placeholder="Unit" class="result-unit">
+                <button class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            container.appendChild(row);
+        }
+
+        function addWorkflowNode() {
+            const container = document.getElementById('wf-nodes');
+            const row = document.createElement('div');
+            row.style.cssText = 'background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 10px; position: relative;';
+            row.innerHTML = `
+                <button class="btn-remove" onclick="this.parentElement.remove()" style="position: absolute; top: 8px; right: 8px;"><i class="fas fa-times"></i></button>
+                <div class="form-row">
+                    <div class="form-group"><label>Node Name</label><input type="text" class="node-name" placeholder="e.g., Load Calculation"></div>
+                    <div class="form-group"><label>Type</label><input type="text" class="node-type" placeholder="e.g., electrical-loadCalculation"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Inputs (key=value, comma-separated)</label><input type="text" class="node-inputs" placeholder="e.g., power=150, voltage=380"></div>
+                    <div class="form-group"><label>Outputs (key=value, comma-separated)</label><input type="text" class="node-outputs" placeholder="e.g., current=228.5, kVA=170"></div>
+                </div>
+            `;
+            container.appendChild(row);
+        }
+
+        function addWorkflowConnection() {
+            const container = document.getElementById('wf-connections');
+            const row = document.createElement('div');
+            row.className = 'dynamic-row';
+            row.style.gridTemplateColumns = '1fr 1fr 40px';
+            row.innerHTML = `
+                <input type="text" placeholder="From (e.g., Load Calc [Current])" class="conn-from">
+                <input type="text" placeholder="To (e.g., Cable Sizing [Current])" class="conn-to">
+                <button class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            container.appendChild(row);
+        }
+
+        function addMetricRow() {
+            const container = document.getElementById('an-metrics');
+            const row = document.createElement('div');
+            row.className = 'dynamic-row';
+            row.style.gridTemplateColumns = '1fr 1fr 40px';
+            row.innerHTML = `
+                <input type="text" placeholder="Metric name" class="metric-name">
+                <input type="text" placeholder="Value" class="metric-value">
+                <button class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            container.appendChild(row);
+        }
+
+        function addColumnStat() {
+            const container = document.getElementById('an-columns');
+            const row = document.createElement('div');
+            row.style.cssText = 'display: grid; grid-template-columns: repeat(4, 1fr) 40px; gap: 6px; margin-bottom: 6px; align-items: center;';
+            row.innerHTML = `
+                <input type="text" placeholder="Column name" class="col-name" style="padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-size: 11px;">
+                <input type="text" placeholder="Type" class="col-type" style="padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-size: 11px;">
+                <input type="text" placeholder="Min" class="col-min" style="padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-size: 11px;">
+                <input type="text" placeholder="Max" class="col-max" style="padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-size: 11px;">
+                <button class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            container.appendChild(row);
+        }
+
+        // Parse key=value pairs
+        function parseKeyValues(str) {
+            if (!str || !str.trim()) return {};
+            const obj = {};
+            str.split(',').forEach(pair => {
+                const [k, v] = pair.split('=').map(s => s.trim());
+                if (k) obj[k] = v || '';
+            });
+            return obj;
+        }
+
+        // Report generation
+        async function generateCalcReport() {
+            const inputs = {};
+            const inputUnits = {};
+            document.querySelectorAll('#calc-inputs .dynamic-row').forEach(row => {
+                const name = row.querySelector('.input-name').value.trim();
+                const value = row.querySelector('.input-value').value.trim();
+                const unit = row.querySelector('.input-unit').value.trim();
+                if (name) { inputs[name] = value; inputUnits[name] = unit; }
+            });
+
+            const results = {};
+            const resultUnits = {};
+            document.querySelectorAll('#calc-results .dynamic-row').forEach(row => {
+                const name = row.querySelector('.result-name').value.trim();
+                const value = row.querySelector('.result-value').value.trim();
+                const unit = row.querySelector('.result-unit').value.trim();
+                if (name) { results[name] = value; resultUnits[name] = unit; }
+            });
+
+            const standards = document.getElementById('calc-standards').value.split(',').map(s => s.trim()).filter(s => s);
+            const methodology = document.getElementById('calc-methodology').value.split('\n').map(s => s.trim()).filter(s => s);
+
+            const content = {
+                title: document.getElementById('calc-title').value || 'Engineering Calculation Report',
+                project_name: document.getElementById('calc-project').value,
+                location: document.getElementById('calc-location').value,
+                client: document.getElementById('calc-client').value,
+                engineer_name: document.getElementById('calc-engineer').value,
+                discipline: document.getElementById('calc-discipline').value,
+                calc_type: document.getElementById('calc-type').value,
+                standards: standards,
+                equation: document.getElementById('calc-equation').value,
+                methodology: methodology,
+                inputs: inputs,
+                input_units: inputUnits,
+                results: results,
+                result_units: resultUnits,
+                compliance: { status: document.getElementById('calc-compliance').value },
+                reviewer_name: document.getElementById('calc-reviewer').value,
+                remarks: document.getElementById('calc-remarks').value
+            };
+
+            await generateAndPreview('calculation', content);
+        }
+
+        async function generateWorkflowReport() {
+            const nodes = [];
+            document.querySelectorAll('#wf-nodes > div').forEach(nodeEl => {
+                nodes.push({
+                    name: nodeEl.querySelector('.node-name').value.trim() || 'Unnamed Node',
+                    type: nodeEl.querySelector('.node-type').value.trim(),
+                    inputs: parseKeyValues(nodeEl.querySelector('.node-inputs').value),
+                    outputs: parseKeyValues(nodeEl.querySelector('.node-outputs').value),
+                    status: 'completed'
+                });
+            });
+
+            const connections = [];
+            document.querySelectorAll('#wf-connections .dynamic-row').forEach(row => {
+                const from = row.querySelector('.conn-from').value.trim();
+                const to = row.querySelector('.conn-to').value.trim();
+                if (from && to) connections.push({ from, to });
+            });
+
+            const content = {
+                title: document.getElementById('wf-title').value || 'Workflow Execution Report',
+                project_name: document.getElementById('wf-project').value,
+                engineer_name: document.getElementById('wf-engineer').value,
+                nodes: nodes,
+                connections: connections,
+                execution_order: nodes.map(n => n.name)
+            };
+
+            await generateAndPreview('workflow', content);
+        }
+
+        async function generateAnalyticsReport() {
+            const summary = {};
+            document.querySelectorAll('#an-metrics .dynamic-row').forEach(row => {
+                const name = row.querySelector('.metric-name').value.trim();
+                const value = row.querySelector('.metric-value').value.trim();
+                if (name) summary[name] = value;
+            });
+
+            const columnStats = [];
+            document.querySelectorAll('#an-columns > div').forEach(row => {
+                const name = row.querySelector('.col-name')?.value.trim();
+                if (name) {
+                    columnStats.push({
+                        name: name,
+                        type: row.querySelector('.col-type')?.value.trim() || 'unknown',
+                        min: row.querySelector('.col-min')?.value.trim() || '',
+                        max: row.querySelector('.col-max')?.value.trim() || '',
+                        null_count: 0,
+                        unique_count: '',
+                        mean: ''
+                    });
+                }
+            });
+
+            const content = {
+                title: document.getElementById('an-title').value || 'Data Analytics Report',
+                data_source: document.getElementById('an-source').value,
+                template: document.getElementById('an-template').value,
+                summary: summary,
+                column_stats: columnStats
+            };
+
+            await generateAndPreview('analytics', content);
+        }
+
+        async function generateAndPreview(reportType, content) {
+            try {
+                const response = await fetch('/analytics/generate-report', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authService.getToken()}`
+                    },
+                    body: JSON.stringify({ report_type: reportType, content: content })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    showPreview(result.html, result.report_id);
+                    saveToHistory(reportType, content.title || 'Untitled Report', result.report_id, result.html);
+                } else {
+                    // Fallback: generate client-side
+                    generateClientSide(reportType, content);
+                }
+            } catch {
+                // Backend unavailable, generate client-side
+                generateClientSide(reportType, content);
+            }
+        }
+
+        function generateClientSide(reportType, content) {
+            // Simplified client-side generation using the same structure
+            const reportId = 'RPT-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Date.now().toString().slice(-6);
+            const now = new Date();
+
+            let html = buildClientReport(reportType, content, reportId, now);
+            showPreview(html, reportId);
+            saveToHistory(reportType, content.title || 'Untitled Report', reportId, html);
+        }
+
+        function buildClientReport(type, content, reportId, now) {
+            const css = `
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #2c3e50; font-size: 11pt; line-height: 1.5; padding: 30px 40px; }
+                .report-header { display: flex; justify-content: space-between; border-bottom: 3px solid #2c3e50; padding-bottom: 15px; margin-bottom: 25px; }
+                .report-title { font-size: 20pt; font-weight: 700; color: #2c3e50; }
+                .report-subtitle { font-size: 11pt; color: #7f8c8d; }
+                .report-id { font-size: 9pt; color: #95a5a6; font-family: monospace; }
+                .section { margin-bottom: 22px; }
+                .section-title { font-size: 13pt; font-weight: 700; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px; margin-bottom: 12px; }
+                .meta-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                .meta-table td { padding: 6px 12px; border: 1px solid #dce1e7; font-size: 10pt; }
+                .meta-table td:first-child { background: #f7f9fc; font-weight: 600; width: 180px; }
+                .data-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10pt; }
+                .data-table th { background: #2c3e50; color: white; padding: 8px 12px; text-align: left; }
+                .data-table td { padding: 7px 12px; border-bottom: 1px solid #ecf0f1; }
+                .data-table tr:nth-child(even) { background: #f7f9fc; }
+                .result-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 10px 0; }
+                .result-card { background: #f7f9fc; border: 1px solid #dce1e7; border-radius: 6px; padding: 12px; text-align: center; }
+                .result-card .label { font-size: 9pt; color: #7f8c8d; text-transform: uppercase; margin-bottom: 4px; }
+                .result-card .value { font-size: 16pt; font-weight: 700; color: #2c3e50; }
+                .result-card .unit { font-size: 9pt; color: #95a5a6; }
+                .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 9pt; font-weight: 600; }
+                .badge-pass { background: #d5f5e3; color: #27ae60; }
+                .badge-fail { background: #fadbd8; color: #e74c3c; }
+                .badge-info { background: #d6eaf8; color: #2980b9; }
+                .equation { font-family: 'Cambria Math', serif; font-size: 12pt; background: #f7f9fc; padding: 10px; border-radius: 6px; text-align: center; border: 1px solid #dce1e7; margin: 8px 0; }
+                .step-list { list-style: none; padding: 0; counter-reset: step; }
+                .step-item { position: relative; padding: 10px 12px 10px 50px; margin-bottom: 8px; background: #f7f9fc; border-radius: 6px; border-left: 3px solid #3498db; counter-increment: step; }
+                .step-item::before { content: counter(step); position: absolute; left: 12px; top: 10px; width: 24px; height: 24px; background: #3498db; color: white; border-radius: 50%; text-align: center; line-height: 24px; font-size: 10pt; font-weight: 700; }
+                .note-box { background: #fef9e7; border-left: 4px solid #f39c12; padding: 12px; margin: 10px 0; border-radius: 0 6px 6px 0; }
+                .connection-item { padding: 6px 12px; margin-bottom: 5px; background: #edf2f7; border-radius: 4px; border-left: 3px solid #2c3e50; }
+                .signature-block { margin-top: 40px; display: flex; justify-content: space-between; }
+                .signature-col { width: 45%; }
+                .signature-line { border-top: 1px solid #2c3e50; margin-top: 40px; padding-top: 5px; }
+                .report-footer { margin-top: 30px; padding-top: 12px; border-top: 1px solid #dce1e7; font-size: 8pt; color: #95a5a6; display: flex; justify-content: space-between; }
+                @media print { body { padding: 20px; } }
+            `;
+
+            const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+            if (type === 'calculation') {
+                const inputRows = Object.entries(content.inputs || {}).map(([k, v]) =>
+                    `<tr><td>${k}</td><td>${v}</td><td>${(content.input_units || {})[k] || ''}</td></tr>`
+                ).join('');
+
+                const resultCards = Object.entries(content.results || {}).map(([k, v]) =>
+                    `<div class="result-card"><div class="label">${k}</div><div class="value">${v}</div><div class="unit">${(content.result_units || {})[k] || ''}</div></div>`
+                ).join('');
+
+                const compStatus = content.compliance?.status || 'N/A';
+                const compClass = compStatus.toLowerCase().includes('compliant') ? 'badge-pass' : compStatus.toLowerCase().includes('non') ? 'badge-fail' : 'badge-info';
+                const stds = (content.standards || []).join(', ') || 'N/A';
+                const eqn = content.equation ? `<div class="equation">${content.equation}</div>` : '';
+                const steps = (content.methodology || []).map(s => `<li class="step-item">${s}</li>`).join('');
+                const stepsHtml = steps ? `<ol class="step-list">${steps}</ol>` : '<p>Standard methodology applied.</p>';
+
+                return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${content.title}</title><style>${css}</style></head><body>
+                    <div class="report-header"><div><div class="report-title">${content.title || 'Calculation Report'}</div><div class="report-subtitle">Technical Calculation Sheet</div><div class="report-id">${reportId}</div></div><div style="text-align:right;font-size:9pt;color:#7f8c8d;"><strong>EngiSuite Analytics Pro</strong><br>${dateStr}<br>Rev. 0</div></div>
+                    <div class="section"><div class="section-title">1. Project Information</div><table class="meta-table"><tr><td>Project Name</td><td>${content.project_name||'N/A'}</td></tr><tr><td>Location</td><td>${content.location||'N/A'}</td></tr><tr><td>Client</td><td>${content.client||'N/A'}</td></tr><tr><td>Engineer</td><td>${content.engineer_name||'N/A'}</td></tr><tr><td>Calculation Type</td><td>${content.calc_type||'N/A'}</td></tr><tr><td>Discipline</td><td>${content.discipline||'N/A'}</td></tr><tr><td>Reference Standards</td><td>${stds}</td></tr><tr><td>Date</td><td>${dateStr}</td></tr></table></div>
+                    <div class="section"><div class="section-title">2. Design Basis</div>${eqn}${stepsHtml}</div>
+                    <div class="section"><div class="section-title">3. Input Parameters</div><table class="data-table"><thead><tr><th>Parameter</th><th>Value</th><th>Unit</th></tr></thead><tbody>${inputRows||'<tr><td colspan="3">No inputs</td></tr>'}</tbody></table></div>
+                    <div class="section"><div class="section-title">4. Calculation Results</div><div class="result-grid">${resultCards||'<div class="result-card"><div class="label">Status</div><div class="value">Pending</div></div>'}</div></div>
+                    <div class="section"><div class="section-title">5. Compliance & Standards Check</div><table class="meta-table"><tr><td>Status</td><td><span class="badge ${compClass}">${compStatus}</span></td></tr><tr><td>Standards</td><td>${stds}</td></tr></table></div>
+                    ${content.remarks ? '<div class="section"><div class="section-title">6. Remarks</div><div class="note-box">'+content.remarks+'</div></div>' : ''}
+                    <div class="signature-block"><div class="signature-col"><div class="signature-line"><strong>${content.engineer_name||'Prepared By'}</strong><br><span style="font-size:9pt;color:#7f8c8d;">Prepared By / Date</span></div></div><div class="signature-col"><div class="signature-line"><strong>${content.reviewer_name||'Reviewed By'}</strong><br><span style="font-size:9pt;color:#7f8c8d;">Reviewed By / Date</span></div></div></div>
+                    <div class="report-footer"><span>${reportId}</span><span>EngiSuite Analytics Pro - Confidential</span><span>${dateStr} ${timeStr}</span></div>
+                </body></html>`;
+
+            } else if (type === 'workflow') {
+                const nodeDetails = (content.nodes || []).map((n, i) => {
+                    const inRows = Object.entries(n.inputs||{}).map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+                    const outRows = Object.entries(n.outputs||{}).map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+                    return `<div class="section" style="margin-left:15px;"><h4>Node ${i+1}: ${n.name} <span class="badge badge-pass">completed</span></h4><p style="font-size:9pt;color:#7f8c8d;">Type: ${n.type||'N/A'}</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;"><div><h5 style="margin:8px 0 4px;">Inputs</h5><table class="data-table"><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody>${inRows||'<tr><td colspan="2">-</td></tr>'}</tbody></table></div><div><h5 style="margin:8px 0 4px;">Outputs</h5><table class="data-table"><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody>${outRows||'<tr><td colspan="2">-</td></tr>'}</tbody></table></div></div></div>`;
+                }).join('');
+
+                const connItems = (content.connections || []).map(c => `<div class="connection-item">${c.from} <span style="color:#3498db;font-weight:700;margin:0 6px;">&rarr;</span> ${c.to}</div>`).join('');
+                const orderItems = (content.execution_order || []).map(n => `<li class="step-item">${n}</li>`).join('');
+
+                return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Workflow Report</title><style>${css}</style></head><body>
+                    <div class="report-header"><div><div class="report-title">Workflow Execution Report</div><div class="report-subtitle">${content.title||'Engineering Workflow'}</div><div class="report-id">${reportId}</div></div><div style="text-align:right;font-size:9pt;color:#7f8c8d;"><strong>EngiSuite Analytics Pro</strong><br>${dateStr} ${timeStr}</div></div>
+                    <div class="section"><div class="section-title">1. Project Information</div><table class="meta-table"><tr><td>Project Name</td><td>${content.project_name||'N/A'}</td></tr><tr><td>Engineer</td><td>${content.engineer_name||'N/A'}</td></tr><tr><td>Execution Date</td><td>${dateStr} ${timeStr}</td></tr></table></div>
+                    <div class="section"><div class="section-title">2. Execution Summary</div><div class="result-grid"><div class="result-card"><div class="label">Total Nodes</div><div class="value">${(content.nodes||[]).length}</div></div><div class="result-card"><div class="label">Connections</div><div class="value">${(content.connections||[]).length}</div></div></div></div>
+                    <div class="section"><div class="section-title">3. Execution Order</div><ol class="step-list">${orderItems||'<li class="step-item">No nodes</li>'}</ol></div>
+                    <div class="section"><div class="section-title">4. Node Details & Results</div>${nodeDetails||'<p>No nodes.</p>'}</div>
+                    <div class="section"><div class="section-title">5. Data Flow Connections</div>${connItems||'<p>No connections.</p>'}</div>
+                    <div class="signature-block"><div class="signature-col"><div class="signature-line"><strong>${content.engineer_name||'Prepared By'}</strong><br><span style="font-size:9pt;color:#7f8c8d;">Prepared By / Date</span></div></div><div class="signature-col"><div class="signature-line"><strong>Reviewed By</strong><br><span style="font-size:9pt;color:#7f8c8d;">Reviewed By / Date</span></div></div></div>
+                    <div class="report-footer"><span>${reportId}</span><span>EngiSuite Analytics Pro - Confidential</span><span>${dateStr} ${timeStr}</span></div>
+                </body></html>`;
+
+            } else {
+                const metricCards = Object.entries(content.summary || {}).map(([k,v]) =>
+                    `<div class="result-card"><div class="label">${k}</div><div class="value">${v}</div></div>`
+                ).join('');
+
+                const colRows = (content.column_stats || []).map(c =>
+                    `<tr><td>${c.name}</td><td>${c.type}</td><td>${c.min}</td><td>${c.max}</td></tr>`
+                ).join('');
+
+                return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Analytics Report</title><style>${css}</style></head><body>
+                    <div class="report-header"><div><div class="report-title">Data Analytics Report</div><div class="report-subtitle">${content.title||'Engineering Data Analysis'}</div><div class="report-id">${reportId}</div></div><div style="text-align:right;font-size:9pt;color:#7f8c8d;"><strong>EngiSuite Analytics Pro</strong><br>${dateStr}</div></div>
+                    <div class="section"><div class="section-title">1. Report Overview</div><table class="meta-table"><tr><td>Data Source</td><td>${content.data_source||'N/A'}</td></tr><tr><td>Template</td><td>${content.template||'Custom'}</td></tr><tr><td>Generated</td><td>${dateStr} ${timeStr}</td></tr></table></div>
+                    <div class="section"><div class="section-title">2. Key Metrics</div><div class="result-grid">${metricCards||'<div class="result-card"><div class="label">Status</div><div class="value">No Data</div></div>'}</div></div>
+                    ${colRows ? '<div class="section"><div class="section-title">3. Column Statistics</div><table class="data-table"><thead><tr><th>Column</th><th>Type</th><th>Min</th><th>Max</th></tr></thead><tbody>'+colRows+'</tbody></table></div>' : ''}
+                    <div class="report-footer"><span>${reportId}</span><span>EngiSuite Analytics Pro</span><span>${dateStr} ${timeStr}</span></div>
+                </body></html>`;
+            }
+        }
+
+        function showPreview(html, reportId) {
+            currentReportHTML = html;
+            const preview = document.getElementById('reportPreview');
+            const frame = document.getElementById('previewFrame');
+            preview.classList.add('active');
+
+            // Hide form sections
+            document.querySelectorAll('.report-form').forEach(f => f.classList.remove('active'));
+            document.getElementById('reportTypeSelector').style.display = 'none';
+
+            // Write to iframe
+            const doc = frame.contentDocument || frame.contentWindow.document;
+            doc.open();
+            doc.write(html);
+            doc.close();
+        }
+
+        function downloadReportHTML() {
+            if (!currentReportHTML) return;
+            const blob = new Blob([currentReportHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `report_${Date.now()}.html`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function printReport() {
+            const frame = document.getElementById('previewFrame');
+            frame.contentWindow.print();
+        }
+
+        function closePreview() {
+            document.getElementById('reportPreview').classList.remove('active');
+            document.getElementById('historySection').style.display = 'block';
+            document.getElementById('reportTypeSelector').style.display = 'none';
+            renderReportHistory();
+        }
+
+        function saveToHistory(type, title, reportId, html) {
+            generatedReports.unshift({
+                id: reportId,
+                type: type,
+                title: title,
+                date: new Date().toISOString(),
+                html: html
+            });
+
+            // Keep last 50 reports
+            generatedReports = generatedReports.slice(0, 50);
+            localStorage.setItem('engisuite_reports', JSON.stringify(generatedReports));
+            renderReportHistory();
+        }
+
+        function renderReportHistory(filter = 'all') {
+            const list = document.getElementById('reportsList');
+            let filtered = generatedReports;
+            if (filter !== 'all') {
+                filtered = generatedReports.filter(r => r.type === filter);
+            }
+
+            if (filtered.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>No reports yet</h3>
+                        <p>Create your first engineering report using the button above.</p>
+                        <button class="btn btn-primary" onclick="showReportCreator()" style="margin-top: 15px;">
+                            <i class="fas fa-plus"></i> Create New Report
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const typeIcons = { calculation: 'fa-calculator', workflow: 'fa-project-diagram', analytics: 'fa-chart-bar' };
+            const typeColors = { calculation: 'linear-gradient(135deg, #f39c12, #e67e22)', workflow: 'linear-gradient(135deg, #3498db, #2980b9)', analytics: 'linear-gradient(135deg, #2ecc71, #27ae60)' };
+            const typeBadge = { calculation: 'badge-calc', workflow: 'badge-workflow', analytics: 'badge-analytics' };
+
+            list.innerHTML = filtered.map(report => {
+                const date = new Date(report.date);
+                const dateStr = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+                return `
+                    <div class="report-item">
+                        <div class="report-info">
+                            <div class="report-icon" style="background: ${typeColors[report.type] || typeColors.calculation};">
+                                <i class="fas ${typeIcons[report.type] || 'fa-file'}"></i>
+                            </div>
+                            <div class="report-details">
+                                <h4>${report.title}</h4>
+                                <div class="report-meta">
+                                    <div class="report-date"><i class="fas fa-calendar"></i> ${dateStr} ${timeStr}</div>
+                                    <span class="badge ${typeBadge[report.type] || 'badge-calc'}">${report.type}</span>
+                                </div>
+                                <p style="margin-top: 3px;">${report.id}</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 5px;">
+                            <button class="btn btn-sm btn-primary" onclick="viewHistoryReport('${report.id}')"><i class="fas fa-eye"></i> View</button>
+                            <button class="btn btn-sm btn-secondary" onclick="downloadHistoryReport('${report.id}')"><i class="fas fa-download"></i></button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteHistoryReport('${report.id}')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function viewHistoryReport(id) {
+            const report = generatedReports.find(r => r.id === id);
+            if (report) showPreview(report.html, report.id);
+        }
+
+        function downloadHistoryReport(id) {
+            const report = generatedReports.find(r => r.id === id);
+            if (report) {
+                currentReportHTML = report.html;
+                downloadReportHTML();
+            }
+        }
+
+        function deleteHistoryReport(id) {
+            if (confirm('Delete this report?')) {
+                generatedReports = generatedReports.filter(r => r.id !== id);
+                localStorage.setItem('engisuite_reports', JSON.stringify(generatedReports));
+                renderReportHistory();
+            }
+        }
+
+        function filterReports(filterType) {
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.filter === filterType) tab.classList.add('active');
+            });
+            renderReportHistory(filterType);
+        }
+    </script>
+</body>
+</html>

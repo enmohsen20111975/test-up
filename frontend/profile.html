@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="profile.pageTitle">Profile - EngiSuite Analytics Pro</title>
+    <link rel="stylesheet" href="shared/css/engisuite-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .profile-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            min-height: 600px;
+        }
+        
+        .profile-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .profile-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .profile-info h2 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 24px;
+        }
+        
+        .profile-email {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        
+        .profile-meta {
+            display: flex;
+            gap: 20px;
+            color: #95a5a6;
+            font-size: 14px;
+        }
+        
+        .profile-meta div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        /* Profile sections */
+        .profile-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .profile-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .section-title i {
+            color: #3498db;
+        }
+        
+        /* Form styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        /* Subscription info */
+        .subscription-info {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+        }
+        
+        .subscription-info h3 {
+            margin: 0 0 15px 0;
+        }
+        
+        .subscription-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .subscription-details div {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .subscription-details div:last-child {
+            border-bottom: none;
+        }
+        
+        .subscription-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Usage stats */
+        .usage-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .profile-sections {
+                grid-template-columns: 1fr;
+            }
+            
+            .usage-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <select id="language-select" data-i18n-lang>
+            <option value="ar" data-i18n="language.arabic">العربية</option>
+            <option value="en" data-i18n="language.english">English</option>
+            <option value="fr" data-i18n="language.french">Français</option>
+        </select>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1><i class="fas fa-calculator"></i> <span data-i18n="app.shortName">EngiSuite</span></h1>
+            <p data-i18n="app.taglineShort">Advanced Engineering Tools</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i class="fas fa-home"></i> <span data-i18n="nav.dashboard">Dashboard</span></a></li>
+            <li><a href="calculators.html"><i class="fas fa-calculator"></i> <span data-i18n="nav.calculators">Engineering Calculations</span></a></li>
+            <li><a href="analytics.html"><i class="fas fa-chart-line"></i> <span data-i18n="nav.analytics">Data Analysis</span></a></li>
+            <li><a href="reports.html"><i class="fas fa-file-pdf"></i> <span data-i18n="nav.reports">Reports</span></a></li>
+            <li><a href="ai-assistant.html"><i class="fas fa-robot"></i> <span data-i18n="nav.aiAssistant">AI Assistant</span></a></li>
+            <li><a href="profile.html" class="active"><i class="fas fa-user"></i> <span data-i18n="nav.profile">Profile</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="user-profile">
+                <div class="user-avatar">?</div>
+                <div>
+                    <div style="font-weight: bold;" data-i18n="user.placeholderName">Loading...</div>
+                    <div style="font-size: 12px; color: #7f8c8d;" data-i18n="user.placeholderRole">Loading...</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="credits-display">
+                    <i class="fas fa-coins"></i> <span data-i18n="common.loading">Loading...</span>
+                </div>
+                <button onclick="authService.logout()" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> <span data-i18n="common.logout">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Profile Container -->
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h2 data-i18n="user.placeholderName">Loading...</h2>
+                    <div class="profile-email" data-i18n="user.placeholderEmail">user@example.com</div>
+                    <div class="profile-meta">
+                        <div>
+                            <i class="fas fa-calendar"></i>
+                            <span data-i18n="profile.meta.memberSince">Member since January 2024</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span data-i18n="profile.meta.location">Cairo, Egypt</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-calculator"></i>
+                            <span data-i18n="profile.meta.calculations">35 calculations</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn btn-primary" onclick="editProfile()">
+                            <i class="fas fa-edit"></i> <span data-i18n="profile.actions.edit">Edit Profile</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="changePassword()">
+                            <i class="fas fa-key"></i> <span data-i18n="profile.actions.changePassword">Change Password</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-sections">
+                <!-- Subscription Info -->
+                <div class="profile-section">
+                    <div class="subscription-info">
+                        <h3><i class="fas fa-crown"></i> <span data-i18n="profile.subscription.title">Professional Plan</span></h3>
+                        <div class="subscription-details">
+                            <div>
+                                <span data-i18n="profile.subscription.remaining">Time remaining:</span>
+                                <span style="font-weight: bold;" data-i18n="profile.subscription.remainingValue">15 days</span>
+                            </div>
+                            <div>
+                                <span data-i18n="profile.subscription.monthly">Monthly price:</span>
+                                <span style="font-weight: bold;" data-i18n="profile.subscription.monthlyValue">199 EGP</span>
+                            </div>
+                            <div>
+                                <span data-i18n="profile.subscription.type">Subscription type:</span>
+                                <span style="font-weight: bold;" data-i18n="profile.subscription.typeValue">Monthly</span>
+                            </div>
+                        </div>
+                        <div class="subscription-actions">
+                            <button class="btn btn-light" onclick="manageSubscription()">
+                                <i class="fas fa-cog"></i> <span data-i18n="profile.subscription.manage">Manage Subscription</span>
+                            </button>
+                            <button class="btn btn-success" onclick="upgradeSubscription()">
+                                <i class="fas fa-arrow-up"></i> <span data-i18n="profile.subscription.upgrade">Upgrade</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Usage Stats -->
+                <div class="profile-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-chart-pie"></i>
+                        <span data-i18n="profile.stats.title">Usage Stats</span>
+                    </h3>
+                    <div class="usage-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">35</div>
+                            <div class="stat-label" data-i18n="profile.stats.calculations">Calculations</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label" data-i18n="profile.stats.reports">Reports</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">15</div>
+                            <div class="stat-label" data-i18n="profile.stats.files">Saved Files</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Settings -->
+                <div class="profile-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-cog"></i>
+                        <span data-i18n="profile.settings.title">Account Settings</span>
+                    </h3>
+                    <div class="form-group">
+                        <label for="emailNotifications" data-i18n="profile.settings.emailNotifications">Email Notifications</label>
+                        <select id="emailNotifications">
+                            <option value="all" data-i18n="profile.settings.notifications.all">All notifications</option>
+                            <option value="important" data-i18n="profile.settings.notifications.important">Important only</option>
+                            <option value="none" data-i18n="profile.settings.notifications.none">None</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="language" data-i18n="profile.settings.language">Language</label>
+                        <select id="language">
+                            <option value="ar" data-i18n="language.arabic">العربية</option>
+                            <option value="en" data-i18n="language.english">English</option>
+                            <option value="fr" data-i18n="language.french">Français</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="timezone" data-i18n="profile.settings.timezone">Time zone</label>
+                        <select id="timezone">
+                            <option value="UTC+2" data-i18n="profile.settings.timezone.mecca">Mecca (UTC+2)</option>
+                            <option value="UTC+3" data-i18n="profile.settings.timezone.cairo">Cairo (UTC+3)</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveSettings()">
+                        <i class="fas fa-save"></i> <span data-i18n="profile.settings.save">Save Settings</span>
+                    </button>
+                </div>
+
+                <!-- Security -->
+                <div class="profile-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-shield-alt"></i>
+                        <span data-i18n="profile.security.title">Security</span>
+                    </h3>
+                    <div class="form-group">
+                        <label for="twoFactorAuth" data-i18n="profile.security.twoFactor">Two-factor authentication</label>
+                        <select id="twoFactorAuth">
+                            <option value="disabled" data-i18n="profile.security.twoFactor.disabled">Disabled</option>
+                            <option value="email" data-i18n="profile.security.twoFactor.email">Email</option>
+                            <option value="sms" data-i18n="profile.security.twoFactor.sms">SMS</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastLogin" data-i18n="profile.security.lastLogin">Last login</label>
+                        <input type="text" id="lastLogin" value="2024-02-10 14:30" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="activeSessions" data-i18n="profile.security.activeSessions">Active sessions</label>
+                        <input type="text" id="activeSessions" value="1" disabled>
+                    </div>
+                    <button class="btn btn-danger" onclick="logoutOtherSessions()">
+                        <i class="fas fa-sign-out-alt"></i> <span data-i18n="profile.security.logoutOthers">Sign out of other sessions</span>
+                    </button>
+                </div>
+
+                <!-- Delete Account -->
+                <div class="profile-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-trash"></i>
+                        <span data-i18n="profile.delete.title">Delete Account</span>
+                    </h3>
+                    <p style="color: #7f8c8d; margin-bottom: 20px;" data-i18n="profile.delete.warning">
+                        This action cannot be undone. All your data will be permanently deleted.
+                    </p>
+                    <button class="btn btn-danger" onclick="deleteAccount()">
+                        <i class="fas fa-trash-alt"></i> <span data-i18n="profile.delete.button">Delete Account</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared/js/i18n.js"></script>
+    <script src="shared/js/auth.js"></script>
+    <script src="shared/js/ai-service.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load user data
+            loadUserProfile();
+
+            const langSelect = document.getElementById('language-select');
+            if (langSelect) {
+                langSelect.addEventListener('change', (event) => {
+                    i18n.setLanguage(event.target.value);
+                });
+            }
+        });
+
+        function loadUserProfile() {
+            // This function would normally fetch data from API
+            console.log('Loading user profile data...');
+        }
+
+        function editProfile() {
+            alert(i18n.getTranslation('profile.alerts.editProfile'));
+        }
+
+        function changePassword() {
+            alert(i18n.getTranslation('profile.alerts.changePassword'));
+        }
+
+        function manageSubscription() {
+            alert(i18n.getTranslation('profile.alerts.manageSubscription'));
+        }
+
+        function upgradeSubscription() {
+            alert(i18n.getTranslation('profile.alerts.upgrade'));
+        }
+
+        function saveSettings() {
+            const notifications = document.getElementById('emailNotifications').value;
+            const language = document.getElementById('language').value;
+            const timezone = document.getElementById('timezone').value;
+            
+            const template = i18n.getTranslation('profile.alerts.settingsSaved');
+            alert(template
+                .replace('{notifications}', notifications)
+                .replace('{language}', language)
+                .replace('{timezone}', timezone));
+        }
+
+        function logoutOtherSessions() {
+            if (confirm(i18n.getTranslation('profile.alerts.logoutOthersConfirm'))) {
+                alert(i18n.getTranslation('profile.alerts.logoutOthersSuccess'));
+            }
+        }
+
+        function deleteAccount() {
+            if (confirm(i18n.getTranslation('profile.alerts.deleteConfirm'))) {
+                alert(i18n.getTranslation('profile.alerts.deleteSoon'));
+            }
+        }
+    </script>
+</body>
+</html>

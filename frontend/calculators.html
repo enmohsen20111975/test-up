@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="calculators.pageTitle">Engineering Calculations - EngiSuite Analytics Pro</title>
+    <link rel="stylesheet" href="shared/css/engisuite-theme.css">
+    <link rel="stylesheet" href="shared/css/calculators.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <select id="language-select" data-i18n-lang>
+            <option value="ar" data-i18n="language.arabic">العربية</option>
+            <option value="en" data-i18n="language.english">English</option>
+            <option value="fr" data-i18n="language.french">Français</option>
+        </select>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1><i class="fas fa-calculator"></i> <span data-i18n="app.shortName">EngiSuite</span></h1>
+            <p data-i18n="app.taglineShort">Advanced Engineering Tools</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i class="fas fa-home"></i> <span data-i18n="nav.dashboard">Dashboard</span></a></li>
+            <li><a href="calculators.html" class="active"><i class="fas fa-calculator"></i> <span data-i18n="nav.calculators">Engineering Calculations</span></a></li>
+            <li><a href="visual-workflow.html"><i class="fas fa-project-diagram"></i> <span data-i18n="nav.visualWorkflow">Visual Workflow Builder</span></a></li>
+            <li><a href="analytics.html"><i class="fas fa-chart-line"></i> <span data-i18n="nav.analytics">Data Analysis</span></a></li>
+            <li><a href="reports.html"><i class="fas fa-file-pdf"></i> <span data-i18n="nav.reports">Reports</span></a></li>
+            <li><a href="ai-assistant.html"><i class="fas fa-robot"></i> <span data-i18n="nav.aiAssistant">AI Assistant</span></a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i> <span data-i18n="nav.profile">Profile</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="user-profile">
+                <div class="user-avatar">م</div>
+                <div>
+                    <div style="font-weight: bold;" data-i18n="user.placeholderName">Loading...</div>
+                    <div style="font-size: 12px; color: #7f8c8d;" data-i18n="user.placeholderRole">Loading...</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="credits-display">
+                    <i class="fas fa-coins"></i> <span data-i18n="common.loading">Loading...</span>
+                </div>
+                <button onclick="authService.logout()" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> <span data-i18n="common.logout">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" data-i18n-placeholder="calculators.searchPlaceholder" placeholder="Search calculators...">
+        </div>
+        
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-category="all" data-i18n="calculators.filters.all">All Calculators</button>
+            <button class="filter-tab" data-category="electrical" data-i18n="calculators.filters.electrical">Electrical</button>
+            <button class="filter-tab" data-category="mechanical" data-i18n="calculators.filters.mechanical">Mechanical</button>
+            <button class="filter-tab" data-category="civil" data-i18n="calculators.filters.civil">Civil</button>
+        </div>
+
+        <!-- Calculators Grid -->
+        <div id="calculatorGrid" class="calculator-grid">
+            <!-- Calculators will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script src="shared/js/i18n.js"></script>
+    <script src="shared/js/auth.js"></script>
+    <script src="shared/js/ai-service.js"></script>
+    <script src="shared/js/calculators.js"></script>
+    <script>
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize language selector
+            const langSelect = document.getElementById('language-select');
+            langSelect.value = i18n.currentLang;
+            langSelect.addEventListener('change', (event) => {
+                i18n.setLanguage(event.target.value);
+            });
+
+            // Load user data
+            loadUserData();
+            
+            // Initialize calculators
+            initializeCalculators();
+        });
+
+        async function loadUserData() {
+            try {
+                const user = await authService.getCurrentUser();
+                currentUser = user;
+                
+                // Update user profile
+                const userProfile = document.querySelector('.user-profile');
+                if (userProfile) {
+                    const userNameElement = userProfile.querySelector('[data-i18n="user.placeholderName"]');
+                    const userRoleElement = userProfile.querySelector('[data-i18n="user.placeholderRole"]');
+                    const userAvatar = userProfile.querySelector('.user-avatar');
+                    
+                    if (userNameElement) {
+                        userNameElement.textContent = user.name || user.email.split('@')[0];
+                        userNameElement.removeAttribute('data-i18n');
+                    }
+                    
+                    if (userRoleElement) {
+                        userRoleElement.textContent = user.email;
+                        userRoleElement.removeAttribute('data-i18n');
+                    }
+                    
+                    if (userAvatar) {
+                        userAvatar.textContent = (user.name || user.email.split('@')[0]).charAt(0).toUpperCase();
+                    }
+                }
+                
+                // Update credits
+                updateCreditsDisplay(user);
+                
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                // Redirect to login if authentication fails
+                window.location.href = 'login.html';
+            }
+        }
+
+        function updateCreditsDisplay(user) {
+            const creditsLabel = i18n.getTranslation('common.credits');
+            const creditsDisplay = document.querySelector('.credits-display');
+            if (creditsDisplay) {
+                creditsDisplay.innerHTML = `<i class="fas fa-coins"></i> ${user.credits_remaining} ${creditsLabel}`;
+            }
+        }
+    </script>
+</body>
+</html>

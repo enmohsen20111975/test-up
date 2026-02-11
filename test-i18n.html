@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test i18n</title>
+</head>
+<body>
+    <div id="test-output"></div>
+    
+    <script src="frontend/shared/js/i18n.js"></script>
+    <script src="frontend/shared/js/calculators.js"></script>
+    <script>
+        try {
+            console.log('i18n:', i18n);
+            console.log('i18n.getTranslation:', typeof i18n.getTranslation);
+            
+            // Test some translation keys
+            const testKeys = [
+                'calc.electrical.load.title',
+                'calc.electrical.cableSizing.title',
+                'calc.electrical.transformerSizing.title',
+                'calc.mechanical.hvac.title'
+            ];
+            
+            const results = testKeys.map(key => {
+                try {
+                    const value = i18n.getTranslation(key);
+                    return { key, value, type: typeof value };
+                } catch (error) {
+                    return { key, error: error.message };
+                }
+            });
+            
+            document.getElementById('test-output').innerHTML = `
+                <h2>i18n Translation Test</h2>
+                <pre>${JSON.stringify(i18n, null, 2)}</pre>
+                <h3>Test Results:</h3>
+                <pre>${JSON.stringify(results, null, 2)}</pre>
+            `;
+            
+        } catch (error) {
+            console.error('Error testing i18n:', error);
+            document.getElementById('test-output').innerHTML = `
+                <div style="color: red;">
+                    <h3>Error Testing i18n</h3>
+                    <p>${error.message}</p>
+                    <pre>${error.stack}</pre>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

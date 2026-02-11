@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="dashboard.pageTitle">EngiSuite Analytics Pro - Dashboard</title>
+    <link rel="stylesheet" href="shared/css/engisuite-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Language switcher styles */
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .language-switcher select {
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <select id="language-select" data-i18n-lang>
+            <option value="ar" data-i18n="language.arabic">العربية</option>
+            <option value="en" data-i18n="language.english">English</option>
+            <option value="fr" data-i18n="language.french">Français</option>
+        </select>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1><i class="fas fa-calculator"></i> <span data-i18n="app.shortName">EngiSuite</span></h1>
+            <p data-i18n="app.taglineShort">Advanced Engineering Tools</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html" class="active"><i class="fas fa-home"></i> <span data-i18n="nav.dashboard">Dashboard</span></a></li>
+            <li><a href="calculators.html"><i class="fas fa-calculator"></i> <span data-i18n="nav.calculators">Engineering Calculations</span></a></li>
+            <li><a href="visual-workflow.html"><i class="fas fa-project-diagram"></i> <span data-i18n="nav.visualWorkflow">Visual Workflow Builder</span></a></li>
+            <li><a href="analytics.html"><i class="fas fa-chart-line"></i> <span data-i18n="nav.analytics">Data Analysis</span></a></li>
+            <li><a href="reports.html"><i class="fas fa-file-pdf"></i> <span data-i18n="nav.reports">Reports</span></a></li>
+            <li><a href="ai-assistant.html"><i class="fas fa-robot"></i> <span data-i18n="nav.aiAssistant">AI Assistant</span></a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i> <span data-i18n="nav.profile">Profile</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="user-profile" id="user-profile">
+                <div class="user-avatar">?</div>
+                <div>
+                    <div style="font-weight: bold;" id="user-name" data-i18n="common.loading">Loading...</div>
+                    <div style="font-size: 12px; color: #7f8c8d;" id="user-email" data-i18n="common.loading">Loading...</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="credits-display" id="credits-display">
+                    <i class="fas fa-coins"></i> <span data-i18n="common.loading">Loading...</span>
+                </div>
+                <button onclick="authService.logout()" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> <span data-i18n="common.logout">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Recent Calculations Widget -->
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="widget-title" data-i18n="dashboard.widgets.recentCalculations">Latest Calculations</div>
+                    <div class="widget-icon"><i class="fas fa-history"></i></div>
+                </div>
+                <div id="recentCalculations">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saved Reports Widget -->
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="widget-title" data-i18n="dashboard.widgets.savedReports">Saved Reports</div>
+                    <div class="widget-icon"><i class="fas fa-file-alt"></i></div>
+                </div>
+                <div id="savedReports">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions Widget -->
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="widget-title" data-i18n="dashboard.widgets.quickActions">Quick Actions</div>
+                    <div class="widget-icon"><i class="fas fa-bolt"></i></div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                    <button onclick="window.location.href='calculators.html?type=electrical'" class="btn btn-primary">
+                        <i class="fas fa-bolt"></i> <span data-i18n="dashboard.quickActions.electrical">Electrical</span>
+                    </button>
+                    <button onclick="window.location.href='calculators.html?type=mechanical'" class="btn btn-primary">
+                        <i class="fas fa-cog"></i> <span data-i18n="dashboard.quickActions.mechanical">Mechanical</span>
+                    </button>
+                    <button onclick="window.location.href='calculators.html?type=civil'" class="btn btn-primary">
+                        <i class="fas fa-building"></i> <span data-i18n="dashboard.quickActions.civil">Civil</span>
+                    </button>
+                    <button onclick="window.location.href='visual-workflow.html'" class="btn btn-primary">
+                        <i class="fas fa-project-diagram"></i> <span data-i18n="dashboard.quickActions.visualWorkflow">Visual Workflow</span>
+                    </button>
+                    <button onclick="window.location.href='analytics.html'" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> <span data-i18n="dashboard.quickActions.analytics">Data Analysis</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI Suggestions Widget -->
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="widget-title" data-i18n="dashboard.widgets.aiSuggestions">AI Suggestions</div>
+                    <div class="widget-icon"><i class="fas fa-lightbulb"></i></div>
+                </div>
+                <div id="aiSuggestions">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared/js/i18n.js"></script>
+    <script src="shared/js/auth.js"></script>
+    <script src="shared/js/ai-service.js"></script>
+    <script>
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize language selector
+            const langSelect = document.getElementById('language-select');
+            langSelect.value = i18n.currentLang;
+            langSelect.addEventListener('change', (event) => {
+                i18n.setLanguage(event.target.value);
+            });
+
+            document.addEventListener('i18n:changed', () => {
+                if (currentUser) {
+                    updateCreditsDisplay(currentUser);
+                }
+                loadRecentCalculations();
+                loadSavedReports();
+                loadAISuggestions();
+            });
+
+            // Load user data
+            loadUserData();
+            
+            // Load recent calculations
+            loadRecentCalculations();
+            
+            // Load saved reports
+            loadSavedReports();
+            
+            // Load AI suggestions
+            loadAISuggestions();
+        });
+
+        async function loadUserData() {
+            try {
+                const user = await authService.getCurrentUser();
+                currentUser = user;
+                
+                // Update user profile
+                document.getElementById('user-name').textContent = user.name || user.email.split('@')[0];
+                document.getElementById('user-email').textContent = user.email;
+                document.querySelector('.user-avatar').textContent = (user.name || user.email.split('@')[0]).charAt(0).toUpperCase();
+                
+                // Update credits
+                updateCreditsDisplay(user);
+                
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                // Redirect to login if authentication fails
+                window.location.href = 'login.html';
+            }
+        }
+
+        function updateCreditsDisplay(user) {
+            const creditsLabel = i18n.getTranslation('common.credits');
+            document.getElementById('credits-display').innerHTML = `<i class="fas fa-coins"></i> ${user.credits_remaining} ${creditsLabel}`;
+        }
+        
+        async function loadRecentCalculations() {
+            try {
+                const container = document.getElementById('recentCalculations');
+                // Mock data for demonstration
+                const calculations = [
+                    { id: 1, typeKey: 'dashboard.recentCalc.load', date: '2024-02-10', result: '12.5 A' },
+                    { id: 2, typeKey: 'dashboard.recentCalc.capacity', date: '2024-02-09', result: '350 kVA' },
+                    { id: 3, typeKey: 'dashboard.recentCalc.transformer', date: '2024-02-08', result: '450 kVA' }
+                ];
+                
+                container.innerHTML = calculations.map(calc => `
+                    <div style="padding: 10px; border-bottom: 1px solid #eee;">
+                        <div style="font-weight: bold;">${i18n.getTranslation(calc.typeKey)}</div>
+                        <div style="font-size: 12px; color: #7f8c8d;">${calc.date}</div>
+                        <div style="font-size: 18px; color: #2ecc71; font-weight: bold;">${calc.result}</div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading recent calculations:', error);
+                document.getElementById('recentCalculations').innerHTML = `<div class="error-message">${i18n.getTranslation('dashboard.errors.recentCalculations')}</div>`;
+            }
+        }
+        
+        async function loadSavedReports() {
+            try {
+                const container = document.getElementById('savedReports');
+                // Mock data for demonstration
+                const reports = [
+                    { id: 1, titleKey: 'dashboard.report.dailySite', date: '2024-02-10', type: 'PDF' },
+                    { id: 2, titleKey: 'dashboard.report.energyUsage', date: '2024-02-09', type: 'Excel' },
+                    { id: 3, titleKey: 'dashboard.report.monthly', date: '2024-02-01', type: 'PDF' }
+                ];
+                
+                container.innerHTML = reports.map(report => `
+                    <div style="padding: 10px; border-bottom: 1px solid #eee;">
+                        <div style="font-weight: bold;">${i18n.getTranslation(report.titleKey)}</div>
+                        <div style="font-size: 12px; color: #7f8c8d;">${report.date} • ${report.type}</div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading saved reports:', error);
+                document.getElementById('savedReports').innerHTML = `<div class="error-message">${i18n.getTranslation('dashboard.errors.savedReports')}</div>`;
+            }
+        }
+        
+        async function loadAISuggestions() {
+            try {
+                const container = document.getElementById('aiSuggestions');
+                // Mock AI suggestions for demonstration
+                const suggestions = [
+                    i18n.getTranslation('dashboard.aiSuggestion.transformerUpgrade'),
+                    i18n.getTranslation('dashboard.aiSuggestion.efficiency'),
+                    i18n.getTranslation('dashboard.aiSuggestion.powerFactor')
+                ];
+                
+                container.innerHTML = suggestions.map(suggestion => `
+                    <div style="padding: 10px; border-bottom: 1px solid #eee;">
+                        <i class="fas fa-lightbulb" style="color: #f39c12;"></i>
+                        <span style="margin-right: 5px;">${suggestion}</span>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading AI suggestions:', error);
+                document.getElementById('aiSuggestions').innerHTML = `<div class="error-message">${i18n.getTranslation('dashboard.errors.aiSuggestions')}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

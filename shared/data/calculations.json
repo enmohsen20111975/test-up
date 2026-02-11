@@ -1,0 +1,573 @@
+{
+  "version": "1.0",
+  "calculations": [
+    {
+      "id": "beam_bending_stress",
+      "domain": "civil",
+      "name": "Bending stress",
+      "equation": "sigma = M * c / I",
+      "variables": [
+        {"name": "bending_moment", "symbol": "M", "unit": "N*m", "description": "Applied bending moment"},
+        {"name": "distance_to_extreme_fiber", "symbol": "c", "unit": "m", "description": "Distance from neutral axis"},
+        {"name": "second_moment_of_area", "symbol": "I", "unit": "m^4", "description": "Section second moment"},
+        {"name": "bending_stress", "symbol": "sigma", "unit": "Pa", "description": "Extreme fiber stress"}
+      ]
+    },
+    {
+      "id": "beam_shear_stress",
+      "domain": "civil",
+      "name": "Shear stress (rectangular)",
+      "equation": "tau = 1.5 * V / A",
+      "variables": [
+        {"name": "shear_force", "symbol": "V", "unit": "N", "description": "Applied shear"},
+        {"name": "area", "symbol": "A", "unit": "m^2", "description": "Cross-sectional area"},
+        {"name": "shear_stress", "symbol": "tau", "unit": "Pa", "description": "Average shear stress"}
+      ]
+    },
+    {
+      "id": "beam_deflection_ss_udl",
+      "domain": "civil",
+      "name": "Deflection for simply supported beam (UDL)",
+      "equation": "delta_max = 5 * w * L^4 / (384 * E * I)",
+      "variables": [
+        {"name": "uniform_load", "symbol": "w", "unit": "N/m", "description": "Uniformly distributed load"},
+        {"name": "span", "symbol": "L", "unit": "m", "description": "Span length"},
+        {"name": "elastic_modulus", "symbol": "E", "unit": "Pa", "description": "Elastic modulus"},
+        {"name": "second_moment_of_area", "symbol": "I", "unit": "m^4", "description": "Section second moment"},
+        {"name": "deflection", "symbol": "delta_max", "unit": "m", "description": "Maximum deflection"}
+      ]
+    },
+    {
+      "id": "column_buckling_euler",
+      "domain": "civil",
+      "name": "Euler buckling load",
+      "equation": "Pcr = (pi^2 * E * I) / (K * L)^2",
+      "variables": [
+        {"name": "elastic_modulus", "symbol": "E", "unit": "Pa", "description": "Elastic modulus"},
+        {"name": "second_moment_of_area", "symbol": "I", "unit": "m^4", "description": "Section second moment"},
+        {"name": "effective_length_factor", "symbol": "K", "unit": "-", "description": "End condition factor"},
+        {"name": "length", "symbol": "L", "unit": "m", "description": "Column length"},
+        {"name": "critical_load", "symbol": "Pcr", "unit": "N", "description": "Critical buckling load"}
+      ]
+    },
+    {
+      "id": "axial_stress",
+      "domain": "civil",
+      "name": "Axial stress",
+      "equation": "sigma = P / A",
+      "variables": [
+        {"name": "axial_load", "symbol": "P", "unit": "N", "description": "Axial load"},
+        {"name": "area", "symbol": "A", "unit": "m^2", "description": "Cross-sectional area"},
+        {"name": "axial_stress", "symbol": "sigma", "unit": "Pa", "description": "Axial stress"}
+      ]
+    },
+    {
+      "id": "bearing_pressure",
+      "domain": "civil",
+      "name": "Soil bearing pressure",
+      "equation": "q = P / A",
+      "variables": [
+        {"name": "load", "symbol": "P", "unit": "N", "description": "Applied load"},
+        {"name": "area", "symbol": "A", "unit": "m^2", "description": "Footing area"},
+        {"name": "bearing_pressure", "symbol": "q", "unit": "Pa", "description": "Average pressure"}
+      ]
+    },
+    {
+      "id": "terzaghi_bearing_capacity",
+      "domain": "civil",
+      "name": "Terzaghi bearing capacity (strip footing)",
+      "equation": "qult = c * Nc + gamma * Df * Nq + 0.5 * gamma * B * Ngamma",
+      "variables": [
+        {"name": "cohesion", "symbol": "c", "unit": "Pa", "description": "Soil cohesion"},
+        {"name": "unit_weight", "symbol": "gamma", "unit": "N/m^3", "description": "Soil unit weight"},
+        {"name": "depth", "symbol": "Df", "unit": "m", "description": "Foundation depth"},
+        {"name": "width", "symbol": "B", "unit": "m", "description": "Footing width"},
+        {"name": "bearing_capacity", "symbol": "qult", "unit": "Pa", "description": "Ultimate bearing capacity"}
+      ]
+    },
+    {
+      "id": "settlement_elastic",
+      "domain": "civil",
+      "name": "Elastic settlement",
+      "equation": "S = (q * B * (1 - nu^2)) / (E_s) * I_s",
+      "variables": [
+        {"name": "pressure", "symbol": "q", "unit": "Pa", "description": "Applied pressure"},
+        {"name": "width", "symbol": "B", "unit": "m", "description": "Footing width"},
+        {"name": "poisson_ratio", "symbol": "nu", "unit": "-", "description": "Poisson ratio"},
+        {"name": "soil_modulus", "symbol": "E_s", "unit": "Pa", "description": "Soil modulus"},
+        {"name": "influence_factor", "symbol": "I_s", "unit": "-", "description": "Influence factor"},
+        {"name": "settlement", "symbol": "S", "unit": "m", "description": "Settlement"}
+      ]
+    },
+    {
+      "id": "retaining_wall_active_pressure",
+      "domain": "civil",
+      "name": "Active earth pressure (Rankine)",
+      "equation": "Pa = 0.5 * Ka * gamma * H^2",
+      "variables": [
+        {"name": "active_pressure_coeff", "symbol": "Ka", "unit": "-", "description": "Active earth pressure coefficient"},
+        {"name": "unit_weight", "symbol": "gamma", "unit": "N/m^3", "description": "Soil unit weight"},
+        {"name": "wall_height", "symbol": "H", "unit": "m", "description": "Retaining wall height"},
+        {"name": "active_force", "symbol": "Pa", "unit": "N/m", "description": "Resultant force"}
+      ]
+    },
+    {
+      "id": "manning_flow",
+      "domain": "civil",
+      "name": "Manning equation",
+      "equation": "Q = (1 / n) * A * R^(2/3) * S^(1/2)",
+      "variables": [
+        {"name": "flow_rate", "symbol": "Q", "unit": "m^3/s", "description": "Discharge"},
+        {"name": "roughness", "symbol": "n", "unit": "-", "description": "Manning roughness"},
+        {"name": "area", "symbol": "A", "unit": "m^2", "description": "Flow area"},
+        {"name": "hydraulic_radius", "symbol": "R", "unit": "m", "description": "Hydraulic radius"},
+        {"name": "slope", "symbol": "S", "unit": "-", "description": "Energy slope"}
+      ]
+    },
+    {
+      "id": "hazen_williams",
+      "domain": "civil",
+      "name": "Hazen-Williams head loss",
+      "equation": "hf = 10.67 * L * Q^1.852 / (C^1.852 * D^4.87)",
+      "variables": [
+        {"name": "head_loss", "symbol": "hf", "unit": "m", "description": "Head loss"},
+        {"name": "length", "symbol": "L", "unit": "m", "description": "Pipe length"},
+        {"name": "flow_rate", "symbol": "Q", "unit": "m^3/s", "description": "Flow rate"},
+        {"name": "hw_coefficient", "symbol": "C", "unit": "-", "description": "Hazen-Williams coefficient"},
+        {"name": "diameter", "symbol": "D", "unit": "m", "description": "Pipe diameter"}
+      ]
+    },
+    {
+      "id": "ohms_law",
+      "domain": "electrical",
+      "name": "Ohm's law",
+      "equation": "V = I * R",
+      "variables": [
+        {"name": "voltage", "symbol": "V", "unit": "V", "description": "Voltage"},
+        {"name": "current", "symbol": "I", "unit": "A", "description": "Current"},
+        {"name": "resistance", "symbol": "R", "unit": "ohm", "description": "Resistance"}
+      ]
+    },
+    {
+      "id": "electric_power_dc",
+      "domain": "electrical",
+      "name": "Electric power (DC)",
+      "equation": "P = V * I",
+      "variables": [
+        {"name": "power", "symbol": "P", "unit": "W", "description": "Power"},
+        {"name": "voltage", "symbol": "V", "unit": "V", "description": "Voltage"},
+        {"name": "current", "symbol": "I", "unit": "A", "description": "Current"}
+      ]
+    },
+    {
+      "id": "electric_power_ac_3ph",
+      "domain": "electrical",
+      "name": "Three-phase power",
+      "equation": "P = sqrt(3) * V_line * I_line * pf",
+      "variables": [
+        {"name": "power", "symbol": "P", "unit": "W", "description": "Power"},
+        {"name": "line_voltage", "symbol": "V_line", "unit": "V", "description": "Line voltage"},
+        {"name": "line_current", "symbol": "I_line", "unit": "A", "description": "Line current"},
+        {"name": "power_factor", "symbol": "pf", "unit": "-", "description": "Power factor"}
+      ]
+    },
+    {
+      "id": "power_factor",
+      "domain": "electrical",
+      "name": "Power factor",
+      "equation": "pf = P / S",
+      "variables": [
+        {"name": "power_factor", "symbol": "pf", "unit": "-", "description": "Power factor"},
+        {"name": "real_power", "symbol": "P", "unit": "W", "description": "Real power"},
+        {"name": "apparent_power", "symbol": "S", "unit": "VA", "description": "Apparent power"}
+      ]
+    },
+    {
+      "id": "apparent_power_3ph",
+      "domain": "electrical",
+      "name": "Three-phase apparent power",
+      "equation": "S = sqrt(3) * V_line * I_line",
+      "variables": [
+        {"name": "apparent_power", "symbol": "S", "unit": "VA", "description": "Apparent power"},
+        {"name": "line_voltage", "symbol": "V_line", "unit": "V", "description": "Line voltage"},
+        {"name": "line_current", "symbol": "I_line", "unit": "A", "description": "Line current"}
+      ]
+    },
+    {
+      "id": "voltage_drop_dc",
+      "domain": "electrical",
+      "name": "Voltage drop (DC)",
+      "equation": "Vd = I * R_total",
+      "variables": [
+        {"name": "voltage_drop", "symbol": "Vd", "unit": "V", "description": "Voltage drop"},
+        {"name": "current", "symbol": "I", "unit": "A", "description": "Load current"},
+        {"name": "total_resistance", "symbol": "R_total", "unit": "ohm", "description": "Loop resistance"}
+      ]
+    },
+    {
+      "id": "voltage_drop_3ph",
+      "domain": "electrical",
+      "name": "Voltage drop (3-phase)",
+      "equation": "Vd = sqrt(3) * I * (R * cos_phi + X * sin_phi) * L",
+      "variables": [
+        {"name": "voltage_drop", "symbol": "Vd", "unit": "V", "description": "Voltage drop"},
+        {"name": "current", "symbol": "I", "unit": "A", "description": "Line current"},
+        {"name": "resistance_per_length", "symbol": "R", "unit": "ohm/m", "description": "Resistance per length"},
+        {"name": "reactance_per_length", "symbol": "X", "unit": "ohm/m", "description": "Reactance per length"},
+        {"name": "line_length", "symbol": "L", "unit": "m", "description": "Line length"},
+        {"name": "power_factor_angle", "symbol": "phi", "unit": "rad", "description": "Power factor angle"}
+      ]
+    },
+    {
+      "id": "short_circuit_mva",
+      "domain": "electrical",
+      "name": "Short circuit from MVA",
+      "equation": "Isc = (MVA * 10^6) / (sqrt(3) * V_line)",
+      "variables": [
+        {"name": "short_circuit_current", "symbol": "Isc", "unit": "A", "description": "Fault current"},
+        {"name": "short_circuit_mva", "symbol": "MVA", "unit": "MVA", "description": "Short circuit level"},
+        {"name": "line_voltage", "symbol": "V_line", "unit": "V", "description": "Line voltage"}
+      ]
+    },
+    {
+      "id": "transformer_kva",
+      "domain": "electrical",
+      "name": "Transformer kVA",
+      "equation": "kVA = (P / pf) / 1000",
+      "variables": [
+        {"name": "real_power", "symbol": "P", "unit": "W", "description": "Real power"},
+        {"name": "power_factor", "symbol": "pf", "unit": "-", "description": "Power factor"},
+        {"name": "transformer_kva", "symbol": "kVA", "unit": "kVA", "description": "Transformer rating"}
+      ]
+    },
+    {
+      "id": "illumination_lumen_method",
+      "domain": "electrical",
+      "name": "Lumen method",
+      "equation": "N = (E * A) / (F * UF * MF)",
+      "variables": [
+        {"name": "fixture_count", "symbol": "N", "unit": "-", "description": "Number of fixtures"},
+        {"name": "illuminance", "symbol": "E", "unit": "lux", "description": "Target illuminance"},
+        {"name": "area", "symbol": "A", "unit": "m^2", "description": "Room area"},
+        {"name": "lamp_lumens", "symbol": "F", "unit": "lm", "description": "Lumens per fixture"},
+        {"name": "utilization_factor", "symbol": "UF", "unit": "-", "description": "Utilization factor"},
+        {"name": "maintenance_factor", "symbol": "MF", "unit": "-", "description": "Maintenance factor"}
+      ]
+    },
+    {
+      "id": "ground_resistance_rod",
+      "domain": "electrical",
+      "name": "Ground rod resistance",
+      "equation": "Rg = (rho / (2 * pi * L)) * (ln(4 * L / d) - 1)",
+      "variables": [
+        {"name": "soil_resistivity", "symbol": "rho", "unit": "ohm*m", "description": "Soil resistivity"},
+        {"name": "rod_length", "symbol": "L", "unit": "m", "description": "Rod length"},
+        {"name": "rod_diameter", "symbol": "d", "unit": "m", "description": "Rod diameter"},
+        {"name": "ground_resistance", "symbol": "Rg", "unit": "ohm", "description": "Grounding resistance"}
+      ]
+    },
+    {
+      "id": "reynolds_number",
+      "domain": "mechanical",
+      "name": "Reynolds number",
+      "equation": "Re = (rho * v * D) / mu",
+      "variables": [
+        {"name": "reynolds_number", "symbol": "Re", "unit": "-", "description": "Flow regime indicator"},
+        {"name": "density", "symbol": "rho", "unit": "kg/m^3", "description": "Fluid density"},
+        {"name": "velocity", "symbol": "v", "unit": "m/s", "description": "Flow velocity"},
+        {"name": "diameter", "symbol": "D", "unit": "m", "description": "Hydraulic diameter"},
+        {"name": "dynamic_viscosity", "symbol": "mu", "unit": "Pa*s", "description": "Dynamic viscosity"}
+      ]
+    },
+    {
+      "id": "darcy_weisbach",
+      "domain": "mechanical",
+      "name": "Darcy-Weisbach head loss",
+      "equation": "hf = f * (L/D) * (v^2 / (2 * g))",
+      "variables": [
+        {"name": "head_loss", "symbol": "hf", "unit": "m", "description": "Head loss"},
+        {"name": "friction_factor", "symbol": "f", "unit": "-", "description": "Friction factor"},
+        {"name": "length", "symbol": "L", "unit": "m", "description": "Pipe length"},
+        {"name": "diameter", "symbol": "D", "unit": "m", "description": "Pipe diameter"},
+        {"name": "velocity", "symbol": "v", "unit": "m/s", "description": "Flow velocity"},
+        {"name": "gravity", "symbol": "g", "unit": "m/s^2", "description": "Gravity"}
+      ]
+    },
+    {
+      "id": "continuity_flow",
+      "domain": "mechanical",
+      "name": "Continuity equation",
+      "equation": "Q = A * v",
+      "variables": [
+        {"name": "flow_rate", "symbol": "Q", "unit": "m^3/s", "description": "Flow rate"},
+        {"name": "area", "symbol": "A", "unit": "m^2", "description": "Flow area"},
+        {"name": "velocity", "symbol": "v", "unit": "m/s", "description": "Flow velocity"}
+      ]
+    },
+    {
+      "id": "pump_power",
+      "domain": "mechanical",
+      "name": "Pump power",
+      "equation": "P = (rho * g * Q * H) / eta",
+      "variables": [
+        {"name": "power", "symbol": "P", "unit": "W", "description": "Pump power"},
+        {"name": "density", "symbol": "rho", "unit": "kg/m^3", "description": "Fluid density"},
+        {"name": "gravity", "symbol": "g", "unit": "m/s^2", "description": "Gravity"},
+        {"name": "flow_rate", "symbol": "Q", "unit": "m^3/s", "description": "Flow rate"},
+        {"name": "head", "symbol": "H", "unit": "m", "description": "Total head"},
+        {"name": "efficiency", "symbol": "eta", "unit": "-", "description": "Pump efficiency"}
+      ]
+    },
+    {
+      "id": "fan_power",
+      "domain": "mechanical",
+      "name": "Fan power",
+      "equation": "P = (Q * delta_p) / eta",
+      "variables": [
+        {"name": "power", "symbol": "P", "unit": "W", "description": "Fan power"},
+        {"name": "flow_rate", "symbol": "Q", "unit": "m^3/s", "description": "Airflow"},
+        {"name": "pressure_rise", "symbol": "delta_p", "unit": "Pa", "description": "Pressure rise"},
+        {"name": "efficiency", "symbol": "eta", "unit": "-", "description": "Fan efficiency"}
+      ]
+    },
+    {
+      "id": "heat_transfer_conduction",
+      "domain": "mechanical",
+      "name": "Heat transfer by conduction",
+      "equation": "Q = k * A * (T1 - T2) / L",
+      "variables": [
+        {"name": "heat_flow", "symbol": "Q", "unit": "W", "description": "Heat flow"},
+        {"name": "thermal_conductivity", "symbol": "k", "unit": "W/m*K", "description": "Thermal conductivity"},
+        {"name": "area", "symbol": "A", "unit": "m^2", "description": "Area"},
+        {"name": "temperature_hot", "symbol": "T1", "unit": "K", "description": "Hot side temperature"},
+        {"name": "temperature_cold", "symbol": "T2", "unit": "K", "description": "Cold side temperature"},
+        {"name": "thickness", "symbol": "L", "unit": "m", "description": "Thickness"}
+      ]
+    },
+    {
+      "id": "heat_transfer_convection",
+      "domain": "mechanical",
+      "name": "Heat transfer by convection",
+      "equation": "Q = h * A * (T_surface - T_inf)",
+      "variables": [
+        {"name": "heat_flow", "symbol": "Q", "unit": "W", "description": "Heat flow"},
+        {"name": "convection_coeff", "symbol": "h", "unit": "W/m^2*K", "description": "Convection coefficient"},
+        {"name": "area", "symbol": "A", "unit": "m^2", "description": "Area"},
+        {"name": "surface_temp", "symbol": "T_surface", "unit": "K", "description": "Surface temperature"},
+        {"name": "ambient_temp", "symbol": "T_inf", "unit": "K", "description": "Ambient temperature"}
+      ]
+    },
+    {
+      "id": "hvac_sensible_load",
+      "domain": "mechanical",
+      "name": "Sensible cooling load",
+      "equation": "Qs = 1.2 * Vdot * (T_in - T_out)",
+      "variables": [
+        {"name": "sensible_load", "symbol": "Qs", "unit": "kW", "description": "Sensible load"},
+        {"name": "airflow", "symbol": "Vdot", "unit": "m^3/s", "description": "Airflow rate"},
+        {"name": "temp_in", "symbol": "T_in", "unit": "C", "description": "Indoor temp"},
+        {"name": "temp_out", "symbol": "T_out", "unit": "C", "description": "Outdoor temp"}
+      ]
+    },
+    {
+      "id": "hvac_latent_load",
+      "domain": "mechanical",
+      "name": "Latent cooling load",
+      "equation": "Ql = 3000 * Vdot * (W_in - W_out)",
+      "variables": [
+        {"name": "latent_load", "symbol": "Ql", "unit": "kW", "description": "Latent load"},
+        {"name": "airflow", "symbol": "Vdot", "unit": "m^3/s", "description": "Airflow rate"},
+        {"name": "humidity_ratio_in", "symbol": "W_in", "unit": "kg/kg", "description": "Indoor humidity ratio"},
+        {"name": "humidity_ratio_out", "symbol": "W_out", "unit": "kg/kg", "description": "Outdoor humidity ratio"}
+      ]
+    },
+    {
+      "id": "cop",
+      "domain": "mechanical",
+      "name": "Coefficient of performance",
+      "equation": "COP = Qc / W",
+      "variables": [
+        {"name": "cop", "symbol": "COP", "unit": "-", "description": "Coefficient of performance"},
+        {"name": "cooling_capacity", "symbol": "Qc", "unit": "kW", "description": "Cooling capacity"},
+        {"name": "input_power", "symbol": "W", "unit": "kW", "description": "Input power"}
+      ]
+    },
+    {
+      "id": "ideal_gas",
+      "domain": "mechanical",
+      "name": "Ideal gas law",
+      "equation": "P * V = n * R * T",
+      "variables": [
+        {"name": "pressure", "symbol": "P", "unit": "Pa", "description": "Pressure"},
+        {"name": "volume", "symbol": "V", "unit": "m^3", "description": "Volume"},
+        {"name": "moles", "symbol": "n", "unit": "mol", "description": "Moles"},
+        {"name": "gas_constant", "symbol": "R", "unit": "J/mol*K", "description": "Gas constant"},
+        {"name": "temperature", "symbol": "T", "unit": "K", "description": "Absolute temperature"}
+      ]
+    },
+    {
+      "id": "compressor_power",
+      "domain": "mechanical",
+      "name": "Compressor power (isentropic)",
+      "equation": "P = (k/(k-1)) * (R * T1) * ((P2/P1)^((k-1)/k) - 1) / eta",
+      "variables": [
+        {"name": "power", "symbol": "P", "unit": "W", "description": "Compressor power"},
+        {"name": "k", "symbol": "k", "unit": "-", "description": "Specific heat ratio"},
+        {"name": "gas_constant", "symbol": "R", "unit": "J/kg*K", "description": "Gas constant"},
+        {"name": "temp_in", "symbol": "T1", "unit": "K", "description": "Inlet temperature"},
+        {"name": "pressure_in", "symbol": "P1", "unit": "Pa", "description": "Inlet pressure"},
+        {"name": "pressure_out", "symbol": "P2", "unit": "Pa", "description": "Outlet pressure"},
+        {"name": "efficiency", "symbol": "eta", "unit": "-", "description": "Isentropic efficiency"}
+      ]
+    },
+    {
+      "id": "civil_shear_moment_diagram",
+      "domain": "civil",
+      "name": "Shear and Moment Diagram",
+      "equation": "V(x) = -w*x, M(x) = -0.5*w*x^2",
+      "variables": [
+        {"name": "shear_force", "symbol": "V", "unit": "N", "description": "Shear force at distance x"},
+        {"name": "bending_moment", "symbol": "M", "unit": "N*m", "description": "Bending moment at distance x"},
+        {"name": "uniform_load", "symbol": "w", "unit": "N/m", "description": "Uniformly distributed load"},
+        {"name": "distance", "symbol": "x", "unit": "m", "description": "Distance from support"}
+      ]
+    },
+    {
+      "id": "civil_slope_deflection",
+      "domain": "civil",
+      "name": "Slope-Deflection Equation",
+      "equation": "M_AB = (2*EI/L)*(2*theta_A + theta_B - 3*(delta/L)) + M_F_AB",
+      "variables": [
+        {"name": "moment_ab", "symbol": "M_AB", "unit": "N*m", "description": "Moment at A for beam AB"},
+        {"name": "elastic_modulus", "symbol": "E", "unit": "Pa", "description": "Elastic modulus"},
+        {"name": "second_moment_of_area", "symbol": "I", "unit": "m^4", "description": "Section second moment"},
+        {"name": "span_length", "symbol": "L", "unit": "m", "description": "Span length"},
+        {"name": "slope_a", "symbol": "theta_A", "unit": "rad", "description": "Slope at A"},
+        {"name": "slope_b", "symbol": "theta_B", "unit": "rad", "description": "Slope at B"},
+        {"name": "deflection", "symbol": "delta", "unit": "m", "description": "Lateral deflection"},
+        {"name": "fixed_end_moment", "symbol": "M_F_AB", "unit": "N*m", "description": "Fixed-end moment"}
+      ]
+    },
+    {
+      "id": "civil_modified_coulomb",
+      "domain": "civil",
+      "name": "Modified Coulomb Failure",
+      "equation": "tau = c + sigma * tan(phi)",
+      "variables": [
+        {"name": "shear_strength", "symbol": "tau", "unit": "Pa", "description": "Shear strength"},
+        {"name": "cohesion", "symbol": "c", "unit": "Pa", "description": "Cohesion"},
+        {"name": "normal_stress", "symbol": "sigma", "unit": "Pa", "description": "Normal stress"},
+        {"name": "friction_angle", "symbol": "phi", "unit": "rad", "description": "Friction angle"}
+      ]
+    },
+    {
+      "id": "electrical_inductive_reactance",
+      "domain": "electrical",
+      "name": "Inductive Reactance",
+      "equation": "X_L = 2 * pi * f * L",
+      "variables": [
+        {"name": "inductive_reactance", "symbol": "X_L", "unit": "ohm", "description": "Inductive reactance"},
+        {"name": "frequency", "symbol": "f", "unit": "Hz", "description": "Frequency"},
+        {"name": "inductance", "symbol": "L", "unit": "H", "description": "Inductance"}
+      ]
+    },
+    {
+      "id": "electrical_capacitive_reactance",
+      "domain": "electrical",
+      "name": "Capacitive Reactance",
+      "equation": "X_C = 1 / (2 * pi * f * C)",
+      "variables": [
+        {"name": "capacitive_reactance", "symbol": "X_C", "unit": "ohm", "description": "Capacitive reactance"},
+        {"name": "frequency", "symbol": "f", "unit": "Hz", "description": "Frequency"},
+        {"name": "capacitance", "symbol": "C", "unit": "F", "description": "Capacitance"}
+      ]
+    },
+    {
+      "id": "electrical_impedance_series",
+      "domain": "electrical",
+      "name": "Series Impedance",
+      "equation": "Z = sqrt(R^2 + (X_L - X_C)^2)",
+      "variables": [
+        {"name": "impedance", "symbol": "Z", "unit": "ohm", "description": "Total impedance"},
+        {"name": "resistance", "symbol": "R", "unit": "ohm", "description": "Resistance"},
+        {"name": "inductive_reactance", "symbol": "X_L", "unit": "ohm", "description": "Inductive reactance"},
+        {"name": "capacitive_reactance", "symbol": "X_C", "unit": "ohm", "description": "Capacitive reactance"}
+      ]
+    },
+    {
+      "id": "electrical_transformer_impedance",
+      "domain": "electrical",
+      "name": "Transformer Impedance",
+      "equation": "Z_pu = (V_sc / V_rated) * (100 / S_rated)",
+      "variables": [
+        {"name": "per_unit_impedance", "symbol": "Z_pu", "unit": "-", "description": "Per unit impedance"},
+        {"name": "short_circuit_voltage", "symbol": "V_sc", "unit": "V", "description": "Short circuit voltage"},
+        {"name": "rated_voltage", "symbol": "V_rated", "unit": "V", "description": "Rated voltage"},
+        {"name": "rated_power", "symbol": "S_rated", "unit": "VA", "description": "Rated power"}
+      ]
+    },
+    {
+      "id": "mechanical_moment_of_inertia_rect",
+      "domain": "mechanical",
+      "name": "Moment of Inertia (Rectangle)",
+      "equation": "I = (b * h^3) / 12",
+      "variables": [
+        {"name": "moment_of_inertia", "symbol": "I", "unit": "m^4", "description": "Moment of inertia"},
+        {"name": "base_width", "symbol": "b", "unit": "m", "description": "Base width"},
+        {"name": "height", "symbol": "h", "unit": "m", "description": "Height"}
+      ]
+    },
+    {
+      "id": "mechanical_torsion_stress",
+      "domain": "mechanical",
+      "name": "Torsion Shear Stress",
+      "equation": "tau = (T * r) / J",
+      "variables": [
+        {"name": "shear_stress", "symbol": "tau", "unit": "Pa", "description": "Shear stress"},
+        {"name": "torque", "symbol": "T", "unit": "N*m", "description": "Torque"},
+        {"name": "radius", "symbol": "r", "unit": "m", "description": "Radius"},
+        {"name": "polar_moment", "symbol": "J", "unit": "m^4", "description": "Polar moment of inertia"}
+      ]
+    },
+    {
+      "id": "mechanical_thermal_expansion",
+      "domain": "mechanical",
+      "name": "Thermal Expansion",
+      "equation": "delta_L = alpha * L0 * delta_T",
+      "variables": [
+        {"name": "length_change", "symbol": "delta_L", "unit": "m", "description": "Change in length"},
+        {"name": "thermal_coefficient", "symbol": "alpha", "unit": "1/K", "description": "Thermal expansion coefficient"},
+        {"name": "initial_length", "symbol": "L0", "unit": "m", "description": "Initial length"},
+        {"name": "temperature_change", "symbol": "delta_T", "unit": "K", "description": "Temperature change"}
+      ]
+    },
+    {
+      "id": "mechanical_bernoulli",
+      "domain": "mechanical",
+      "name": "Bernoulli Equation",
+      "equation": "P1/rho + 0.5*v1^2 + g*z1 = P2/rho + 0.5*v2^2 + g*z2",
+      "variables": [
+        {"name": "pressure1", "symbol": "P1", "unit": "Pa", "description": "Pressure at point 1"},
+        {"name": "pressure2", "symbol": "P2", "unit": "Pa", "description": "Pressure at point 2"},
+        {"name": "density", "symbol": "rho", "unit": "kg/m^3", "description": "Fluid density"},
+        {"name": "velocity1", "symbol": "v1", "unit": "m/s", "description": "Velocity at point 1"},
+        {"name": "velocity2", "symbol": "v2", "unit": "m/s", "description": "Velocity at point 2"},
+        {"name": "gravity", "symbol": "g", "unit": "m/s^2", "description": "Gravity"},
+        {"name": "elevation1", "symbol": "z1", "unit": "m", "description": "Elevation at point 1"},
+        {"name": "elevation2", "symbol": "z2", "unit": "m", "description": "Elevation at point 2"}
+      ]
+    },
+    {
+      "id": "mechanical_heat_exchanger",
+      "domain": "mechanical",
+      "name": "Heat Exchanger LMTD",
+      "equation": "Q = U * A * LMTD",
+      "variables": [
+        {"name": "heat_transfer", "symbol": "Q", "unit": "W", "description": "Heat transfer rate"},
+        {"name": "overall_coeff", "symbol": "U", "unit": "W/m^2*K", "description": "Overall heat transfer coefficient"},
+        {"name": "area", "symbol": "A", "unit": "m^2", "description": "Heat transfer area"},
+        {"name": "log_mean_temp_diff", "symbol": "LMTD", "unit": "K", "description": "Log mean temperature difference"}
+      ]
+    }
+  ]
+}
