@@ -1,0 +1,461 @@
+/* ================================================
+   Shared Lesson System - CSS
+   EngiSuite Analytics Learning Platform
+   ================================================ */
+
+/* Lesson-specific CSS Variables */
+:root {
+    --lesson-primary: #3b82f6;
+    --lesson-primary-dark: #2563eb;
+    --lesson-secondary: #22c55e;
+    --lesson-warning: #f59e0b;
+    --lesson-danger: #ef4444;
+    --lesson-info: #0ea5e9;
+    --lesson-bg-primary: #f8fafc;
+    --lesson-bg-secondary: #ffffff;
+    --lesson-text-primary: #1e293b;
+    --lesson-text-secondary: #64748b;
+    --lesson-border: #e2e8f0;
+    --lesson-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --lesson-radius: 0.75rem;
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+    --lesson-bg-primary: #1a1a2e;
+    --lesson-bg-secondary: #16213e;
+    --lesson-text-primary: #eaeaea;
+    --lesson-text-secondary: #94a3b8;
+    --lesson-border: #334155;
+}
+
+/* Base Lesson Styles */
+.lesson-content {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.8;
+}
+
+.lesson-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1.5rem 0 1rem;
+    color: var(--lesson-text-primary);
+}
+
+.lesson-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.25rem 0 0.75rem;
+    color: var(--lesson-text-primary);
+}
+
+.lesson-content h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem;
+    color: var(--lesson-text-primary);
+}
+
+.lesson-content p {
+    margin-bottom: 1rem;
+    color: var(--lesson-text-secondary);
+}
+
+.lesson-content ul,
+.lesson-content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.lesson-content li {
+    margin-bottom: 0.5rem;
+    color: var(--lesson-text-secondary);
+}
+
+/* Formula Cards */
+.formula-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    color: white;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.formula-card .formula {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Times New Roman', serif;
+}
+
+.formula-card .description {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.formula-card.accent-blue {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+}
+
+.formula-card.accent-green {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.formula-card.accent-orange {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+}
+
+.formula-card.accent-red {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+/* Info, Warning, Success Boxes */
+.info-box {
+    background: #dbeafe;
+    border-left: 4px solid var(--lesson-primary);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}
+
+[data-theme="dark"] .info-box {
+    background: rgba(59, 130, 246, 0.15);
+}
+
+.warning-box {
+    background: #fef3c7;
+    border-left: 4px solid var(--lesson-warning);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}
+
+[data-theme="dark"] .warning-box {
+    background: rgba(245, 158, 11, 0.15);
+}
+
+.success-box {
+    background: #dcfce7;
+    border-left: 4px solid var(--lesson-secondary);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}
+
+[data-theme="dark"] .success-box {
+    background: rgba(34, 197, 94, 0.15);
+}
+
+.info-box,
+.warning-box,
+.success-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.info-box i,
+.warning-box i,
+.success-box i {
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+/* Math Formula Display */
+.math-formula {
+    overflow-x: auto;
+    padding: 1rem 0;
+    background: var(--lesson-bg-primary);
+    border-radius: var(--lesson-radius);
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+[data-theme="dark"] .math-formula {
+    background: var(--lesson-bg-secondary);
+}
+
+/* Step Indicators */
+.step-indicator {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.step-dot {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.step-active {
+    background: var(--lesson-primary);
+    color: white;
+}
+
+.step-inactive {
+    background: var(--lesson-border);
+    color: var(--lesson-text-secondary);
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content .font-medium {
+    color: var(--lesson-text-primary);
+}
+
+.step-content .text-sm {
+    color: var(--lesson-text-secondary);
+}
+
+/* Quiz Styles */
+.quiz-container {
+    background: var(--lesson-bg-primary);
+    border-radius: var(--lesson-radius);
+    padding: 1.5rem;
+}
+
+.quiz-question {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--lesson-text-primary);
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.quiz-option {
+    padding: 1rem;
+    border: 2px solid var(--lesson-border);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quiz-option:hover {
+    border-color: var(--lesson-primary);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.quiz-option.selected {
+    border-color: var(--lesson-primary);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.quiz-option.correct {
+    border-color: var(--lesson-secondary);
+    background: rgba(34, 197, 94, 0.1);
+}
+
+.quiz-option.incorrect {
+    border-color: var(--lesson-danger);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.quiz-option.correct::after {
+    content: " ✓";
+    color: var(--lesson-secondary);
+}
+
+.quiz-option.incorrect::after {
+    content: " ✗";
+    color: var(--lesson-danger);
+}
+
+.quiz-feedback {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: none;
+}
+
+.quiz-feedback.correct {
+    display: block;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid var(--lesson-secondary);
+    color: #166534;
+}
+
+.quiz-feedback.incorrect {
+    display: block;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--lesson-danger);
+    color: #991b1b;
+}
+
+/* Takeaway Card */
+.takeaway-card {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    border-radius: var(--lesson-radius);
+    padding: 1.5rem;
+    color: white;
+}
+
+.takeaway-card ul {
+    list-style: none;
+    margin-left: 0;
+}
+
+.takeaway-card li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.takeaway-card li:last-child {
+    border-bottom: none;
+}
+
+.takeaway-card li::before {
+    content: "✓";
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+/* Problem Card */
+.problem-card {
+    border: 1px solid var(--lesson-border);
+    border-radius: var(--lesson-radius);
+    padding: 1.5rem;
+    background: var(--lesson-bg-secondary);
+    margin-bottom: 1rem;
+}
+
+.problem-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.difficulty-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+}
+
+.difficulty-badge.easy {
+    background: rgba(34, 197, 94, 0.1);
+    color: #166534;
+}
+
+.difficulty-badge.medium {
+    background: rgba(245, 158, 11, 0.1);
+    color: #92400e;
+}
+
+.difficulty-badge.hard {
+    background: rgba(239, 68, 68, 0.1);
+    color: #991b1b;
+}
+
+.solution-content {
+    background: var(--lesson-bg-primary);
+    border-radius: var(--lesson-radius);
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+/* Navigation Buttons */
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--lesson-border);
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--lesson-radius);
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+}
+
+.nav-btn.prev {
+    background: var(--lesson-bg-primary);
+    color: var(--lesson-text-primary);
+    border: 1px solid var(--lesson-border);
+}
+
+.nav-btn.prev:hover {
+    background: var(--lesson-border);
+}
+
+.nav-btn.next {
+    background: var(--lesson-primary);
+    color: white;
+}
+
+.nav-btn.next:hover {
+    background: var(--lesson-primary-dark);
+}
+
+.nav-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Lesson Topic Highlight */
+.lesson-topic {
+    font-weight: 500;
+    color: var(--lesson-primary);
+    background: rgba(59, 130, 246, 0.1);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+}
+
+/* Circuit Diagram Styles */
+.circuit-diagram {
+    background: var(--lesson-bg-primary);
+    border-radius: var(--lesson-radius);
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+
+.circuit-canvas {
+    width: 100%;
+    min-height: 200px;
+}
+
+/* Electron Animation */
+.electron {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #fbbf24;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #fbbf24;
+    transition: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .lesson-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+    }
+
+    .nav-btn {
+        justify-content: center;
+    }
+}

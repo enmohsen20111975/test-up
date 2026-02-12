@@ -1,0 +1,47 @@
+<!-- Theory Section Component -->
+<section class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6" aria-labelledby="theory-heading">
+    <h2 id="theory-heading" class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+        <i class="fas fa-book-open mr-2 text-primary-600"></i>[[i18n.theory]]
+    </h2>
+
+    <div class="lesson-content prose dark:prose-invert max-w-none">
+        {{content}}
+
+        <!-- Dynamic Content Blocks -->
+        {{#each blocks}}
+        <div class="{{typeClass}}" role="{{role}}">
+            <div class="flex items-start gap-3">
+                <i class="{{iconClass}} mt-1"></i>
+                <div>
+                    {{#if title}}<strong>{{title}}:</strong>{{/if}}
+                    <p>{{text}}</p>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+        <!-- Math Formulas -->
+        {{#each formulas}}
+        <div class="math-formula bg-gray-50 dark:bg-gray-800 rounded-lg p-4 my-4">
+            $${{formula}}$$
+            {{#if description}}<p class="text-sm text-gray-500 mt-2">{{description}}</p>{{/if}}
+        </div>
+        {{/each}}
+
+        <!-- Step-by-Step Procedure -->
+        {{#if steps}}
+        <h3>{{stepsTitle}}</h3>
+        <div class="space-y-3">
+            {{#each steps}}
+            <div class="step-indicator">
+                <div class="step-dot {{statusClass}}">{{stepNumber}}</div>
+                <div class="step-content">
+                    <p class="font-medium">{{title}}</p>
+                    <p class="text-sm text-gray-500">{{description}}</p>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+    </div>
+</section>

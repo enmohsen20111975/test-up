@@ -1,0 +1,476 @@
+{
+    "helpCenter": {
+        "title": "EngiSuite Analytics Help Center",
+        "description": "Your comprehensive guide to using the engineering learning platform",
+        "categories": [
+            {
+                "id": "getting-started",
+                "title": "Getting Started",
+                "icon": "fa-play-circle",
+                "articles": [
+                    {
+                        "id": "welcome",
+                        "title": "Welcome to EngiSuite Analytics",
+                        "slug": "welcome",
+                        "content": {
+                            "overview": "EngiSuite Analytics is a comprehensive engineering learning platform covering Electrical, Mechanical, and Civil engineering disciplines.",
+                            "features": [
+                                {
+                                    "title": "Interactive Lessons",
+                                    "description": "Structured courses with theory, simulations, and practice problems"
+                                },
+                                {
+                                    "title": "Real-time Calculations",
+                                    "description": "Perform engineering calculations directly in your browser"
+                                },
+                                {
+                                    "title": "Progress Tracking",
+                                    "description": "Monitor your learning journey with detailed progress analytics"
+                                },
+                                {
+                                    "title": "Multi-language Support",
+                                    "description": "Access content in English, Arabic, and French"
+                                }
+                            ],
+                            "gettingStarted": [
+                                "Create an account or sign in",
+                                "Select your engineering discipline",
+                                "Browse available courses and lessons",
+                                "Start learning at your own pace"
+                            ]
+                        }
+                    },
+                    {
+                        "id": "navigation",
+                        "title": "Platform Navigation Guide",
+                        "slug": "navigation",
+                        "content": {
+                            "overview": "Learn how to navigate the EngiSuite Analytics platform efficiently.",
+                            "sections": [
+                                {
+                                    "title": "Main Navigation",
+                                    "items": [
+                                        "Dashboard: View your courses and progress",
+                                        "Learning Center: Access all engineering courses",
+                                        "Calculators: Use engineering calculation tools",
+                                        "Analytics: Track your performance",
+                                        "Profile: Manage your account settings"
+                                    ]
+                                },
+                                {
+                                    "title": "Lesson Interface",
+                                    "items": [
+                                        "Sidebar: Learning objectives and quick navigation",
+                                        "Main content: Theory and lesson material",
+                                        "Simulations: Interactive engineering simulations",
+                                        "Practice: Test your knowledge with problems"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "electrical",
+                "title": "Electrical Engineering",
+                "icon": "fa-bolt",
+                "articles": [
+                    {
+                        "id": "electrical-fundamentals",
+                        "title": "Electrical Fundamentals",
+                        "slug": "electrical-fundamentals",
+                        "content": {
+                            "overview": "Master the core concepts of electrical engineering including circuits, power systems, and electronics.",
+                            "topics": [
+                                {
+                                    "title": "Circuit Analysis",
+                                    "description": "Learn Ohm's Law, Kirchhoff's laws, and techniques for analyzing series, parallel, and combination circuits."
+                                },
+                                {
+                                    "title": "Power Systems",
+                                    "description": "Explore power generation, transmission, distribution, and the operation of electrical grids."
+                                },
+                                {
+                                    "title": "Electronics",
+                                    "description": "Study semiconductor devices, diodes, transistors, and electronic circuits."
+                                },
+                                {
+                                    "title": "Digital Electronics",
+                                    "description": "Understand binary systems, logic gates, and digital circuit design."
+                                }
+                            ],
+                            "formulas": [
+                                {
+                                    "name": "Ohm's Law",
+                                    "formula": "V = I × R"
+                                },
+                                {
+                                    "name": "Power",
+                                    "formula": "P = V × I = I² × R"
+                                }
+                            ],
+                            "relatedCalculators": [
+                                "Ohm's Law Calculator",
+                                "Series/Parallel Resistance Calculator",
+                                "Power Calculator"
+                            ]
+                        }
+                    },
+                    {
+                        "id": "circuit-analysis-guide",
+                        "title": "Circuit Analysis Guide",
+                        "slug": "circuit-analysis",
+                        "content": {
+                            "overview": "A comprehensive guide to analyzing electrical circuits using various methods.",
+                            "methods": [
+                                {
+                                    "name": "Ohm's Law",
+                                    "description": "The most basic circuit analysis method. Use when you know two of V, I, or R.",
+                                    "formula": "V = I × R"
+                                },
+                                {
+                                    "name": "Kirchhoff's Current Law (KCL)",
+                                    "description": "Sum of currents entering a node equals sum of currents leaving.",
+                                    "formula": "ΣI_in = ΣI_out"
+                                },
+                                {
+                                    "name": "Kirchhoff's Voltage Law (KVL)",
+                                    "description": "Sum of voltages around any closed loop equals zero.",
+                                    "formula": "ΣV = 0"
+                                },
+                                {
+                                    "name": "Nodal Analysis",
+                                    "description": "Apply KCL at nodes to solve for node voltages."
+                                },
+                                {
+                                    "name": "Mesh Analysis",
+                                    "description": "Apply KVL around meshes to solve for mesh currents."
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "mechanical",
+                "title": "Mechanical Engineering",
+                "icon": "fa-cogs",
+                "articles": [
+                    {
+                        "id": "mechanical-fundamentals",
+                        "title": "Mechanical Fundamentals",
+                        "slug": "mechanical-fundamentals",
+                        "content": {
+                            "overview": "Explore core mechanical engineering principles including statics, dynamics, thermodynamics, and materials science.",
+                            "topics": [
+                                {
+                                    "title": "Statics and Dynamics",
+                                    "description": "Study forces on stationary and moving bodies, equilibrium, and motion."
+                                },
+                                {
+                                    "title": "Thermodynamics",
+                                    "description": "Understand heat, work, energy conversion, and efficiency of mechanical systems."
+                                },
+                                {
+                                    "title": "Mechanics of Materials",
+                                    "description": "Learn stress, strain, deformation, and failure analysis of materials."
+                                },
+                                {
+                                    "title": "Machine Design",
+                                    "description": "Apply engineering principles to design mechanical components and systems."
+                                }
+                            ],
+                            "keyFormulas": [
+                                {
+                                    "name": "Newton's Second Law",
+                                    "formula": "F = m × a"
+                                },
+                                {
+                                    "name": "Work",
+                                    "formula": "W = F × d"
+                                },
+                                {
+                                    "name": "First Law of Thermodynamics",
+                                    "formula": "ΔU = Q - W"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": "thermodynamics-guide",
+                        "title": "Thermodynamics Guide",
+                        "slug": "thermodynamics",
+                        "content": {
+                            "overview": "Understanding heat and energy transformation in mechanical systems.",
+                            "concepts": [
+                                {
+                                    "title": "System and Surroundings",
+                                    "description": "System: region of interest. Surroundings: everything else interacting with the system."
+                                },
+                                {
+                                    "title": "Properties",
+                                    "description": "State variables describing system condition: temperature, pressure, volume, internal energy."
+                                },
+                                {
+                                    "title": "Processes",
+                                    "description": "Changes from one state to another: isothermal, adiabatic, isobaric, isochoric."
+                                },
+                                {
+                                    "title": "Cycles",
+                                    "description": "Series of processes returning to initial state. Examples: Carnot, Rankine, Otto, Diesel cycles."
+                                }
+                            ],
+                            "laws": [
+                                {
+                                    "number": "First Law",
+                                    "statement": "Energy cannot be created or destroyed, only transformed.",
+                                    "formula": "ΔU = Q - W"
+                                },
+                                {
+                                    "number": "Second Law",
+                                    "statement": "Heat cannot spontaneously flow from cold to hot. No heat engine can be 100% efficient.",
+                                    "formula": "η ≤ 1 - Tc/Th"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "civil",
+                "title": "Civil Engineering",
+                "icon": "fa-hard-hat",
+                "articles": [
+                    {
+                        "id": "civil-fundamentals",
+                        "title": "Civil Engineering Fundamentals",
+                        "slug": "civil-fundamentals",
+                        "content": {
+                            "overview": "Master structural analysis, geotechnics, construction engineering, and infrastructure design.",
+                            "topics": [
+                                {
+                                    "title": "Structural Analysis",
+                                    "description": "Analyze beams, frames, trusses, and determine internal forces and deflections."
+                                },
+                                {
+                                    "title": "Geotechnical Engineering",
+                                    "description": "Study soil mechanics, foundation design, and earth retention structures."
+                                },
+                                {
+                                    "title": "Construction Engineering",
+                                    "description": "Learn construction methods, project scheduling, and management techniques."
+                                },
+                                {
+                                    "title": "Transportation Engineering",
+                                    "description": "Design highways, traffic analysis, and transportation systems."
+                                }
+                            ],
+                            "softwareTools": [
+                                "Beam Analysis Calculator",
+                                "Foundation Design Tool",
+                                "Retaining Wall Calculator"
+                            ]
+                        }
+                    },
+                    {
+                        "id": "structural-analysis-guide",
+                        "title": "Structural Analysis Guide",
+                        "slug": "structural-analysis",
+                        "content": {
+                            "overview": "Methods for determining internal forces in structures.",
+                            "topics": [
+                                {
+                                    "title": "Determinate Structures",
+                                    "description": "Can be solved using equilibrium equations alone."
+                                },
+                                {
+                                    "title": "Indeterminate Structures",
+                                    "description": "Require compatibility conditions in addition to equilibrium."
+                                },
+                                {
+                                    "title": "Shear and Moment Diagrams",
+                                    "description": "Visual representation of internal forces along a beam."
+                                },
+                                {
+                                    "title": "Influence Lines",
+                                    "description": "Show effect of moving loads on structural members."
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "calculators",
+                "title": "Engineering Calculators",
+                "icon": "fa-calculator",
+                "articles": [
+                    {
+                        "id": "using-calculators",
+                        "title": "Using Engineering Calculators",
+                        "slug": "using-calculators",
+                        "content": {
+                            "overview": "EngiSuite Analytics provides a comprehensive suite of engineering calculators.",
+                            "calculatorCategories": [
+                                {
+                                    "name": "Electrical",
+                                    "calculators": [
+                                        "Ohm's Law Calculator",
+                                        "Series/Parallel Resistance",
+                                        "Voltage Divider Calculator",
+                                        "Power Calculator",
+                                        "AC Circuit Analysis"
+                                    ]
+                                },
+                                {
+                                    "name": "Mechanical",
+                                    "calculators": [
+                                        "Beam Stress Calculator",
+                                        "Gear Ratio Calculator",
+                                        "Thermodynamic Properties",
+                                        "Heat Transfer Calculator"
+                                    ]
+                                },
+                                {
+                                    "name": "Civil",
+                                    "calculators": [
+                                        "Beam Analysis",
+                                        "Foundation Design",
+                                        "Concrete Mix Calculator",
+                                        "Earth Pressure Calculator"
+                                    ]
+                                }
+                            ],
+                            "tips": [
+                                "Always check units before calculating",
+                                "Use scientific notation for very large or small numbers",
+                                "Save your calculation results for later reference"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "account",
+                "title": "Account & Settings",
+                "icon": "fa-user-cog",
+                "articles": [
+                    {
+                        "id": "profile-management",
+                        "title": "Managing Your Profile",
+                        "slug": "profile-management",
+                        "content": {
+                            "overview": "Customize your EngiSuite Analytics experience.",
+                            "settings": [
+                                {
+                                    "title": "Language Preferences",
+                                    "description": "Choose your preferred language for the interface and content."
+                                },
+                                {
+                                    "title": "Theme",
+                                    "description": "Switch between light and dark mode for comfortable viewing."
+                                },
+                                {
+                                    "title": "Notifications",
+                                    "description": "Configure which notifications you receive."
+                                },
+                                {
+                                    "title": "Privacy",
+                                    "description": "Control your data sharing and visibility settings."
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": "progress-tracking",
+                        "title": "Tracking Your Progress",
+                        "slug": "progress-tracking",
+                        "content": {
+                            "overview": "Monitor your learning journey with detailed analytics.",
+                            "features": [
+                                {
+                                    "title": "Course Completion",
+                                    "description": "Track which courses you've completed and your overall progress."
+                                },
+                                {
+                                    "title": "Quiz Scores",
+                                    "description": "View your performance on practice problems and assessments."
+                                },
+                                {
+                                    "title": "Study Streak",
+                                    "description": "Maintain your learning consistency with daily activity tracking."
+                                },
+                                {
+                                    "title": "Achievements",
+                                    "description": "Earn badges and certificates for reaching milestones."
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "troubleshooting",
+                "title": "Troubleshooting",
+                "icon": "fa-tools",
+                "articles": [
+                    {
+                        "id": "common-issues",
+                        "title": "Common Issues and Solutions",
+                        "slug": "common-issues",
+                        "content": {
+                            "overview": "Find solutions to frequently encountered problems.",
+                            "issues": [
+                                {
+                                    "problem": "Calculations not updating",
+                                    "solution": "Check that all required fields are filled. Clear browser cache and refresh the page."
+                                },
+                                {
+                                    "problem": "Simulations not loading",
+                                    "solution": "Ensure JavaScript is enabled. Try using a different browser."
+                                },
+                                {
+                                    "problem": "Progress not saving",
+                                    "solution": "Make sure you're logged in. Check browser storage permissions."
+                                },
+                                {
+                                    "problem": "Slow performance",
+                                    "solution": "Close unnecessary tabs, reduce animation effects, or try a wired internet connection."
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": "technical-requirements",
+                        "title": "Technical Requirements",
+                        "slug": "technical-requirements",
+                        "content": {
+                            "overview": "System requirements for optimal platform performance.",
+                            "requirements": [
+                                {
+                                    "browser": "Chrome 90+, Firefox 88+, Safari 14+, Edge 90+",
+                                    "javascript": "Enabled",
+                                    "cookies": "Enabled",
+                                    "connection": "Stable internet connection (minimum 5 Mbps)"
+                                }
+                            ],
+                            "features": [
+                                "MathJax for mathematical notation",
+                                "Canvas for interactive simulations",
+                                "WebGL for 3D visualizations"
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "searchPlaceholder": "Search for help articles...",
+        "contactSupport": {
+            "title": "Need More Help?",
+            "description": "Contact our support team for personalized assistance.",
+            "email": "support@engisuite.com",
+            "responseTime": "Within 24 hours"
+        }
+    }
+}

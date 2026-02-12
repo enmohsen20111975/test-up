@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 5: Parallel Circuits | EE Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../shared/css/styles.css">
+    <style>
+        .parallel-circuit {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(14, 165, 233, 0.05) 100%);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .parallel-node {
+            fill: #f97316;
+        }
+
+        .current-arrow {
+            fill: #0ea5e9;
+        }
+    </style>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%236366f1' d='M50 10 L60 40 L90 50 L60 60 L50 90 L40 60 L10 50 L40 40 Z'/%3E%3C/svg%3E">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="../../../index.html"
+                        style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
+                        <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+                            <circle cx="20" cy="20" r="18" stroke="white" stroke-width="2" fill="none" />
+                            <path d="M20 8 L20 20 L28 28" stroke="#6366f1" stroke-width="3" stroke-linecap="round"
+                                fill="none" />
+                            <circle cx="20" cy="20" r="3" fill="white" />
+                        </svg>
+                        <h1 style="font-size: 1.25rem; margin: 0; color: white;">EE Mastery</h1>
+                    </a>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav"></nav>
+            <div class="p-4 mt-auto border-t border-gray-700">
+                <div class="text-xs text-gray-400 mb-2">Course Progress</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="text-xs text-gray-400 mt-2" id="progressText">0% Complete</div>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="content-header">
+                <div class="container">
+                    <div class="flex items-center justify-between">
+                        <button class="menu-toggle lg:hidden btn btn-icon" id="menuToggle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M3 12h18M3 6h18M3 18h18" />
+                            </svg>
+                        </button>
+                        <div class="breadcrumb">
+                            <a href="../../../index.html">Home</a><span>/</span><a href="index.html">Chapter
+                                1</a><span>/</span><span>Lesson 5</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <a href="06-series-parallel-circuits.html" class="btn btn-secondary">Next Lesson <svg
+                                    class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg></a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="content-body">
+                <div class="container">
+                    <article class="article-content">
+                        <h1>Parallel Circuits</h1>
+                        <div class="info-box note">
+                            <div class="info-box-title"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 16v-4M12 8h.01" />
+                                </svg>Learning Objectives</div>
+                            <ul>
+                                <li>Understand parallel circuit characteristics and branching</li>
+                                <li>Apply parallel rules: same voltage, currents add, reciprocal resistance</li>
+                                <li>Calculate equivalent resistance using parallel formulas</li>
+                                <li>Understand current dividers in parallel circuits</li>
+                            </ul>
+                        </div>
+
+                        <section id="parallel-basics">
+                            <h2>What is a Parallel Circuit?</h2>
+                            <p>In a parallel circuit, components are connected across common points, creating multiple
+                                paths for current to flow. Each branch operates independently.</p>
+
+                            <div class="parallel-circuit">
+                                <h3 class="text-lg font-semibold mb-4">Parallel Circuit Visualization</h3>
+                                <svg viewBox="0 0 600 250" width="100%" height="250">
+                                    <!-- Battery -->
+                                    <rect x="20" y="100" width="30" height="50" fill="#1e293b" stroke="#10b981"
+                                        stroke-width="2" />
+                                    <text x="35" y="115" font-size="10" fill="#10b981" text-anchor="middle">+</text>
+                                    <text x="35" y="140" font-size="10" fill="#ef4444" text-anchor="middle">−</text>
+
+                                    <!-- Top rail -->
+                                    <line x1="50" y1="125" x2="550" y2="125" stroke="#10b981" stroke-width="4" />
+
+                                    <!-- Bottom rail -->
+                                    <line x1="50" y1="175" x2="550" y2="175" stroke="#10b981" stroke-width="4" />
+
+                                    <!-- Branch 1 - R1 -->
+                                    <line x1="120" y1="125" x2="120" y2="145" stroke="#10b981" stroke-width="3" />
+                                    <rect x="100" y="145" width="40" height="30" rx="2" fill="#1e293b" stroke="#6366f1"
+                                        stroke-width="2" />
+                                    <text x="120" y="165" font-size="12" fill="#6366f1" text-anchor="middle"
+                                        font-weight="bold">R₁</text>
+                                    <line x1="120" y1="175" x2="120" y2="175" stroke="#10b981" stroke-width="3" />
+
+                                    <!-- Branch 2 - R2 -->
+                                    <line x1="250" y1="125" x2="250" y2="145" stroke="#10b981" stroke-width="3" />
+                                    <rect x="230" y="145" width="40" height="30" rx="2" fill="#1e293b" stroke="#6366f1"
+                                        stroke-width="2" />
+                                    <text x="250" y="165" font-size="12" fill="#6366f1" text-anchor="middle"
+                                        font-weight="bold">R₂</text>
+                                    <line x1="250" y1="175" x2="250" y2="175" stroke="#10b981" stroke-width="3" />
+
+                                    <!-- Branch 3 - R3 -->
+                                    <line x1="380" y1="125" x2="380" y2="145" stroke="#10b981" stroke-width="3" />
+                                    <rect x="360" y="145" width="40" height="30" rx="2" fill="#1e293b" stroke="#6366f1"
+                                        stroke-width="2" />
+                                    <text x="380" y="165" font-size="12" fill="#6366f1" text-anchor="middle"
+                                        font-weight="bold">R₃</text>
+                                    <line x1="380" y1="175" x2="380" y2="175" stroke="#10b981" stroke-width="3" />
+
+                                    <!-- Nodes -->
+                                    <circle cx="50" cy="125" r="6" class="parallel-node" />
+                                    <circle cx="550" cy="125" r="6" class="parallel-node" />
+                                    <circle cx="50" cy="175" r="6" class="parallel-node" />
+                                    <circle cx="550" cy="175" r="6" class="parallel-node" />
+
+                                    <!-- Current arrows -->
+                                    <text x="120" y="100" font-size="12" fill="#0ea5e9" text-anchor="middle">I₁</text>
+                                    <text x="250" y="100" font-size="12" fill="#0ea5e9" text-anchor="middle">I₂</text>
+                                    <text x="380" y="100" font-size="12" fill="#0ea5e9" text-anchor="middle">I₃</text>
+                                    <text x="500" y="100" font-size="12" fill="#10b981"
+                                        text-anchor="middle">I_total</text>
+
+                                    <text x="500" y="150" font-size="12" fill="#f97316" text-anchor="middle">V across
+                                        all</text>
+                                </svg>
+                                <p class="text-center text-sm text-gray-400 mt-2">Multiple paths for current - voltage
+                                    is same across all branches</p>
+                            </div>
+                        </section>
+
+                        <!-- Parallel Rules -->
+                        <section id="parallel-rules">
+                            <h2>Parallel Circuit Rules</h2>
+
+                            <div class="card p-6 mb-4" style="border-left: 4px solid #10b981;">
+                                <h4 class="font-semibold mb-2">Rule 1: Same Voltage</h4>
+                                <p class="text-gray-400">The voltage is the same across all branches in a parallel
+                                    circuit.</p>
+                                <div class="formula"><span class="formula-label">Voltage</span>V₁ = V₂ = V₃ = ... =
+                                    V_source</div>
+                            </div>
+
+                            <div class="card p-6 mb-4" style="border-left: 4px solid #0ea5e9;">
+                                <h4 class="font-semibold mb-2">Rule 2: Currents Add</h4>
+                                <p class="text-gray-400">The total current is the sum of currents through each branch.
+                                </p>
+                                <div class="formula"><span class="formula-label">Current Sum</span>I_total = I₁ + I₂ +
+                                    I₃ + ...</div>
+                            </div>
+
+                            <div class="card p-6 mb-4" style="border-left: 4px solid #6366f1;">
+                                <h4 class="font-semibold mb-2">Rule 3: Reciprocal Resistance</h4>
+                                <p class="text-gray-400">The reciprocal of total resistance equals sum of reciprocals.
+                                </p>
+                                <div class="formula"><span class="formula-label">Parallel Resistance</span>1/R_total =
+                                    1/R₁ + 1/R₂ + 1/R₃ + ...</div>
+                            </div>
+
+                            <div class="info-box tip">
+                                <div class="info-box-title">💡 Quick Formula</div>
+                                <p>For two resistors in parallel: <strong>R_total = (R₁ × R₂) / (R₁ + R₂)</strong></p>
+                            </div>
+                        </section>
+
+                        <!-- Interactive Calculator -->
+                        <section id="calculator">
+                            <h2>Parallel Circuit Calculator</h2>
+                            <div class="parallel-circuit">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-semibold mb-4">Circuit Parameters</h4>
+                                        <div class="interactive-calc">
+                                            <div class="slider-group">
+                                                <label>Voltage Source:</label>
+                                                <input type="range" id="parallelV" min="1" max="48" value="24"
+                                                    oninput="calcParallel()">
+                                                <span class="slider-value" id="parallelVval">24 V</span>
+                                            </div>
+                                            <div class="slider-group">
+                                                <label>Resistor R₁:</label>
+                                                <input type="range" id="parallelR1" min="1" max="100" value="10"
+                                                    oninput="calcParallel()">
+                                                <span class="slider-value" id="parallelR1val">10 Ω</span>
+                                            </div>
+                                            <div class="slider-group">
+                                                <label>Resistor R₂:</label>
+                                                <input type="range" id="parallelR2" min="1" max="100" value="20"
+                                                    oninput="calcParallel()">
+                                                <span class="slider-value" id="parallelR2val">20 Ω</span>
+                                            </div>
+                                            <div class="slider-group">
+                                                <label>Resistor R₃:</label>
+                                                <input type="range" id="parallelR3" min="1" max="100" value="30"
+                                                    oninput="calcParallel()">
+                                                <span class="slider-value" id="parallelR3val">30 Ω</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-4">Calculated Results</h4>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #6366f1;">
+                                                <div class="text-xs text-gray-400">Total R</div>
+                                                <div class="text-xl font-bold" style="color: #6366f1;" id="parallelRt">
+                                                    5.45 Ω</div>
+                                            </div>
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #10b981;">
+                                                <div class="text-xs text-gray-400">Voltage (all)</div>
+                                                <div class="text-xl font-bold" style="color: #10b981;"
+                                                    id="parallelVdisplay">24 V</div>
+                                            </div>
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #0ea5e9;">
+                                                <div class="text-xs text-gray-400">Current I₁</div>
+                                                <div class="text-xl font-bold" style="color: #0ea5e9;" id="parallelI1">
+                                                    2.40 A</div>
+                                            </div>
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #0ea5e9;">
+                                                <div class="text-xs text-gray-400">Current I₂</div>
+                                                <div class="text-xl font-bold" style="color: #0ea5e9;" id="parallelI2">
+                                                    1.20 A</div>
+                                            </div>
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #0ea5e9;">
+                                                <div class="text-xs text-gray-400">Current I₃</div>
+                                                <div class="text-xl font-bold" style="color: #0ea5e9;" id="parallelI3">
+                                                    0.80 A</div>
+                                            </div>
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #f97316;">
+                                                <div class="text-xs text-gray-400">Total Current</div>
+                                                <div class="text-xl font-bold" style="color: #f97316;" id="parallelIt">
+                                                    4.40 A</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Current Divider -->
+                        <section id="current-divider">
+                            <h2>Current Divider Rule</h2>
+                            <p>In parallel circuits, current divides inversely proportional to resistance.</p>
+
+                            <div class="formula">
+                                <span class="formula-label">Current Divider Formula</span>
+                                I_x = I_total × (R_total / R_x)
+                            </div>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Configuration</th>
+                                        <th>Formula</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Two Resistors</td>
+                                        <td>I₁ = I × R₂/(R₁+R₂)</td>
+                                        <td>Lower R = Higher I</td>
+                                    </tr>
+                                    <tr>
+                                        <td>General</td>
+                                        <td>I_n = I × (R_eq / R_n)</td>
+                                        <td>More branches = less R_eq</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                        <!-- Advantages -->
+                        <section id="advantages">
+                            <h2>Why Use Parallel Circuits?</h2>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="card p-4">
+                                    <h4 class="font-semibold mb-2 text-emerald-400">✓ Independent Operation</h4>
+                                    <p class="text-sm text-gray-400">Each branch works independently - one component
+                                        failing doesn't affect others.</p>
+                                </div>
+                                <div class="card p-4">
+                                    <h4 class="font-semibold mb-2 text-emerald-400">✓ Constant Voltage</h4>
+                                    <p class="text-sm text-gray-400">All components get the same full source voltage.
+                                    </p>
+                                </div>
+                                <div class="card p-4">
+                                    <h4 class="font-semibold mb-2 text-emerald-400">✓ Easy to Add Loads</h4>
+                                    <p class="text-sm text-gray-400">Adding components doesn't reduce voltage to
+                                        existing ones.</p>
+                                </div>
+                                <div class="card p-4">
+                                    <h4 class="font-semibold mb-2 text-emerald-400">✓ Lower Total Resistance</h4>
+                                    <p class="text-sm text-gray-400">More branches = lower equivalent resistance.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="summary">
+                            <h2>Summary</h2>
+                            <ul>
+                                <li><strong>Parallel Circuit</strong>: Multiple paths, components across common points
+                                </li>
+                                <li><strong>Same Voltage</strong>: V is constant across all parallel branches</li>
+                                <li><strong>Currents Add</strong>: I_total = I₁ + I₂ + I₃ + ...</li>
+                                <li><strong>1/R_total = 1/R₁ + 1/R₂ + ...</strong> for parallel resistance</li>
+                                <li><strong>Two resistors</strong>: R_eq = (R₁ × R₂)/(R₁ + R₂)</li>
+                            </ul>
+                        </section>
+
+                        <section class="mt-12 pt-8 border-t border-gray-700">
+                            <div class="flex justify-between">
+                                <a href="04-series-circuits.html" class="btn btn-secondary"><svg class="w-4 h-4 mr-2"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                                    </svg>Previous</a>
+                                <a href="06-series-parallel-circuits.html" class="btn btn-primary">Next: Series-Parallel
+                                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg></a>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="text-sm text-gray-400">© 2024 Electrical Engineering Mastery</div>
+                        <div class="footer-links"><a href="#">About</a><a href="#">Contact</a><a href="#">Privacy</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        function calcParallel() {
+            const V = parseFloat(document.getElementById('parallelV').value);
+            const R1 = parseFloat(document.getElementById('parallelR1').value);
+            const R2 = parseFloat(document.getElementById('parallelR2').value);
+            const R3 = parseFloat(document.getElementById('parallelR3').value);
+
+            document.getElementById('parallelVval').textContent = V + ' V';
+            document.getElementById('parallelR1val').textContent = R1 + ' Ω';
+            document.getElementById('parallelR2val').textContent = R2 + ' Ω';
+            document.getElementById('parallelR3val').textContent = R3 + ' Ω';
+
+            // Calculate equivalent resistance
+            const Rt = 1 / (1 / R1 + 1 / R2 + 1 / R3);
+            const I1 = V / R1;
+            const I2 = V / R2;
+            const I3 = V / R3;
+            const It = I1 + I2 + I3;
+
+            document.getElementById('parallelRt').textContent = Rt.toFixed(2) + ' Ω';
+            document.getElementById('parallelVdisplay').textContent = V + ' V';
+            document.getElementById('parallelI1').textContent = I1.toFixed(2) + ' A';
+            document.getElementById('parallelI2').textContent = I2.toFixed(2) + ' A';
+            document.getElementById('parallelI3').textContent = I3.toFixed(2) + ' A';
+            document.getElementById('parallelIt').textContent = It.toFixed(2) + ' A';
+        }
+    </script>
+    <script src="../../shared/js/state.js"></script>
+    <script src="../../shared/js/navigation.js"></script>
+    <script src="../../shared/js/router.js"></script>
+    <script src="../../shared/js/app.js"></script>
+</body>
+
+</html>

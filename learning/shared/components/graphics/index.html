@@ -1,0 +1,162 @@
+<!-- Engineering Graphics Components Index -->
+<!-- This file loads all discipline-specific graphics components -->
+
+<!-- Electrical Engineering Graphics -->
+<div id="electrical-graphics" class="graphics-container" data-discipline="electrical">
+    <!-- Load electrical-circuits.html -->
+    <link rel="import" href="electrical-circuits.html">
+</div>
+
+<!-- Mechanical Engineering Graphics -->
+<div id="mechanical-graphics" class="graphics-container" data-discipline="mechanical">
+    <!-- Load mechanical-graphics.html -->
+    <link rel="import" href="mechanical-graphics.html">
+</div>
+
+<!-- Civil Engineering Graphics -->
+<div id="civil-graphics" class="graphics-container" data-discipline="civil">
+    <!-- Load civil-graphics.html -->
+    <link rel="import" href="civil-graphics.html">
+</div>
+
+<!-- Common Interactive Elements -->
+<div id="common-graphics" class="graphics-container" data-discipline="all">
+    <!-- Unit Conversion Widget -->
+    <div class="unit-converter-widget" id="unit-converter" aria-label="Unit Converter">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+            <h4 class="font-semibold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
+                <i class="fas fa-exchange-alt text-primary-600"></i>
+                Unit Converter
+            </h4>
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">From</label>
+                    <input type="number" id="unit-from-value" class="w-full px-2 py-1 border rounded text-sm"
+                        placeholder="Enter value">
+                    <select id="unit-from-type" class="w-full mt-1 px-2 py-1 border rounded text-sm">
+                        <option value="m">Meters (m)</option>
+                        <option value="cm">Centimeters (cm)</option>
+                        <option value="mm">Millimeters (mm)</option>
+                        <option value="ft">Feet (ft)</option>
+                        <option value="in">Inches (in)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">To</label>
+                    <div id="unit-to-value"
+                        class="w-full px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm font-mono">
+                        -
+                    </div>
+                    <select id="unit-to-type" class="w-full mt-1 px-2 py-1 border rounded text-sm">
+                        <option value="m">Meters (m)</option>
+                        <option value="cm" selected>Centimeters (cm)</option>
+                        <option value="mm">Millimeters (mm)</option>
+                        <option value="ft">Feet (ft)</option>
+                        <option value="in">Inches (in)</option>
+                    </select>
+                </div>
+            </div>
+            <button onclick="convertUnits()"
+                class="w-full mt-3 px-3 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition">
+                Convert
+            </button>
+        </div>
+    </div>
+
+    <!-- Formula Reference Card -->
+    <div class="formula-reference" id="formula-reference" aria-label="Formula Reference">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+            <h4 class="font-semibold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
+                <i class="fas fa-square-root-alt text-primary-600"></i>
+                Quick Reference
+            </h4>
+            <div class="formula-grid grid grid-cols-2 gap-2 text-sm">
+                <div class="formula-item p-2 bg-gray-50 dark:bg-gray-700 rounded">
+                    <span class="block text-xs text-gray-500">Area</span>
+                    <span class="font-mono text-primary-600">A = πr²</span>
+                </div>
+                <div class="formula-item p-2 bg-gray-50 dark:bg-gray-700 rounded">
+                    <span class="block text-xs text-gray-500">Volume</span>
+                    <span class="font-mono text-primary-600">V = πr²h</span>
+                </div>
+                <div class="formula-item p-2 bg-gray-50 dark:bg-gray-700 rounded">
+                    <span class="block text-xs text-gray-500">Force</span>
+                    <span class="font-mono text-primary-600">F = ma</span>
+                </div>
+                <div class="formula-item p-2 bg-gray-50 dark:bg-gray-700 rounded">
+                    <span class="block text-xs text-gray-500">Power</span>
+                    <span class="font-mono text-primary-600">P = W/t</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Glossary Tooltip -->
+    <div class="glossary-tooltip" id="glossary-tooltip" role="tooltip" aria-hidden="true">
+        <div class="glossary-content bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 max-w-xs">
+            <h5 class="font-semibold text-gray-800 dark:text-white" id="glossary-term"></h5>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1" id="glossary-definition"></p>
+            <div class="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+                <span class="text-xs text-gray-500">Related terms:</span>
+                <div class="flex flex-wrap gap-1 mt-1" id="glossary-related"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Animation Utilities -->
+<style>
+    .circuit-graphic,
+    .mechanical-graphic,
+    .civil-graphic {
+        transition: all 0.3s ease;
+    }
+
+    .circuit-graphic:hover,
+    .mechanical-graphic:hover,
+    .civil-graphic:hover {
+        transform: scale(1.02);
+    }
+
+    .circuit-graphic svg,
+    .mechanical-graphic svg,
+    .civil-graphic svg {
+        overflow: visible;
+    }
+
+    .circuit-graphic svg *,
+    .mechanical-graphic svg *,
+    .civil-graphic svg * {
+        transition: all 0.2s ease;
+    }
+
+    .circuit-graphic:hover svg,
+    .mechanical-graphic:hover svg,
+    .civil-graphic:hover svg {
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    }
+</style>
+
+<!-- Graphics Loading Script -->
+<script>
+    /**
+     * Load graphics component for a specific discipline
+     */
+    function loadGraphics(discipline) {
+        const container = document.getElementById(`${discipline}-graphics`);
+        if (container && !container.dataset.loaded) {
+            // Graphics are already included via import statements
+            container.dataset.loaded = 'true';
+            console.log(`Loaded ${discipline} graphics components`);
+        }
+    }
+
+    /**
+     * Initialize all graphics on page load
+     */
+    document.addEventListener('DOMContentLoaded', function () {
+        ['electrical', 'mechanical', 'civil'].forEach(discipline => {
+            loadGraphics(discipline);
+        });
+    });
+</script>

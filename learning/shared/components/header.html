@@ -1,0 +1,56 @@
+<!-- Lesson Header Component -->
+<header class="bg-[var(--bg-secondary)] shadow-md sticky top-0 z-50" role="banner">
+    <div class="container mx-auto px-4 py-3">
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="Breadcrumb" class="text-sm mb-2">
+            <ol class="flex items-center gap-2 text-gray-500">
+                <li><a href="../../index.html" class="hover:text-primary-600">
+                        <i class="fas fa-home"></i> [[i18n.home]]
+                    </a></li>
+                <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                <li><a href="../chapters/index.html" class="hover:text-primary-600">[[i18n.chapters]]</a></li>
+                <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                <li><span id="breadcrumb-chapter" class="text-gray-700">{{chapterName}}</span></li>
+                <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                <li id="breadcrumb-lesson" class="text-primary-600 font-medium" aria-current="page">{{lessonTitle}}</li>
+            </ol>
+        </nav>
+
+        <!-- Lesson Header Info -->
+        <div class="lesson-header flex items-center justify-between flex-wrap gap-4">
+            <div class="flex-1">
+                <h1 id="lesson-title" class="text-2xl font-bold text-gray-800 dark:text-white">{{lessonTitle}}</h1>
+                <div class="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                    <span><i class="fas fa-clock"></i> <span id="lesson-duration">{{duration}}</span></span>
+                    <span><i class="fas fa-layer-group"></i> <span id="lesson-level">{{level}}</span></span>
+                </div>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                    aria-valuemax="100" aria-label="Lesson progress">
+                    <svg class="w-10 h-10 transform -rotate-90">
+                        <circle cx="20" cy="20" r="16" fill="none" stroke="#e5e7eb" stroke-width="3" />
+                        <circle id="progress-ring" cx="20" cy="20" r="16" fill="none" stroke="#3b82f6" stroke-width="3"
+                            stroke-dasharray="100.48" stroke-dashoffset="{{progressOffset}}" class="progress-ring" />
+                    </svg>
+                    <span id="progress-text" class="text-sm font-medium">{{progress}}%</span>
+                </div>
+
+                <!-- Bookmark Button -->
+                <button id="bookmark-btn" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                    aria-label="Bookmark this lesson" title="Bookmark">
+                    <i class="far fa-bookmark text-xl"></i>
+                </button>
+
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                    aria-label="Toggle dark mode" title="Toggle theme">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:inline text-yellow-400"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>

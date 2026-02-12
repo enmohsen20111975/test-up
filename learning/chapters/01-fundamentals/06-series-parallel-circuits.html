@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 6: Series-Parallel Circuits | EE Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../shared/css/styles.css">
+    <style>
+        .sp-circuit {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+    </style>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%236366f1' d='M50 10 L60 40 L90 50 L60 60 L50 90 L40 60 L10 50 L40 40 Z'/%3E%3C/svg%3E">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="../../../index.html"
+                        style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
+                        <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+                            <circle cx="20" cy="20" r="18" stroke="white" stroke-width="2" fill="none" />
+                            <path d="M20 8 L20 20 L28 28" stroke="#6366f1" stroke-width="3" stroke-linecap="round"
+                                fill="none" />
+                            <circle cx="20" cy="20" r="3" fill="white" />
+                        </svg>
+                        <h1 style="font-size: 1.25rem; margin: 0; color: white;">EE Mastery</h1>
+                    </a>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav"></nav>
+            <div class="p-4 mt-auto border-t border-gray-700">
+                <div class="text-xs text-gray-400 mb-2">Course Progress</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="text-xs text-gray-400 mt-2" id="progressText">0% Complete</div>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="content-header">
+                <div class="container">
+                    <div class="flex items-center justify-between">
+                        <button class="menu-toggle lg:hidden btn btn-icon" id="menuToggle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M3 12h18M3 6h18M3 18h18" />
+                            </svg>
+                        </button>
+                        <div class="breadcrumb">
+                            <a href="../../../index.html">Home</a><span>/</span><a href="index.html">Chapter
+                                1</a><span>/</span><span>Lesson 6</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <a href="../02-circuit-analysis/index.html" class="btn btn-primary">Next: Chapter 2 <svg
+                                    class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg></a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="content-body">
+                <div class="container">
+                    <article class="article-content">
+                        <h1>Series-Parallel Circuits</h1>
+                        <div class="info-box note">
+                            <div class="info-box-title"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 16v-4M12 8h.01" />
+                                </svg>Learning Objectives</div>
+                            <ul>
+                                <li>Identify series-parallel combinations in complex circuits</li>
+                                <li>Apply systematic reduction techniques for equivalent resistance</li>
+                                <li>Analyze circuits with both series and parallel elements</li>
+                                <li>Use step-by-step simplification strategies</li>
+                            </ul>
+                        </div>
+
+                        <section id="introduction">
+                            <h2>What are Series-Parallel Circuits?</h2>
+                            <p>Most real-world circuits contain both series and parallel combinations. These circuits
+                                require systematic analysis techniques to simplify and solve.</p>
+
+                            <div class="sp-circuit">
+                                <h3 class="text-lg font-semibold mb-4">Series-Parallel Circuit Example</h3>
+                                <svg viewBox="0 0 600 280" width="100%" height="280">
+                                    <!-- Battery -->
+                                    <rect x="20" y="120" width="30" height="40" fill="#1e293b" stroke="#10b981"
+                                        stroke-width="2" />
+                                    <text x="35" y="135" font-size="10" fill="#10b981" text-anchor="middle">+</text>
+                                    <text x="35" y="150" font-size="10" fill="#ef4444" text-anchor="middle">−</text>
+
+                                    <!-- Main circuit wires -->
+                                    <line x1="50" y1="140" x2="100" y2="140" stroke="#10b981" stroke-width="4" />
+                                    <line x1="100" y1="200" x2="50" y2="200" stroke="#10b981" stroke-width="4" />
+                                    <line x1="50" y1="140" x2="50" y2="200" stroke="#10b981" stroke-width="4" />
+
+                                    <!-- Series resistor R1 -->
+                                    <rect x="100" y="125" width="50" height="30" rx="2" fill="#1e293b" stroke="#f97316"
+                                        stroke-width="2" />
+                                    <text x="125" y="145" font-size="12" fill="#f97316" text-anchor="middle"
+                                        font-weight="bold">R₁</text>
+                                    <line x1="150" y1="140" x2="180" y2="140" stroke="#10b981" stroke-width="4" />
+
+                                    <!-- Parallel section starts -->
+                                    <!-- Upper wire to parallel -->
+                                    <line x1="180" y1="140" x2="180" y2="80" stroke="#10b981" stroke-width="4" />
+
+                                    <!-- R2 in parallel -->
+                                    <rect x="220" y="60" width="50" height="30" rx="2" fill="#1e293b" stroke="#6366f1"
+                                        stroke-width="2" />
+                                    <text x="245" y="80" font-size="12" fill="#6366f1" text-anchor="middle"
+                                        font-weight="bold">R₂</text>
+                                    <line x1="220" y1="75" x2="220" y2="80" stroke="#10b981" stroke-width="3" />
+                                    <line x1="270" y1="75" x2="270" y2="140" stroke="#10b981" stroke-width="3" />
+
+                                    <!-- Lower wire to parallel -->
+                                    <line x1="180" y1="140" x2="180" y2="200" stroke="#10b981" stroke-width="4" />
+
+                                    <!-- R3 in parallel -->
+                                    <rect x="220" y="175" width="50" height="30" rx="2" fill="#1e293b" stroke="#6366f1"
+                                        stroke-width="2" />
+                                    <text x="245" y="195" font-size="12" fill="#6366f1" text-anchor="middle"
+                                        font-weight="bold">R₃</text>
+                                    <line x1="270" y1="140" x2="270" y2="190" stroke="#10b981" stroke-width="3" />
+
+                                    <!-- After parallel section -->
+                                    <line x1="270" y1="140" x2="300" y2="140" stroke="#10b981" stroke-width="4" />
+
+                                    <!-- R4 in series -->
+                                    <rect x="300" y="125" width="50" height="30" rx="2" fill="#1e293b" stroke="#f97316"
+                                        stroke-width="2" />
+                                    <text x="325" y="145" font-size="12" fill="#f97316" text-anchor="middle"
+                                        font-weight="bold">R₄</text>
+                                    <line x1="350" y1="140" x2="400" y2="140" stroke="#10b981" stroke-width="4" />
+                                    <line x1="400" y1="140" x2="400" y2="200" stroke="#10b981" stroke-width="4" />
+                                    <line x1="400" y1="200" x2="100" y2="200" stroke="#10b981" stroke-width="4" />
+
+                                    <!-- Labels -->
+                                    <text x="125" y="105" font-size="11" fill="#f97316"
+                                        text-anchor="middle">Series</text>
+                                    <text x="245" y="50" font-size="11" fill="#6366f1"
+                                        text-anchor="middle">Parallel</text>
+                                    <text x="325" y="105" font-size="11" fill="#f97316"
+                                        text-anchor="middle">Series</text>
+                                </svg>
+                                <p class="text-center text-sm text-gray-400 mt-2">R₁ and R₄ in series with a parallel
+                                    combination of R₂ and R₃</p>
+                            </div>
+                        </section>
+
+                        <!-- Analysis Strategy -->
+                        <section id="strategy">
+                            <h2>Systematic Analysis Strategy</h2>
+                            <div class="info-box tip">
+                                <div class="info-box-title">💡 Step-by-Step Approach</div>
+                                <ol>
+                                    <li><strong>Identify combinations</strong>: Find all series and parallel groupings
+                                    </li>
+                                    <li><strong>Start from the far end</strong>: Simplify the circuit from the load
+                                        toward the source</li>
+                                    <li><strong>Replace components</strong>: Calculate equivalent resistance for each
+                                        group</li>
+                                    <li><strong>Repeat</strong>: Continue until you have a single equivalent resistance
+                                    </li>
+                                    <li><strong>Work backward</strong>: Find voltages and currents in individual
+                                        components</li>
+                                </ol>
+                            </div>
+
+                            <h3>Step 1: Identify Parallel Combination</h3>
+                            <p>R₂ and R₃ are in parallel. Calculate their equivalent:</p>
+                            <div class="formula">
+                                <span class="formula-label">Parallel R₂ || R₃</span>
+                                R_parallel = (R₂ × R₃) / (R₂ + R₃)
+                            </div>
+
+                            <h3>Step 2: Combine with Series Resistors</h3>
+                            <p>Now the parallel combination is in series with R₁ and R₄:</p>
+                            <div class="formula">
+                                <span class="formula-label">Total Resistance</span>
+                                R_total = R₁ + R_parallel + R₄
+                            </div>
+                        </section>
+
+                        <!-- Interactive Calculator -->
+                        <section id="calculator">
+                            <h2>Series-Parallel Circuit Calculator</h2>
+                            <div class="sp-circuit">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-semibold mb-4">Circuit Parameters</h4>
+                                        <div class="interactive-calc">
+                                            <div class="slider-group">
+                                                <label>Voltage Source:</label>
+                                                <input type="range" id="spV" min="1" max="48" value="24"
+                                                    oninput="calcSP()">
+                                                <span class="slider-value" id="spVval">24 V</span>
+                                            </div>
+                                            <div class="slider-group">
+                                                <label>R₁ (series):</label>
+                                                <input type="range" id="spR1" min="1" max="50" value="10"
+                                                    oninput="calcSP()">
+                                                <span class="slider-value" id="spR1val">10 Ω</span>
+                                            </div>
+                                            <div class="slider-group">
+                                                <label>R₂ (parallel):</label>
+                                                <input type="range" id="spR2" min="1" max="100" value="30"
+                                                    oninput="calcSP()">
+                                                <span class="slider-value" id="spR2val">30 Ω</span>
+                                            </div>
+                                            <div class="slider-group">
+                                                <label>R₃ (parallel):</label>
+                                                <input type="range" id="spR3" min="1" max="100" value="30"
+                                                    oninput="calcSP()">
+                                                <span class="slider-value" id="spR3val">30 Ω</span>
+                                            </div>
+                                            <div class="slider-group">
+                                                <label>R₄ (series):</label>
+                                                <input type="range" id="spR4" min="1" max="50" value="10"
+                                                    oninput="calcSP()">
+                                                <span class="slider-value" id="spR4val">10 Ω</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-4">Results</h4>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #10b981;">
+                                                <div class="text-xs text-gray-400">R_parallel (R₂||R₃)</div>
+                                                <div class="text-lg font-bold" style="color: #6366f1;" id="spRp">15 Ω
+                                                </div>
+                                            </div>
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #10b981;">
+                                                <div class="text-xs text-gray-400">R_total</div>
+                                                <div class="text-xl font-bold" style="color: #10b981;" id="spRt">35 Ω
+                                                </div>
+                                            </div>
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #0ea5e9;">
+                                                <div class="text-xs text-gray-400">Total Current</div>
+                                                <div class="text-xl font-bold" style="color: #0ea5e9;" id="spIt">0.69 A
+                                                </div>
+                                            </div>
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #f97316;">
+                                                <div class="text-xs text-gray-400">V across R₂||R₃</div>
+                                                <div class="text-xl font-bold" style="color: #f97316;" id="spVp">10.3 V
+                                                </div>
+                                            </div>
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #10b981;">
+                                                <div class="text-xs text-gray-400">I through R₂</div>
+                                                <div class="text-lg font-bold" style="color: #0ea5e9;" id="spI2">0.34 A
+                                                </div>
+                                            </div>
+                                            <div class="card p-3 text-center" style="border-top: 3px solid #10b981;">
+                                                <div class="text-xs text-gray-400">I through R₃</div>
+                                                <div class="text-lg font-bold" style="color: #0ea5e9;" id="spI3">0.34 A
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Practice Problem -->
+                        <section id="practice">
+                            <h2>Practice Problem</h2>
+                            <div class="card p-6 mb-4">
+                                <h4 class="font-semibold mb-3">Calculate Total Resistance and Current</h4>
+                                <p class="text-gray-400 mb-4">Given: V = 12V, R₁ = 100Ω, R₂ = 100Ω (parallel), R₃ = 100Ω
+                                    (parallel), R₄ = 100Ω</p>
+                                <details>
+                                    <summary class="cursor-pointer text-indigo-400 hover:text-indigo-300">Show Solution
+                                    </summary>
+                                    <div class="mt-4 p-4 bg-gray-800 rounded">
+                                        <p><strong>Step 1: Parallel combination of R₂ and R₃</strong></p>
+                                        <pre><code>R_parallel = (100 × 100) / (100 + 100)
+R_parallel = 10000 / 200 = 50Ω</code></pre>
+                                        <p><strong>Step 2: Total resistance</strong></p>
+                                        <pre><code>R_total = R₁ + R_parallel + R₄
+R_total = 100 + 50 + 100 = 250Ω</code></pre>
+                                        <p><strong>Step 3: Total current</strong></p>
+                                        <pre><code>I_total = V / R_total
+I_total = 12V / 250Ω = 0.048A = 48mA</code></pre>
+                                        <p class="mt-2"><strong>Answer:</strong> R_total = 250Ω, I_total = 48mA</p>
+                                    </div>
+                                </details>
+                            </div>
+                        </section>
+
+                        <section id="summary">
+                            <h2>Summary</h2>
+                            <ul>
+                                <li><strong>Series-Parallel</strong>: Combines both series and parallel elements</li>
+                                <li><strong>Strategy</strong>: Simplify from far end toward source</li>
+                                <li><strong>Parallel first</strong>: Often easier to combine parallel groups first</li>
+                                <li><strong>Work backward</strong>: Use equivalent circuits to find branch values</li>
+                                <li><strong>KVL/KCL</strong>: Still apply to any simplified section</li>
+                            </ul>
+                        </section>
+
+                        <section class="mt-12 pt-8 border-t border-gray-700">
+                            <div class="flex justify-between">
+                                <a href="05-parallel-circuits.html" class="btn btn-secondary"><svg class="w-4 h-4 mr-2"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                                    </svg>Previous</a>
+                                <a href="../02-circuit-analysis/index.html" class="btn btn-primary">Chapter 2: Circuit
+                                    Analysis <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg></a>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="text-sm text-gray-400">© 2024 Electrical Engineering Mastery</div>
+                        <div class="footer-links"><a href="#">About</a><a href="#">Contact</a><a href="#">Privacy</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        function calcSP() {
+            const V = parseFloat(document.getElementById('spV').value);
+            const R1 = parseFloat(document.getElementById('spR1').value);
+            const R2 = parseFloat(document.getElementById('spR2').value);
+            const R3 = parseFloat(document.getElementById('spR3').value);
+            const R4 = parseFloat(document.getElementById('spR4').value);
+
+            document.getElementById('spVval').textContent = V + ' V';
+            document.getElementById('spR1val').textContent = R1 + ' Ω';
+            document.getElementById('spR2val').textContent = R2 + ' Ω';
+            document.getElementById('spR3val').textContent = R3 + ' Ω';
+            document.getElementById('spR4val').textContent = R4 + ' Ω';
+
+            // Calculate parallel combination
+            const Rp = (R2 * R3) / (R2 + R3);
+            const Rt = R1 + Rp + R4;
+            const It = V / Rt;
+            const Vp = It * Rp;
+            const I2 = Vp / R2;
+            const I3 = Vp / R3;
+
+            document.getElementById('spRp').textContent = Rp.toFixed(1) + ' Ω';
+            document.getElementById('spRt').textContent = Rt.toFixed(1) + ' Ω';
+            document.getElementById('spIt').textContent = It.toFixed(2) + ' A';
+            document.getElementById('spVp').textContent = Vp.toFixed(1) + ' V';
+            document.getElementById('spI2').textContent = I2.toFixed(2) + ' A';
+            document.getElementById('spI3').textContent = I3.toFixed(2) + ' A';
+        }
+    </script>
+    <script src="../../shared/js/state.js"></script>
+    <script src="../../shared/js/navigation.js"></script>
+    <script src="../../shared/js/router.js"></script>
+    <script src="../../shared/js/app.js"></script>
+</body>
+
+</html>

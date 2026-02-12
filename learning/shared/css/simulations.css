@@ -1,0 +1,927 @@
+/**
+ * Interactive Electrical Circuit Simulations Styles
+ * Learning Platform - EngiSuite Analytics
+ */
+
+:root {
+    --sim-bg-primary: #1a1a2e;
+    --sim-bg-secondary: #16213e;
+    --sim-accent-blue: #4a9eff;
+    --sim-accent-green: #00ff88;
+    --sim-accent-red: #ff6b6b;
+    --sim-accent-yellow: #ffcc00;
+    --sim-text-primary: #ffffff;
+    --sim-text-secondary: #a0a0a0;
+    --sim-border-color: #2a2a4e;
+    --sim-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --sim-transition: all 0.3s ease;
+}
+
+/* ============================================
+   MAIN SIMULATION CONTAINER
+   ============================================ */
+.simulation-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: var(--sim-bg-primary);
+    border-radius: 12px;
+    box-shadow: var(--sim-shadow);
+}
+
+.simulation-canvas {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: var(--sim-bg-secondary);
+    border: 2px solid var(--sim-border-color);
+}
+
+/* ============================================
+   OHM'S LAW CALCULATOR
+   ============================================ */
+.ohmslaw-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background: var(--sim-bg-secondary);
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.formula-display {
+    width: 100%;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--sim-accent-yellow);
+    padding: 15px;
+    background: rgba(255, 204, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.sliders-container {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.control-slider {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.control-slider label {
+    color: var(--sim-text-primary);
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+}
+
+.control-slider .value {
+    color: var(--sim-accent-blue);
+    font-weight: bold;
+}
+
+.control-slider input[type="range"] {
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    background: var(--sim-border-color);
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.control-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--sim-accent-blue);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--sim-transition);
+}
+
+.control-slider input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px var(--sim-accent-blue);
+}
+
+.control-slider input[type="range"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.mode-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--sim-text-primary);
+}
+
+.mode-selector select {
+    padding: 8px 16px;
+    background: var(--sim-bg-primary);
+    color: var(--sim-text-primary);
+    border: 2px solid var(--sim-border-color);
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.results-display {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: var(--sim-bg-primary);
+    border-radius: 6px;
+    border-left: 3px solid var(--sim-border-color);
+}
+
+.result-item .label {
+    color: var(--sim-text-secondary);
+}
+
+.result-item .value {
+    color: var(--sim-text-primary);
+    font-weight: bold;
+}
+
+.result-item.highlight {
+    border-left-color: var(--sim-accent-yellow);
+    background: rgba(255, 204, 0, 0.1);
+}
+
+.result-item.highlight .value {
+    color: var(--sim-accent-yellow);
+    font-size: 1.2em;
+}
+
+/* ============================================
+   SERIES CIRCUIT SIMULATOR
+   ============================================ */
+.series-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+    background: var(--sim-bg-secondary);
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.circuit-tools {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tool-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--sim-bg-primary);
+    color: var(--sim-text-primary);
+    border: 2px solid var(--sim-border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--sim-transition);
+    font-size: 14px;
+}
+
+.tool-btn:hover {
+    background: var(--sim-accent-blue);
+    border-color: var(--sim-accent-blue);
+    transform: translateY(-2px);
+}
+
+.tool-btn span {
+    font-weight: bold;
+}
+
+.circuit-stats {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    min-width: 100px;
+}
+
+.stat-label {
+    color: var(--sim-text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    color: var(--sim-accent-green);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.kvl-feedback {
+    width: 100%;
+    padding: 12px;
+    background: rgba(74, 158, 255, 0.1);
+    border: 1px solid var(--sim-accent-blue);
+    border-radius: 6px;
+    color: var(--sim-accent-blue);
+    font-family: monospace;
+    transition: var(--sim-transition);
+}
+
+.kvl-feedback.valid {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: var(--sim-accent-green);
+    color: var(--sim-accent-green);
+}
+
+.kvl-feedback.invalid {
+    background: rgba(255, 107, 107, 0.1);
+    border-color: var(--sim-accent-red);
+    color: var(--sim-accent-red);
+}
+
+.resistor-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+}
+
+.resistor-list h4 {
+    width: 100%;
+    margin: 0 0 10px 0;
+    color: var(--sim-text-secondary);
+}
+
+.resistor-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--sim-bg-primary);
+    border-radius: 6px;
+    border: 1px solid var(--sim-border-color);
+}
+
+.resistor-item input {
+    width: 80px;
+    padding: 6px;
+    background: var(--sim-bg-secondary);
+    color: var(--sim-text-primary);
+    border: 1px solid var(--sim-border-color);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.remove-btn {
+    width: 24px;
+    height: 24px;
+    background: var(--sim-accent-red);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    transition: var(--sim-transition);
+}
+
+.remove-btn:hover {
+    background: #ff4444;
+    transform: scale(1.1);
+}
+
+/* ============================================
+   PARALLEL CIRCUIT SIMULATOR
+   ============================================ */
+.parallel-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+    background: var(--sim-bg-secondary);
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.parallel-tools {
+    display: flex;
+    gap: 10px;
+}
+
+.parallel-stats {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.branch-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+}
+
+.branch-list h4 {
+    width: 100%;
+    margin: 0 0 10px 0;
+    color: var(--sim-text-secondary);
+}
+
+.branch-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--sim-bg-primary);
+    border-radius: 6px;
+    border: 1px solid var(--sim-border-color);
+}
+
+.branch-item input {
+    width: 80px;
+    padding: 6px;
+    background: var(--sim-bg-secondary);
+    color: var(--sim-text-primary);
+    border: 1px solid var(--sim-border-color);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.branch-current {
+    color: var(--sim-accent-yellow);
+    font-size: 12px;
+    font-family: monospace;
+}
+
+/* ============================================
+   PHASOR DIAGRAM (AC)
+   ============================================ */
+.phasor-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+    background: var(--sim-bg-secondary);
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.phasor-tools {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.phasor-values {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.value-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+}
+
+.value-item .label {
+    color: var(--sim-text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.value-item .value {
+    color: var(--sim-accent-blue);
+    font-size: 16px;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+/* ============================================
+   LOGIC GATE SIMULATOR
+   ============================================ */
+.logic-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+    background: var(--sim-bg-secondary);
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.gate-palette {
+    width: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.gate-palette h4 {
+    margin: 0 0 15px 0;
+    color: var(--sim-text-secondary);
+}
+
+.gate-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.gate-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 12px 16px;
+    background: var(--sim-bg-primary);
+    color: var(--sim-text-primary);
+    border: 2px solid var(--sim-border-color);
+    border-radius: 8px;
+    cursor: grab;
+    transition: var(--sim-transition);
+}
+
+.gate-btn:hover {
+    border-color: var(--sim-accent-blue);
+    background: rgba(74, 158, 255, 0.1);
+    transform: translateY(-3px);
+}
+
+.gate-btn:active {
+    cursor: grabbing;
+}
+
+.gate-btn svg {
+    width: 40px;
+    height: 30px;
+    color: var(--sim-accent-green);
+}
+
+.gate-btn span {
+    font-size: 11px;
+    color: var(--sim-text-secondary);
+}
+
+.logic-tools {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.truth-table-container {
+    width: 100%;
+    max-height: 300px;
+    overflow: auto;
+    display: none;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.truth-table-container.visible {
+    display: block;
+}
+
+.truth-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--sim-text-primary);
+}
+
+.truth-table th,
+.truth-table td {
+    padding: 10px 15px;
+    text-align: center;
+    border: 1px solid var(--sim-border-color);
+}
+
+.truth-table th {
+    background: var(--sim-bg-primary);
+    font-weight: bold;
+}
+
+.truth-table td.high {
+    background: rgba(0, 255, 136, 0.2);
+    color: var(--sim-accent-green);
+}
+
+.truth-table td.low {
+    background: rgba(255, 107, 107, 0.2);
+    color: var(--sim-accent-red);
+}
+
+.gate-properties {
+    width: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.gate-properties h4 {
+    margin: 0 0 10px 0;
+    color: var(--sim-accent-yellow);
+}
+
+.gate-properties label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--sim-text-primary);
+    cursor: pointer;
+}
+
+.gate-properties input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--sim-accent-green);
+}
+
+/* ============================================
+   HELP SYSTEM
+   ============================================ */
+.simulation-help-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    background: var(--sim-bg-primary);
+    border: 2px solid var(--sim-border-color);
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--sim-transition);
+    overflow: hidden;
+}
+
+.simulation-help-panel.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.help-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.help-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: var(--sim-bg-secondary);
+    border-bottom: 1px solid var(--sim-border-color);
+}
+
+.help-header h3 {
+    margin: 0;
+    color: var(--sim-text-primary);
+}
+
+.help-close {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    color: var(--sim-text-secondary);
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: var(--sim-transition);
+}
+
+.help-close:hover {
+    background: rgba(255, 107, 107, 0.2);
+    color: var(--sim-accent-red);
+}
+
+.help-tabs {
+    display: flex;
+    gap: 5px;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.help-tab {
+    padding: 8px 16px;
+    background: transparent;
+    color: var(--sim-text-secondary);
+    border: 1px solid var(--sim-border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--sim-transition);
+}
+
+.help-tab:hover,
+.help-tab.active {
+    background: var(--sim-accent-blue);
+    color: white;
+    border-color: var(--sim-accent-blue);
+}
+
+.help-body {
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 50vh;
+}
+
+.help-section {
+    display: none;
+}
+
+.help-section.active {
+    display: block;
+}
+
+.help-section h4 {
+    margin: 0 0 15px 0;
+    color: var(--sim-accent-yellow);
+}
+
+.help-section ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.help-section li {
+    margin-bottom: 10px;
+    color: var(--sim-text-primary);
+}
+
+.help-section kbd {
+    display: inline-block;
+    padding: 4px 8px;
+    background: var(--sim-bg-secondary);
+    color: var(--sim-accent-green);
+    border: 1px solid var(--sim-border-color);
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+/* ============================================
+   NOTIFICATIONS
+   ============================================ */
+.simulation-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    background: var(--sim-accent-green);
+    color: var(--sim-bg-primary);
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.4);
+    z-index: 10001;
+    transition: var(--sim-transition);
+}
+
+.simulation-notification.fade-out {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+}
+
+/* ============================================
+   SIMULATION TABS (for switching between sims)
+   ============================================ */
+.simulation-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: var(--sim-bg-secondary);
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.sim-tab {
+    padding: 12px 24px;
+    background: transparent;
+    color: var(--sim-text-secondary);
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--sim-transition);
+    font-weight: 500;
+}
+
+.sim-tab:hover {
+    background: rgba(74, 158, 255, 0.1);
+    color: var(--sim-text-primary);
+}
+
+.sim-tab.active {
+    background: var(--sim-accent-blue);
+    color: white;
+    border-color: var(--sim-accent-blue);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px currentColor;
+    }
+
+    50% {
+        box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+    }
+}
+
+@keyframes flow {
+    0% {
+        offset-distance: 0%;
+    }
+
+    100% {
+        offset-distance: 100%;
+    }
+}
+
+.simulation-canvas {
+    animation: pulse 2s infinite;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+    .simulation-container {
+        padding: 10px;
+    }
+
+    .ohmslaw-controls,
+    .series-controls,
+    .parallel-controls,
+    .phasor-controls,
+    .logic-controls {
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .formula-display {
+        font-size: 22px;
+        padding: 12px;
+    }
+
+    .sliders-container,
+    .results-display {
+        min-width: 100%;
+    }
+
+    .circuit-tools,
+    .parallel-tools,
+    .phasor-tools,
+    .logic-tools {
+        width: 100%;
+    }
+
+    .tool-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .gate-btn {
+        padding: 8px 12px;
+    }
+
+    .gate-btn svg {
+        width: 30px;
+        height: 22px;
+    }
+
+    .circuit-stats,
+    .parallel-stats {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .stat {
+        min-width: 80px;
+        padding: 8px 12px;
+    }
+
+    .stat-value {
+        font-size: 14px;
+    }
+
+    .help-panel {
+        width: 95%;
+        max-height: 90vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .control-slider input[type="range"] {
+        height: 6px;
+    }
+
+    .control-slider input[type="range"]::-webkit-slider-thumb {
+        width: 16px;
+        height: 16px;
+    }
+
+    .tool-btn span {
+        display: none;
+    }
+
+    .gate-btn span {
+        font-size: 10px;
+    }
+
+    .truth-table th,
+    .truth-table td {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    .simulation-container {
+        background: white;
+        box-shadow: none;
+    }
+
+    .simulation-canvas {
+        border: 1px solid #ccc;
+    }
+
+    .ohmslaw-controls,
+    .series-controls,
+    .parallel-controls,
+    .phasor-controls,
+    .logic-controls,
+    .simulation-help-panel,
+    .simulation-notification {
+        display: none !important;
+    }
+}

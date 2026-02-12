@@ -1,0 +1,169 @@
+<!-- Interactive Mechanical Engineering Graphics Component -->
+<!-- Contains SVG-based diagrams for mechanics, thermodynamics, and materials -->
+
+<!-- Free Body Diagram -->
+<div class="free-body-diagram mechanical-graphic" id="free-body-diagram" aria-label="Free Body Diagram">
+    <svg viewBox="0 0 300 250" class="w-full h-auto">
+        <!-- Block -->
+        <rect x="100" y="100" width="100" height="80" fill="#3b82f6" rx="4" />
+        <text x="150" y="145" text-anchor="middle" class="text-white font-medium">m</text>
+        <!-- Weight (mg) - downward -->
+        <line x1="150" y1="180" x2="150" y2="230" stroke="#ef4444" stroke-width="3" />
+        <polygon points="145,225 155,225 150,235" fill="#ef4444" />
+        <text x="165" y="215" class="text-sm fill-red-600 font-medium">mg</text>
+        <!-- Normal force (N) - upward -->
+        <line x1="150" y1="100" x2="150" y2="50" stroke="#22c55e" stroke-width="3" />
+        <polygon points="145,55 155,55 150,45" fill="#22c55e" />
+        <text x="165" y="70" class="text-sm fill-green-600 font-medium">N</text>
+        <!-- Applied force (F) - horizontal -->
+        <line x1="200" y1="140" x2="260" y2="140" stroke="#f59e0b" stroke-width="3" />
+        <polygon points="255,135 255,145 265,140" fill="#f59e0b" />
+        <text x="235" y="160" class="text-sm fill-yellow-600 font-medium">F</text>
+        <!-- Friction force (f) - opposite to F -->
+        <line x1="100" y1="140" x2="60" y2="140" stroke="#8b5cf6" stroke-width="3" />
+        <polygon points="65,135 65,145 55,140" fill="#8b5cf6" />
+        <text x="70" y="160" class="text-sm fill-purple-600 font-medium">f</text>
+        <!-- Ground/surface -->
+        <line x1="50" y1="180" x2="250" y2="180" stroke="#64748b" stroke-width="4" />
+        <line x1="50" y1="185" x2="250" y2="185" stroke="#94a3b8" stroke-width="2" />
+        <!-- Angle indicator -->
+        <text x="200" y="195" class="text-sm fill-gray-500">Surface</text>
+    </svg>
+    <p class="text-sm text-gray-600 mt-2 text-center">Free Body Diagram Example</p>
+</div>
+
+<!-- Stress-Strain Curve -->
+<div class="stress-strain-curve mechanical-graphic" id="stress-strain-curve" aria-label="Stress-Strain Curve">
+    <svg viewBox="0 0 400 300" class="w-full h-auto">
+        <!-- Axes -->
+        <line x1="50" y1="250" x2="380" y2="250" stroke="#64748b" stroke-width="2" />
+        <line x1="50" y1="250" x2="50" y2="30" stroke="#64748b" stroke-width="2" />
+        <!-- Axis labels -->
+        <text x="215" y="290" text-anchor="middle" class="text-sm fill-gray-600">Strain (ε)</text>
+        <text x="20" y="150" text-anchor="anchor-middle" class="text-sm fill-gray-600"
+            transform="rotate(-90, 20, 150)">Stress (σ)</text>
+        <!-- Regions -->
+        <path d="M 50 250 Q 80 250 120 200 T 200 150 T 280 120 T 350 100" stroke="#3b82f6" stroke-width="3"
+            fill="none" />
+        <!-- Proportional limit -->
+        <line x1="100" y1="250" x2="100" y2="180" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4" />
+        <text x="105" y="245" class="text-xs fill-gray-500">A</text>
+        <!-- Yield point -->
+        <circle cx="180" cy="165" r="4" fill="#f59e0b" />
+        <line x1="180" y1="250" x2="180" y2="165" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4" />
+        <text x="185" y="245" class="text-xs fill-gray-500">B</text>
+        <!-- Ultimate strength -->
+        <circle cx="280" cy="120" r="4" fill="#ef4444" />
+        <text x="285" y="115" class="text-xs fill-gray-500">C</text>
+        <!-- Fracture point -->
+        <circle cx="350" cy="100" r="4" fill="#dc2626" />
+        <text x="355" y="95" class="text-xs fill-gray-500">D</text>
+        <!-- Region labels -->
+        <text x="140" y="230" class="text-xs fill-blue-600">Elastic</text>
+        <text x="220" y="140" class="text-xs fill-yellow-600">Plastic</text>
+        <text x="320" y="110" class="text-xs fill-red-600">Necking</text>
+        <!-- Slope line (Young's Modulus) -->
+        <line x1="50" y1="250" x2="120" y2="200" stroke="#22c55e" stroke-width="2" stroke-dasharray="5" />
+        <text x="75" y="240" class="text-xs fill-green-600">E</text>
+        <!-- Strain hardening region shading -->
+        <path d="M 180 165 Q 230 140 280 120 L 280 250 L 180 250 Z" fill="#f59e0b" fill-opacity="0.1" />
+        <text x="230" y="200" class="text-xs fill-yellow-600">Strain Hardening</text>
+        <!-- Dimensions -->
+        <line x1="180" y1="270" x2="280" y2="270" stroke="#64748b" stroke-width="1" />
+        <line x1="180" y1="265" x2="180" y2="275" stroke="#64748b" stroke-width="1" />
+        <line x1="280" y1="265" x2="280" y2="275" stroke="#64748b" stroke-width="1" />
+        <text x="230" y="285" text-anchor="middle" class="text-xs fill-gray-500">Uniform Elongation</text>
+    </svg>
+    <p class="text-sm text-gray-600 mt-2 text-center">Typical Stress-Strain Curve for Ductile Material</p>
+</div>
+
+<!-- Gear System -->
+<div class="gear-system mechanical-graphic" id="gear-system" aria-label="Gear Train System">
+    <svg viewBox="0 0 400 200" class="w-full h-auto">
+        <!-- Input gear -->
+        <g transform="translate(80, 100)">
+            <circle cx="0" cy="0" r="50" fill="#3b82f6" opacity="0.2" />
+            <circle cx="0" cy="0" r="45" fill="none" stroke="#3b82f6" stroke-width="3" />
+            <circle cx="0" cy="0" r="10" fill="#3b82f6" />
+            <!-- Gear teeth -->
+            <g fill="#3b82f6">
+                <rect x="-4" y="-55" width="8" height="10" rx="1" />
+                <rect x="-4" y="45" width="8" height="10" rx="1" />
+                <rect x="-55" y="-4" width="10" height="8" rx="1" />
+                <rect x="45" y="-4" width="10" height="8" rx="1" />
+                <rect x="30" y="-42" width="8" height="10" rx="1" transform="rotate(45)" />
+                <rect x="-38" y="30" width="8" height="10" rx="1" transform="rotate(45)" />
+                <rect x="30" y="32" width="8" height="10" rx="1" transform="rotate(-45)" />
+                <rect x="-38" y="-42" width="8" height="10" rx="1" transform="rotate(-45)" />
+            </g>
+            <text x="0" y="5" text-anchor="middle" class="text-xs fill-white font-medium">N₁</text>
+        </g>
+        <!-- Output gear -->
+        <g transform="translate(280, 100)">
+            <circle cx="0" cy="0" r="30" fill="#22c55e" opacity="0.2" />
+            <circle cx="0" cy="0" r="27" fill="none" stroke="#22c55e" stroke-width="3" />
+            <circle cx="0" cy="0" r="6" fill="#22c55e" />
+            <!-- Gear teeth -->
+            <g fill="#22c55e">
+                <rect x="-3" y="-33" width="6" height="8" rx="1" />
+                <rect x="-3" y="25" width="6" height="8" rx="1" />
+                <rect x="-33" y="-3" width="8" height="6" rx="1" />
+                <rect x="25" y="-3" width="8" height="6" rx="1" />
+            </g>
+            <text x="0" y="5" text-anchor="middle" class="text-xs fill-white font-medium">N₂</text>
+        </g>
+        <!-- Shaft -->
+        <line x1="20" y1="100" x2="360" y2="100" stroke="#64748b" stroke-width="2" />
+        <!-- Labels -->
+        <text x="80" y="170" text-anchor="middle" class="text-sm fill-gray-600">Input (N₁ teeth)</text>
+        <text x="280" y="145" text-anchor="middle" class="text-sm fill-gray-600">Output (N₂ teeth)</text>
+        <!-- Speed ratio arrow -->
+        <path d="M 120 60 Q 180 30 240 60" fill="none" stroke="#f59e0b" stroke-width="2"
+            marker-end="url(#gear-arrow)" />
+        <text x="180" y="45" text-anchor="middle" class="text-xs fill-yellow-600">Speed Ratio</text>
+    </svg>
+    <defs>
+        <marker id="gear-arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#f59e0b" />
+        </marker>
+    </defs>
+    <p class="text-sm text-gray-600 mt-2 text-center">Simple Gear Train</p>
+</div>
+
+<!-- Thermodynamic Cycle (Carnot) -->
+<div class="thermodynamic-cycle mechanical-graphic" id="thermodynamic-cycle" aria-label="Carnot Cycle Diagram">
+    <svg viewBox="0 0 350 300" class="w-full h-auto">
+        <!-- P-V Diagram axes -->
+        <line x1="40" y1="260" x2="330" y2="260" stroke="#64748b" stroke-width="2" />
+        <line x1="40" y1="260" x2="40" y2="30" stroke="#64748b" stroke-width="2" />
+        <text x="180" y="295" text-anchor="middle" class="text-sm fill-gray-600">Volume (V)</text>
+        <text x="20" y="150" text-anchor="anchor-middle" class="text-sm fill-gray-600"
+            transform="rotate(-90, 20, 150)">Pressure (P)</text>
+        <!-- Carnot cycle -->
+        <path
+            d="M 120 60 L 250 60 Q 300 60 300 100 L 300 180 Q 300 220 250 220 L 120 220 Q 80 220 80 180 L 80 100 Q 80 60 120 60"
+            stroke="#3b82f6" stroke-width="3" fill="none" />
+        <!-- Process labels -->
+        <circle cx="120" cy="60" r="4" fill="#ef4444" />
+        <text x="105" y="55" class="text-xs fill-red-600">A</text>
+        <circle cx="250" cy="60" r="4" fill="#22c55e" />
+        <text x="265" y="55" class="text-xs fill-green-600">B</text>
+        <circle cx="250" cy="220" r="4" fill="#f59e0b" />
+        <text x="265" y="235" class="text-xs fill-yellow-600">C</text>
+        <circle cx="80" cy="220" r="4" fill="#8b5cf6" />
+        <text x="65" y="235" class="text-xs fill-purple-600">D</text>
+        <!-- Process arrows -->
+        <path d="M 140 50 L 220 50" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#proc-arrow)" />
+        <text x="180" y="40" text-anchor="middle" class="text-xs fill-red-600">Isothermal</text>
+        <path d="M 260 80 L 260 180" fill="none" stroke="#22c55e" stroke-width="2" marker-end="url(#proc-arrow)" />
+        <text x="280" y="130" class="text-xs fill-green-600">Adiabatic</text>
+        <path d="M 230 230 L 110 230" fill="none" stroke="#f59e0b" stroke-width="2" marker-end="url(#proc-arrow)" />
+        <text x="170" y="250" text-anchor="middle" class="text-xs fill-yellow-600">Isothermal</text>
+        <path d="M=" 90" y="200 L 90 100" fill="none" stroke="#8b5cf6" stroke-width="2" marker-end="url(#proc-arrow)" />
+        <text x="100" y="150" class="text-xs fill-purple-600">Adiabatic</text>
+        <!-- Heat transfer indicators -->
+        <text x="185" y="80" text-anchor="middle" class="text-xs fill-red-600">Q_H In</text>
+        <text x="185" y="240" text-anchor="middle" class="text-xs fill-blue-600">Q_C Out</text>
+    </svg>
+    <p class="text-sm text-gray-600 mt-2 text-center">Carnot Cycle (P-V Diagram)</p>
+    </defs>

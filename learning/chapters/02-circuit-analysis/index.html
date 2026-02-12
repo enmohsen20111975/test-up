@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2: Circuit Analysis | EE Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../shared/css/styles.css">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%236366f1' d='M50 10 L60 40 L90 50 L60 60 L50 90 L40 60 L10 50 L40 40 Z'/%3E%3C/svg%3E">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="../../index.html"
+                        style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
+                        <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+                            <circle cx="20" cy="20" r="18" stroke="white" stroke-width="2" fill="none" />
+                            <path d="M20 8 L20 20 L28 28" stroke="#6366f1" stroke-width="3" stroke-linecap="round"
+                                fill="none" />
+                            <circle cx="20" cy="20" r="3" fill="white" />
+                        </svg>
+                        <h1 style="font-size: 1.25rem; margin: 0; color: white;">EE Mastery</h1>
+                    </a>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav"></nav>
+            <div class="p-4 mt-auto border-t border-gray-700">
+                <div class="text-xs text-gray-400 mb-2">Course Progress</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="text-xs text-gray-400 mt-2" id="progressText">0% Complete</div>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="content-header">
+                <div class="container">
+                    <div class="flex items-center justify-between">
+                        <button class="menu-toggle lg:hidden btn btn-icon" id="menuToggle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M3 12h18M3 6h18M3 18h18" />
+                            </svg>
+                        </button>
+                        <div class="breadcrumb">
+                            <a href="../../index.html">Home</a><span>/</span><span>Chapter 2</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="content-body">
+                <div class="container">
+                    <section class="content-section">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="chapter-icon circuits" style="width: 64px; height: 64px;">
+                                <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="4" y="4" width="16" height="16" />
+                                    <path d="M9 9h6v6H9z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h1 class="text-3xl md:text-4xl font-bold mb-2">Chapter 2: Circuit Analysis</h1>
+                                <p class="text-gray-400">Advanced techniques for analyzing complex circuits</p>
+                            </div>
+                        </div>
+                        <div class="card p-6 mb-6">
+                            <h3 class="font-semibold mb-3">Chapter Overview</h3>
+                            <p class="text-gray-400 mb-4">Master the fundamental laws and theorems used to analyze
+                                complex electrical circuits. Learn Kirchhoff's laws, nodal analysis, mesh analysis, and
+                                powerful simplification techniques like Thevenin's and Norton's theorems.</p>
+                            <div class="flex flex-wrap gap-4">
+                                <div class="flex items-center gap-2 text-sm text-gray-400">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12,6 12,12 16,14" />
+                                    </svg>
+                                    6 Lessons • 6-8 Hours
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-400">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                                    </svg>
+                                    Foundation Level
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="content-section">
+                        <h2 class="text-2xl font-bold mb-6">Chapter Lessons</h2>
+                        <div class="lesson-list">
+                            <a href="01-kirchhoffs-current-law.html" class="lesson-item">
+                                <div class="lesson-number">1</div>
+                                <div class="lesson-content">
+                                    <div class="lesson-title">Kirchhoff's Current Law (KCL)</div>
+                                    <div class="lesson-duration">55 min • Current flow at junctions</div>
+                                </div>
+                            </a>
+                            <a href="02-kirchhoffs-voltage-law.html" class="lesson-item">
+                                <div class="lesson-number">2</div>
+                                <div class="lesson-content">
+                                    <div class="lesson-title">Kirchhoff's Voltage Law (KVL)</div>
+                                    <div class="lesson-duration">55 min • Voltage around loops</div>
+                                </div>
+                            </a>
+                            <a href="03-nodal-analysis.html" class="lesson-item">
+                                <div class="lesson-number">3</div>
+                                <div class="lesson-content">
+                                    <div class="lesson-title">Nodal Analysis</div>
+                                    <div class="lesson-duration">60 min • Node voltage method</div>
+                                </div>
+                            </a>
+                            <a href="04-mesh-analysis.html" class="lesson-item">
+                                <div class="lesson-number">4</div>
+                                <div class="lesson-content">
+                                    <div class="lesson-title">Mesh Analysis</div>
+                                    <div class="lesson-duration">60 min • Loop current method</div>
+                                </div>
+                            </a>
+                            <a href="05-thevenin-theorem.html" class="lesson-item">
+                                <div class="lesson-number">5</div>
+                                <div class="lesson-content">
+                                    <div class="lesson-title">Thevenin's Theorem</div>
+                                    <div class="lesson-duration">60 min • Equivalent circuits</div>
+                                </div>
+                            </a>
+                            <a href="06-norton-theorem.html" class="lesson-item">
+                                <div class="lesson-number">6</div>
+                                <div class="lesson-content">
+                                    <div class="lesson-title">Norton's Theorem</div>
+                                    <div class="lesson-duration">50 min • Current equivalents</div>
+                                </div>
+                            </a>
+                        </div>
+                    </section>
+                    <section class="content-section">
+                        <div class="flex justify-between">
+                            <a href="../01-fundamentals/index.html" class="btn btn-secondary">
+                                <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                                </svg>
+                                Previous: Chapter 1
+                            </a>
+                            <a href="../03-power-systems/index.html" class="btn btn-primary">
+                                Next: Chapter 3
+                                <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="text-sm text-gray-400">© 2024 Electrical Engineering Mastery</div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="../../shared/js/state.js"></script>
+    <script src="../../shared/js/navigation.js"></script>
+    <script src="../../shared/js/router.js"></script>
+    <script src="../../shared/js/app.js"></script>
+</body>
+
+</html>

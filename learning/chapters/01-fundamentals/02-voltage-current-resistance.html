@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Voltage, Current & Resistance | EE Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../shared/css/styles.css">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%236366f1' d='M50 10 L60 40 L90 50 L60 60 L50 90 L40 60 L10 50 L40 40 Z'/%3E%3C/svg%3E">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="../../../index.html"
+                        style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
+                        <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+                            <circle cx="20" cy="20" r="18" stroke="white" stroke-width="2" fill="none" />
+                            <path d="M20 8 L20 20 L28 28" stroke="#6366f1" stroke-width="3" stroke-linecap="round"
+                                fill="none" />
+                            <circle cx="20" cy="20" r="3" fill="white" />
+                        </svg>
+                        <h1 style="font-size: 1.25rem; margin: 0; color: white;">EE Mastery</h1>
+                    </a>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav"></nav>
+            <div class="p-4 mt-auto border-t border-gray-700">
+                <div class="text-xs text-gray-400 mb-2">Course Progress</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="text-xs text-gray-400 mt-2" id="progressText">0% Complete</div>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="content-header">
+                <div class="container">
+                    <div class="flex items-center justify-between">
+                        <button class="menu-toggle lg:hidden btn btn-icon" id="menuToggle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M3 12h18M3 6h18M3 18h18" />
+                            </svg>
+                        </button>
+                        <div class="breadcrumb">
+                            <a href="../../../index.html">Home</a><span>/</span><a href="index.html">Chapter
+                                1</a><span>/</span><span>Lesson 2</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <a href="03-ohms-law-power.html" class="btn btn-secondary">Next Lesson <svg
+                                    class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg></a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="content-body">
+                <div class="container">
+                    <article class="article-content">
+                        <h1>Voltage, Current & Resistance</h1>
+                        <div class="info-box note">
+                            <div class="info-box-title"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 16v-4M12 8h.01" />
+                                </svg>Learning Objectives</div>
+                            <ul>
+                                <li>Define voltage and understand its role in electrical circuits</li>
+                                <li>Explain current and the different types of current</li>
+                                <li>Understand resistance and what affects it</li>
+                                <li>Apply the relationships between voltage, current, and resistance</li>
+                            </ul>
+                        </div>
+                        <section id="voltage">
+                            <h2>Voltage (Electric Potential Difference)</h2>
+                            <p>Voltage, also called electric potential difference, is the force that pushes electric
+                                charges through a conductor. Think of it like pressure in a water pipe—it provides the
+                                "push" that moves electrons.</p>
+                            <div class="formula"><span class="formula-label">Voltage (V)</span>V = W / Q</div>
+                            <p>Where: <strong>V</strong> = Voltage in Volts (V), <strong>W</strong> = Work/Energy in
+                                Joules (J), <strong>Q</strong> = Charge in Coulombs (C)</p>
+                            <h3>Voltage Sources</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Source</th>
+                                        <th>Voltage</th>
+                                        <th>Application</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>AA Battery</td>
+                                        <td>1.5V</td>
+                                        <td>Small electronics</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Car Battery</td>
+                                        <td>12V</td>
+                                        <td>Automotive systems</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wall Outlet (US)</td>
+                                        <td>120V</td>
+                                        <td>Household power</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wall Outlet (EU)</td>
+                                        <td>230V</td>
+                                        <td>Household power</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Transmission Line</td>
+                                        <td>up to 765kV</td>
+                                        <td>Power distribution</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                        <section id="current">
+                            <h2>Current (Electric Flow)</h2>
+                            <p>Current is the flow of electric charge through a conductor. It's measured in Amperes (A),
+                                where 1 Ampere = 1 Coulomb per second.</p>
+                            <div class="formula"><span class="formula-label">Current (I)</span>I = Q / t</div>
+                            <h3>Types of Current</h3>
+                            <ul>
+                                <li><strong>Direct Current (DC)</strong>: Current flows in one direction only
+                                    (batteries, solar panels)</li>
+                                <li><strong>Alternating Current (AC)</strong>: Current reverses direction periodically
+                                    (household power)</li>
+                            </ul>
+                            <div class="diagram-container">
+                                <svg viewBox="0 0 500 150" width="500" height="150">
+                                    <text x="250" y="20" font-size="12" fill="#94a3b8" text-anchor="middle">DC - Direct
+                                        Current</text>
+                                    <line x1="50" y1="80" x2="450" y2="80" stroke="#94a3b8" stroke-width="2" />
+                                    <line x1="50" y1="80" x2="50" y2="30" stroke="#10b981" stroke-width="3" />
+                                    <line x1="50" y1="80" x2="450" y2="80" stroke="#10b981" stroke-width="3" />
+                                    <text x="250" y="120" font-size="12" fill="#94a3b8" text-anchor="middle">AC -
+                                        Alternating Current</text>
+                                    <line x1="50" y1="180" x2="450" y2="180" stroke="#94a3b8" stroke-width="2" />
+                                    <path d="M50 180 Q125 130 200 180 T350 180 T450 180" stroke="#0ea5e9"
+                                        stroke-width="3" fill="none" />
+                                </svg>
+                            </div>
+                        </section>
+                        <section id="resistance">
+                            <h2>Resistance</h2>
+                            <p>Resistance is the opposition to current flow. It's measured in Ohms (Ω), named after
+                                Georg Simon Ohm.</p>
+                            <div class="formula"><span class="formula-label">Resistance (R)</span>R = ρ × L / A</div>
+                            <p>Where: <strong>ρ</strong> = Resistivity (Ω·m), <strong>L</strong> = Length (m),
+                                <strong>A</strong> = Cross-sectional area (m²)</p>
+                            <h3>Factors Affecting Resistance</h3>
+                            <ul>
+                                <li><strong>Length</strong>: Longer wire = more resistance</li>
+                                <li><strong>Cross-sectional Area</strong>: Thicker wire = less resistance</li>
+                                <li><strong>Temperature</strong>: Higher temperature = more resistance (in metals)</li>
+                                <li><strong>Material</strong>: Copper has low resistance; nichrome has high resistance
+                                </li>
+                            </ul>
+                        </section>
+                        <section id="summary">
+                            <h2>Summary</h2>
+                            <ul>
+                                <li>Voltage pushes current through a circuit (measured in Volts)</li>
+                                <li>Current is the flow of charge (measured in Amperes)</li>
+                                <li>Resistance opposes current flow (measured in Ohms)</li>
+                                <li>These three quantities are fundamental to all electrical calculations</li>
+                            </ul>
+                        </section>
+                        <section class="mt-12 pt-8 border-t border-gray-700">
+                            <div class="flex justify-between">
+                                <a href="01-atomic-structure.html" class="btn btn-secondary"><svg class="w-4 h-4 mr-2"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                                    </svg>Previous</a>
+                                <a href="03-ohms-law-power.html" class="btn btn-primary">Next: Ohm's Law <svg
+                                        class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg></a>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="text-sm text-gray-400">© 2024 Electrical Engineering Mastery</div>
+                        <div class="footer-links"><a href="#">About</a><a href="#">Contact</a><a href="#">Privacy</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="../../shared/js/state.js"></script>
+    <script src="../../shared/js/navigation.js"></script>
+    <script src="../../shared/js/router.js"></script>
+    <script src="../../shared/js/app.js"></script>
+</body>
+
+</html>

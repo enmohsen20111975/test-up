@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohm's Law and Power Calculations - EngiSuite Analytics Learning</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- MathJax for LaTeX formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="../../shared/css/styles.css">
+    <link rel="stylesheet" href="../../shared/css/simulations.css">
+
+    <!-- Theme Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+                        secondary: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [data-theme="dark"] {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #eaeaea;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #1e293b;
+        }
+
+        .math-formula {
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        .lesson-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .lesson-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.25rem 0 0.75rem;
+        }
+
+        .lesson-content p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-content ul,
+        .lesson-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .success-box {
+            background: #dcfce7;
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .step-indicator {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-dot {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .step-active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .step-inactive {
+            background: #e2e8f0;
+            color: #64748b;
+        }
+
+        .progress-ring {
+            transition: stroke-dashoffset 0.35s;
+        }
+
+        .quiz-option {
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            transform: translateX(0.25rem);
+        }
+
+        @media (max-width: 768px) {
+            .lesson-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        .formula-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .formula-card .formula {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .formula-card .description {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            background: #f8fafc;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .quiz-question {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .quiz-option.selected {
+            border-color: #3b82f6;
+            background: #dbeafe;
+        }
+
+        .quiz-option.correct {
+            border-color: #22c55e;
+            background: #dcfce7;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .takeaway-card {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .takeaway-card ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .takeaway-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .takeaway-card li:last-child {
+            border-bottom: none;
+        }
+
+        .takeaway-card li::before {
+            content: "✓";
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen transition-colors duration-300">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded">
+        Skip to main content
+    </a>
+
+    <!-- Header Section -->
+    <header class="bg-[var(--bg-secondary)] shadow-md sticky top-0 z-50" role="banner">
+        <div class="container mx-auto px-4 py-3">
+            <!-- Breadcrumb Navigation -->
+            <nav aria-label="Breadcrumb" class="text-sm mb-2">
+                <ol class="flex items-center gap-2 text-gray-500">
+                    <li><a href="../../index.html" class="hover:text-primary-600"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                    <li><a href="../chapters/index.html" class="hover:text-primary-600">Chapters</a></li>
+                    <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                    <li><a href="index.html" class="hover:text-primary-600">Fundamentals</a></li>
+                    <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                    <li id="breadcrumb-lesson" class="text-primary-600 font-medium" aria-current="page">Ohm's Law and
+                        Power</li>
+                </ol>
+            </nav>
+
+            <!-- Lesson Header Info -->
+            <div class="lesson-header flex items-center justify-between flex-wrap gap-4">
+                <div class="flex-1">
+                    <h1 id="lesson-title" class="text-2xl font-bold text-gray-800 dark:text-white">Ohm's Law and Power
+                        Calculations</h1>
+                    <div class="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                        <span><i class="fas fa-clock"></i> 120 minutes</span>
+                        <span><i class="fas fa-layer-group"></i> Beginner</span>
+                    </div>
+                </div>
+
+                <!-- Progress Indicator -->
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                        aria-valuemax="100" aria-label="Lesson progress">
+                        <svg class="w-10 h-10 transform -rotate-90">
+                            <circle cx="20" cy="20" r="16" fill="none" stroke="#e5e7eb" stroke-width="3" />
+                            <circle id="progress-ring" cx="20" cy="20" r="16" fill="none" stroke="#3b82f6"
+                                stroke-width="3" stroke-dasharray="100.48" stroke-dashoffset="100.48"
+                                class="progress-ring" />
+                        </svg>
+                        <span id="progress-text" class="text-sm font-medium">0%</span>
+                    </div>
+
+                    <!-- Bookmark Button -->
+                    <button id="bookmark-btn" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                        aria-label="Bookmark this lesson" title="Bookmark">
+                        <i class="far fa-bookmark text-xl"></i>
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                        aria-label="Toggle dark mode" title="Toggle theme">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline text-yellow-400"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container mx-auto px-4 py-6" role="main">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- Left Sidebar - Learning Objectives -->
+            <aside class="lg:col-span-1">
+                <div class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-4 sticky top-24">
+                    <button id="objectives-toggle"
+                        class="flex items-center justify-between w-full text-left font-semibold text-gray-800 dark:text-white mb-3"
+                        aria-expanded="true" aria-controls="objectives-panel">
+                        <span><i class="fas fa-bullseye mr-2 text-primary-600"></i>Learning Objectives</span>
+                        <i class="fas fa-chevron-up transition-transform" id="objectives-icon"></i>
+                    </button>
+
+                    <div id="objectives-panel" class="transition-all duration-300">
+                        <ul class="space-y-2 text-sm" id="objectives-list">
+                            <li class="flex items-start gap-2">
+                                <input type="checkbox" id="obj-1"
+                                    class="mt-1 w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                <label for="obj-1" class="text-gray-700 dark:text-gray-300 cursor-pointer">Understand
+                                    Ohm's Law and the relationship between voltage, current, and resistance</label>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <input type="checkbox" id="obj-2"
+                                    class="mt-1 w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                <label for="obj-2" class="text-gray-700 dark:text-gray-300 cursor-pointer">Calculate
+                                    power consumption using P=VI, P=I²R, and P=V²/R formulas</label>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <input type="checkbox" id="obj-3"
+                                    class="mt-1 w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                <label for="obj-3" class="text-gray-700 dark:text-gray-300 cursor-pointer">Understand
+                                    the relationship between power and energy (W = P × t)</label>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <input type="checkbox" id="obj-4"
+                                    class="mt-1 w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                <label for="obj-4" class="text-gray-700 dark:text-gray-300 cursor-pointer">Apply circuit
+                                    formulas to solve practical electrical problems</label>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <input type="checkbox" id="obj-5"
+                                    class="mt-1 w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                <label for="obj-5" class="text-gray-700 dark:text-gray-300 cursor-pointer">Use the
+                                    interactive Ohm's Law calculator for real-world circuit analysis</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center Content - Lesson Material -->
+            <div class="lg:col-span-3 space-y-6">
+                <!-- Theory Section -->
+                <section class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6" aria-labelledby="theory-heading">
+                    <h2 id="theory-heading" class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+                        <i class="fas fa-book-open mr-2 text-primary-600"></i>Theory
+                    </h2>
+
+                    <div class="lesson-content prose dark:prose-invert max-w-none">
+                        <h3>Introduction to Ohm's Law</h3>
+                        <p>Ohm's Law is the fundamental principle that describes the relationship between <span
+                                class="lesson-topic">voltage</span>, <span class="lesson-topic">current</span>, and
+                            <span class="lesson-topic">resistance</span> in an electrical circuit. Named after the
+                            German physicist Georg Simon Ohm, this law forms the foundation of all electrical circuit
+                            analysis.</p>
+
+                        <!-- Ohm's Law Formula Card -->
+                        <div class="formula-card">
+                            <div class="formula">V = I × R</div>
+                            <div class="description">Voltage (V) = Current (I) × Resistance (R)</div>
+                        </div>
+
+                        <p>Where:</p>
+                        <ul>
+                            <li><strong>V</strong> = Voltage (measured in Volts, V)</li>
+                            <li><strong>I</strong> = Current (measured in Amperes, A)</li>
+                            <li><strong>R</strong> = Resistance (measured in Ohms, Ω)</li>
+                        </ul>
+
+                        <h3>The Ohm's Law Triangle</h3>
+                        <p>A helpful memory tool is the Ohm's Law triangle. Cover the variable you want to solve for,
+                            and the remaining positions show how to calculate it:</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+                            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 text-center">
+                                <p class="font-bold mb-2">Find Voltage</p>
+                                <p class="text-lg">V = I × R</p>
+                            </div>
+                            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 text-center">
+                                <p class="font-bold mb-2">Find Current</p>
+                                <p class="text-lg">I = V ÷ R</p>
+                            </div>
+                            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 text-center">
+                                <p class="font-bold mb-2">Find Resistance</p>
+                                <p class="text-lg">R = V ÷ I</p>
+                            </div>
+                        </div>
+
+                        <!-- Info Box -->
+                        <div class="info-box" role="note">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-info-circle text-primary-600 mt-1"></i>
+                                <div>
+                                    <strong>Key Concept:</strong>
+                                    <p>Ohm's Law only applies to ohmic materials—components where resistance remains
+                                        constant regardless of voltage or current changes. Some components like diodes
+                                        and bulbs are non-ohmic.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Electrical Power</h3>
+                        <p>Power is the rate at which electrical energy is consumed or transferred. The unit of power is
+                            the <strong>Watt (W)</strong>. There are three equivalent formulas for calculating power in
+                            a circuit:</p>
+
+                        <!-- Power Formula Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+                            <div class="formula-card">
+                                <div class="formula">P = V × I</div>
+                                <div class="description">Power = Voltage × Current</div>
+                            </div>
+                            <div class="formula-card"
+                                style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                <div class="formula">P = I² × R</div>
+                                <div class="description">Power = Current² × Resistance</div>
+                            </div>
+                            <div class="formula-card"
+                                style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                <div class="formula">P = V² ÷ R</div>
+                                <div class="description">Power = Voltage² ÷ Resistance</div>
+                            </div>
+                        </div>
+
+                        <h3>Electrical Energy</h3>
+                        <p>Energy is the total amount of power consumed over time. The unit of energy is the
+                            <strong>Joule (J)</strong>, but in electrical billing, we commonly use
+                            <strong>Kilowatt-hours (kWh)</strong>.</p>
+
+                        <div class="formula-card"
+                            style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <div class="formula">W = P × t</div>
+                            <div class="description">Energy (W) = Power (P) × Time (t)</div>
+                        </div>
+
+                        <p>Where:</p>
+                        <ul>
+                            <li><strong>W</strong> = Energy (Joules or Watt-hours)</li>
+                            <li><strong>P</strong> = Power (Watts)</li>
+                            <li><strong>t</strong> = Time (seconds or hours)</li>
+                        </ul>
+
+                        <h3>Practical Applications</h3>
+                        <div class="success-box">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-lightbulb text-yellow-600 mt-1"></i>
+                                <div>
+                                    <strong>Real-World Example:</strong>
+                                    <p>A 100W light bulb connected to 120V mains circuit draws:</p>
+                                    <p class="mt-2">Current I = P ÷ V = 100W ÷ 120V = 0.83A</p>
+                                    <p>Resistance R = V ÷ I = 120V ÷ 0.83A ≈ 144Ω</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Step-by-Step Problem Solving</h3>
+                        <div class="space-y-3">
+                            <div class="step-indicator">
+                                <div class="step-dot step-active">1</div>
+                                <div class="step-content">
+                                    <p class="font-medium">Identify known values</p>
+                                    <p class="text-sm text-gray-500">List all given quantities from the problem
+                                        statement</p>
+                                </div>
+                            </div>
+                            <div class="step-indicator">
+                                <div class="step-dot step-active">2</div>
+                                <div class="step-content">
+                                    <p class="font-medium">Select appropriate formula</p>
+                                    <p class="text-sm text-gray-500">Choose the formula that relates your known and
+                                        unknown quantities</p>
+                                </div>
+                            </div>
+                            <div class="step-indicator">
+                                <div class="step-dot step-active">3</div>
+                                <div class="step-content">
+                                    <p class="font-medium">Rearrange if needed</p>
+                                    <p class="text-sm text-gray-500">Solve the formula for the unknown variable</p>
+                                </div>
+                            </div>
+                            <div class="step-indicator">
+                                <div class="step-dot step-inactive">4</div>
+                                <div class="step-content">
+                                    <p class="font-medium">Calculate and verify units</p>
+                                    <p class="text-sm text-gray-500">Perform the calculation and ensure correct units
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Warning Box -->
+                        <div class="warning-box" role="alert">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-exclamation-triangle text-yellow-600 mt-1"></i>
+                                <div>
+                                    <strong>Safety Note:</strong>
+                                    <p>Always check units before performing calculations. Inconsistent units (like
+                                        mixing Volts with millivolts) will lead to incorrect results. Use metric
+                                        prefixes consistently!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Interactive Simulation Section -->
+                <section class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6" aria-labelledby="simulation-heading">
+                    <h2 id="simulation-heading" class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+                        <i class="fas fa-flask mr-2 text-primary-600"></i>Interactive Simulation - Ohm's Law Calculator
+                    </h2>
+
+                    <p class="mb-4 text-gray-700 dark:text-gray-300">Experiment with the circuit parameters below to see
+                        how voltage, current, and resistance affect each other in real-time. The simulation will
+                        automatically calculate the power consumption.</p>
+
+                    <div class="simulation-container border rounded-lg overflow-hidden" id="ohmslaw-container">
+                        <canvas id="ohmslaw-canvas" class="simulation-canvas"></canvas>
+                    </div>
+
+                    <!-- Simulation Controls -->
+                    <div id="ohmslaw-controls"></div>
+                </section>
+
+                <!-- Practice Problems Section -->
+                <section class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6" aria-labelledby="practice-heading">
+                    <h2 id="practice-heading" class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+                        <i class="fas fa-pencil-alt mr-2 text-primary-600"></i>Practice Problems
+                    </h2>
+
+                    <p class="mb-4 text-gray-700 dark:text-gray-300">Test your understanding by solving these problems.
+                        Enter your answers and check them against the solutions.</p>
+
+                    <div class="space-y-6">
+                        <!-- Problem 1 -->
+                        <div class="problem-card border rounded-lg p-4" id="problem-1">
+                            <div class="flex items-start justify-between mb-3">
+                                <h3 class="font-semibold text-gray-800 dark:text-white">Problem 1</h3>
+                                <span
+                                    class="text-xs px-2 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded">Easy</span>
+                            </div>
+
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                A circuit has a voltage source of 24V and a resistor of 480Ω. Calculate the current
+                                flowing through the circuit.
+                            </p>
+
+                            <div class="flex gap-2 mb-4">
+                                <input type="number" id="answer-1" placeholder="Enter your answer (in Amperes)"
+                                    class="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600"
+                                    aria-label="Your answer for problem 1">
+                                <button onclick="checkAnswer(1, 0.05, 'A')"
+                                    class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+                                    Check
+                                </button>
+                            </div>
+                            <p id="feedback-1" class="text-sm hidden"></p>
+
+                            <button class="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1"
+                                onclick="toggleSolution('solution-1')">
+                                <i class="fas fa-eye"></i> Show Solution
+                            </button>
+
+                            <div id="solution-1"
+                                class="solution-content mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg hidden">
+                                <h4 class="font-medium text-green-800 dark:text-green-300 mb-2">
+                                    <i class="fas fa-check-circle mr-1"></i>Solution
+                                </h4>
+                                <div class="math-formula">
+                                    $$I = \frac{V}{R} = \frac{24V}{480Ω} = 0.05A = 50mA$$
+                                </div>
+                                <ol
+                                    class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-1 mt-2">
+                                    <li>Identify known values: V = 24V, R = 480Ω</li>
+                                    <li>Apply Ohm's Law: I = V/R</li>
+                                    <li>Calculate: I = 24 ÷ 480 = 0.05A</li>
+                                    <li>Convert to milliamperes: 0.05A × 1000 = 50mA</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- Problem 2 -->
+                        <div class="problem-card border rounded-lg p-4" id="problem-2">
+                            <div class="flex items-start justify-between mb-3">
+                                <h3 class="font-semibold text-gray-800 dark:text-white">Problem 2</h3>
+                                <span
+                                    class="text-xs px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 rounded">Medium</span>
+                            </div>
+
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                A 60W light bulb is connected to a 120V power supply. Calculate:
+                                <br>a) The current flowing through the bulb
+                                <br>b) The resistance of the bulb's filament
+                            </p>
+
+                            <div class="space-y-3 mb-4">
+                                <div class="flex gap-2">
+                                    <input type="number" id="answer-2a" placeholder="Part a) Current (in Amperes)"
+                                        class="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600">
+                                    <button onclick="checkAnswer(2, 0.5, 'A', 'answer-2a', 0.01)"
+                                        class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">Check</button>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="number" id="answer-2b" placeholder="Part b) Resistance (in Ohms)"
+                                        class="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600">
+                                    <button onclick="checkAnswer(2, 240, 'Ω', 'answer-2b', 1)"
+                                        class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">Check</button>
+                                </div>
+                            </div>
+                            <p id="feedback-2" class="text-sm hidden"></p>
+
+                            <button class="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1"
+                                onclick="toggleSolution('solution-2')">
+                                <i class="fas fa-eye"></i> Show Solution
+                            </button>
+
+                            <div id="solution-2"
+                                class="solution-content mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg hidden">
+                                <h4 class="font-medium text-green-800 dark:text-green-300 mb-2">
+                                    <i class="fas fa-check-circle mr-1"></i>Solution
+                                </h4>
+                                <p class="font-medium mb-2">Part a) Calculate Current:</p>
+                                <div class="math-formula">
+                                    $$I = \frac{P}{V} = \frac{60W}{120V} = 0.5A$$
+                                </div>
+                                <p class="font-medium mb-2 mt-3">Part b) Calculate Resistance:</p>
+                                <div class="math-formula">
+                                    $$R = \frac{V}{I} = \frac{120V}{0.5A} = 240Ω$$
+                                </div>
+                                <ol
+                                    class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-1 mt-2">
+                                    <li>Part a: Use P = VI, rearrange to I = P/V</li>
+                                    <li>Part b: Use Ohm's Law, R = V/I</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- Problem 3 -->
+                        <div class="problem-card border rounded-lg p-4" id="problem-3">
+                            <div class="flex items-start justify-between mb-3">
+                                <h3 class="font-semibold text-gray-800 dark:text-white">Problem 3</h3>
+                                <span
+                                    class="text-xs px-2 py-1 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded">Hard</span>
+                            </div>
+
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                An electric heater has a resistance of 20Ω and draws a current of 6A. Calculate:
+                                <br>a) The power consumed by the heater
+                                <br>b) The energy consumed in kWh if it operates for 4 hours
+                            </p>
+
+                            <div class="space-y-3 mb-4">
+                                <div class="flex gap-2">
+                                    <input type="number" id="answer-3a" placeholder="Part a) Power (in Watts)"
+                                        class="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600">
+                                    <button onclick="checkAnswer(3, 720, 'W', 'answer-3a', 1)"
+                                        class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">Check</button>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="number" id="answer-3b" placeholder="Part b) Energy (in kWh)"
+                                        class="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600">
+                                    <button onclick="checkAnswer(3, 2.88, 'kWh', 'answer-3b', 0.01)"
+                                        class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">Check</button>
+                                </div>
+                            </div>
+                            <p id="feedback-3" class="text-sm hidden"></p>
+
+                            <button class="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1"
+                                onclick="toggleSolution('solution-3')">
+                                <i class="fas fa-eye"></i> Show Solution
+                            </button>
+
+                            <div id="solution-3"
+                                class="solution-content mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg hidden">
+                                <h4 class="font-medium text-green-800 dark:text-green-300 mb-2">
+                                    <i class="fas fa-check-circle mr-1"></i>Solution
+                                </h4>
+                                <p class="font-medium mb-2">Part a) Calculate Power:</p>
+                                <div class="math-formula">
+                                    $$P = I^2 \cdot R = (6A)^2 \times 20Ω = 36 \times 20 = 720W$$
+                                </div>
+                                <p class="font-medium mb-2 mt-3">Part b) Calculate Energy:</p>
+                                <div class="math-formula">
+                                    $$E = P \times t = 720W \times 4h = 2880Wh = 2.88kWh$$
+                                </div>
+                                <ol
+                                    class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-1 mt-2">
+                                    <li>Part a: Use P = I²R formula</li>
+                                    <li>Part b: Convert Wh to kWh by dividing by 1000</li>
+                                    <li>Energy (kWh) = 2880 ÷ 1000 = 2.88 kWh</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quiz Section -->
+                <section class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6" aria-labelledby="quiz-heading">
+                    <h2 id="quiz-heading" class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+                        <i class="fas fa-question-circle mr-2 text-primary-600"></i>Knowledge Check Quiz
+                    </h2>
+
+                    <p class="mb-4 text-gray-700 dark:text-gray-300">Test your understanding of Ohm's Law and power
+                        calculations with this 5-question quiz.</p>
+
+                    <div class="quiz-container" id="quiz-container">
+                        <!-- Quiz questions will be rendered here -->
+                        <div id="quiz-content"></div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <button id="submit-quiz" onclick="submitQuiz()"
+                                class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                                Submit Answers
+                            </button>
+                            <div id="quiz-score" class="text-lg font-semibold hidden"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Key Takeaways Section -->
+                <section class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6" aria-labelledby="takeaways-heading">
+                    <h2 id="takeaways-heading" class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+                        <i class="fas fa-star mr-2 text-yellow-500"></i>Key Takeaways
+                    </h2>
+
+                    <div class="takeaway-card">
+                        <ul class="space-y-2">
+                            <li>Ohm's Law states: V = I × R, where voltage equals current times resistance</li>
+                            <li>Any of the three variables can be found if the other two are known</li>
+                            <li>Power in a circuit can be calculated using P = VI, P = I²R, or P = V²/R</li>
+                            <li>Electrical energy is power consumed over time: W = P × t</li>
+                            <li>1 kilowatt-hour (kWh) = 1000 watts × 1 hour = 3,600,000 Joules</li>
+                            <li>Always verify units before performing calculations</li>
+                            <li>Use the interactive simulation to visualize relationships between V, I, and R</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Navigation -->
+                <nav class="flex justify-between items-center pt-4 border-t" aria-label="Lesson navigation">
+                    <a href="02-voltage-current-resistance.html"
+                        class="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Previous: Voltage, Current & Resistance</span>
+                    </a>
+                    <a href="04-series-circuits.html"
+                        class="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+                        <span>Next: Series Circuits</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[var(--bg-secondary)] shadow-md mt-8 py-6" role="contentinfo">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>&copy; 2024 EngiSuite Analytics. All rights reserved.</p>
+            <p class="mt-1">Learning Module: Fundamentals of Electrical Engineering</p>
+        </div>
+    </footer>
+
+    <!-- Shared JavaScript -->
+    <script src="../../shared/js/state.js"></script>
+    <script src="../../shared/js/navigation.js"></script>
+    <script src="../../shared/js/simulations.js"></script>
+
+    <!-- Page-specific JavaScript -->
+    <script>
+        // Quiz Data
+        const quizData = [
+            {
+                question: "1. What is the formula for Ohm's Law?",
+                options: ["P = V × I", "V = I × R", "W = P × t", "R = V × I"],
+                correct: 1,
+                explanation: "Ohm's Law states that Voltage (V) equals Current (I) multiplied by Resistance (R)."
+            },
+            {
+                question: "2. A circuit has 12V and 4Ω of resistance. What is the current?",
+                options: ["48A", "3A", "0.33A", "16A"],
+                correct: 1,
+                explanation: "Using Ohm's Law: I = V/R = 12V/4Ω = 3A"
+            },
+            {
+                question: "3. Which formula is used to calculate power when you know current and resistance?",
+                options: ["P = V²/R", "P = V × I", "P = I²R", "W = P × t"],
+                correct: 2,
+                explanation: "P = I²R is the formula for power when you know current and resistance."
+            },
+            {
+                question: "4. How many Joules are in 1 kilowatt-hour?",
+                options: ["360 J", "3600 J", "3,600,000 J", "1000 J"],
+                correct: 2,
+                explanation: "1 kWh = 1000W × 3600s = 3,600,000 Joules"
+            },
+            {
+                question: "5. If voltage doubles and resistance stays the same, what happens to power?",
+                options: ["Power stays the same", "Power doubles", "Power quadruples", "Power halves"],
+                correct: 2,
+                explanation: "Using P = V²/R, if V doubles, power becomes 4× (quadruples)"
+            }
+        ];
+
+        // Render Quiz
+        function renderQuiz() {
+            const container = document.getElementById('quiz-content');
+            let html = '';
+
+            quizData.forEach((q, index) => {
+                html += `
+                    <div class="quiz-question mb-4">
+                        <p>${q.question}</p>
+                        <div class="quiz-options mt-2" data-question="${index}">
+                            ${q.options.map((opt, i) => `
+                                <div class="quiz-option" data-index="${i}" onclick="selectAnswer(${index}, ${i})">
+                                    ${opt}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Select Answer
+        function selectAnswer(questionIndex, optionIndex) {
+            const options = document.querySelectorAll(`[data-question="${questionIndex}"] .quiz-option`);
+            options.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+            options[optionIndex].classList.add('selected');
+        }
+
+        // Submit Quiz
+        function submitQuiz() {
+            let score = 0;
+            const userAnswers = [];
+
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`[data-question="${index}"] .quiz-option.selected`);
+                const options = document.querySelectorAll(`[data-question="${index}"] .quiz-option`);
+
+                if (selected) {
+                    const answerIndex = parseInt(selected.dataset.index);
+                    userAnswers.push(answerIndex);
+
+                    if (answerIndex === q.correct) {
+                        score++;
+                        selected.classList.add('correct');
+                    } else {
+                        selected.classList.add('incorrect');
+                        options[q.correct].classList.add('correct');
+                    }
+                } else {
+                    userAnswers.push(null);
+                    options[q.correct].classList.add('correct');
+                }
+            });
+
+            const percentage = (score / quizData.length) * 100;
+            const scoreElement = document.getElementById('quiz-score');
+            scoreElement.textContent = `Score: ${score}/${quizData.length} (${percentage}%)`;
+            scoreElement.classList.remove('hidden');
+
+            if (percentage >= 80) {
+                scoreElement.className = 'text-lg font-semibold hidden text-green-600';
+                scoreElement.classList.add('text-green-600');
+            } else {
+                scoreElement.classList.add('text-red-600');
+            }
+
+            document.getElementById('submit-quiz').disabled = true;
+        }
+
+        // Toggle Solution
+        function toggleSolution(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('hidden');
+        }
+
+        // Check Answer
+        function checkAnswer(problemNum, correctValue, unit, inputId = null, tolerance = 0) {
+            const feedback = document.getElementById(`feedback-${problemNum}`);
+            const input = document.getElementById(inputId || `answer-${problemNum}`);
+
+            if (!input) return;
+
+            const userValue = parseFloat(input.value);
+
+            if (isNaN(userValue)) {
+                feedback.textContent = 'Please enter a valid number.';
+                feedback.className = 'text-sm mt-2 text-yellow-600';
+                feedback.classList.remove('hidden');
+                return;
+            }
+
+            let isCorrect;
+            if (tolerance > 0) {
+                isCorrect = Math.abs(userValue - correctValue) <= tolerance;
+            } else {
+                isCorrect = Math.abs(userValue - correctValue) < 0.001;
+            }
+
+            if (isCorrect) {
+                feedback.textContent = `✓ Correct! The answer is ${correctValue} ${unit}`;
+                feedback.className = 'text-sm mt-2 text-green-600';
+                feedback.classList.remove('hidden');
+            } else {
+                feedback.textContent = `✗ Incorrect. Try again or check the solution.`;
+                feedback.className = 'text-sm mt-2 text-red-600';
+                feedback.classList.remove('hidden');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            renderQuiz();
+
+            // Initialize Ohm's Law simulation
+            const ohmsLawSim = new OhmsLawSimulation();
+            const container = document.getElementById('ohmslaw-container');
+            if (container) {
+                ohmsLawSim.init(container);
+            }
+
+            // Initialize navigation
+            if (typeof Navigation !== 'undefined') {
+                Navigation.init();
+            }
+
+            // Re-render MathJax
+            if (window.MathJax) {
+                MathJax.typeset();
+            }
+        });
+    </script>
+</body>
+
+</html>

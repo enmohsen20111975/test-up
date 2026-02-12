@@ -1,0 +1,811 @@
+/* ================================================
+   Electrical Engineering Learning Platform - Styles
+   Tailwind CSS + Custom Styles
+   ================================================ */
+
+/* Tailwind CSS Import */
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+/* ================================================
+   Custom CSS Variables
+   ================================================ */
+:root {
+    /* Primary Colors - Electrical Theme */
+    --primary-50: #eef2ff;
+    --primary-100: #e0e7ff;
+    --primary-200: #c7d2fe;
+    --primary-300: #a5b4fc;
+    --primary-400: #818cf8;
+    --primary-500: #6366f1;
+    --primary-600: #4f46e5;
+    --primary-700: #4338ca;
+    --primary-800: #3730a3;
+    --primary-900: #312e81;
+
+    /* Electrical Theme Colors */
+    --electric-blue: #0ea5e9;
+    --circuit-green: #10b981;
+    --power-orange: #f97316;
+    --voltage-red: #ef4444;
+    --signal-purple: #8b5cf6;
+
+    /* Neutrals */
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border-color: #334155;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+/* ================================================
+   Base Styles
+   ================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* ================================================
+   Typography
+   ================================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.25rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+.lead {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+}
+
+/* ================================================
+   Layout Components
+   ================================================ */
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.page-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Navigation */
+.sidebar {
+    width: 280px;
+    background: var(--bg-card);
+    border-right: 1px solid var(--border-color);
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 50;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-900) 100%);
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sidebar-logo svg {
+    width: 40px;
+    height: 40px;
+}
+
+.sidebar-logo h1 {
+    font-size: 1.25rem;
+    margin: 0;
+    color: white;
+}
+
+.sidebar-nav {
+    padding: 1rem 0;
+}
+
+.nav-section {
+    margin-bottom: 0.5rem;
+}
+
+.nav-section-title {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--text-primary);
+}
+
+.nav-item.active {
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--primary-300);
+    border-left-color: var(--primary-500);
+}
+
+.nav-item svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.nav-badge {
+    margin-left: auto;
+    background: var(--primary-600);
+    color: white;
+    font-size: 0.625rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    min-height: 100vh;
+}
+
+.content-header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    padding: 2rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.breadcrumb a {
+    color: var(--primary-400);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.content-body {
+    padding: 2rem 0;
+}
+
+.content-section {
+    margin-bottom: 3rem;
+}
+
+/* ================================================
+   Cards
+   ================================================ */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Chapter Cards */
+.chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.chapter-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.chapter-card:hover {
+    border-color: var(--primary-500);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-4px);
+}
+
+.chapter-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.chapter-icon.fundamentals {
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+}
+
+.chapter-icon.circuits {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.chapter-icon.power {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.chapter-icon.electronics {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.chapter-icon.digital {
+    background: linear-gradient(135deg, #ec4899, #db2777);
+}
+
+.chapter-icon.machines {
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+}
+
+.chapter-icon.control {
+    background: linear-gradient(135deg, #eab308, #ca8a04);
+}
+
+.chapter-icon.renewable {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.chapter-icon.safety {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.chapter-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.chapter-card p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.chapter-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.chapter-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Lesson Cards */
+.lesson-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.lesson-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lesson-item:hover {
+    border-color: var(--primary-500);
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.lesson-item.active {
+    border-color: var(--primary-500);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.lesson-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary-600);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.lesson-content {
+    flex: 1;
+}
+
+.lesson-title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.lesson-duration {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* ================================================
+   Article Content
+   ================================================ */
+.article-content {
+    max-width: 800px;
+}
+
+.article-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--primary-400) 0%, var(--electric-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.article-content h2 {
+    font-size: 1.75rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--primary-600);
+    padding-bottom: 0.5rem;
+}
+
+.article-content h3 {
+    font-size: 1.375rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary-300);
+}
+
+.article-content p {
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+    line-height: 1.8;
+}
+
+.article-content ul,
+.article-content ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+}
+
+.article-content li {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+}
+
+.article-content strong {
+    color: var(--text-primary);
+}
+
+/* Code Blocks */
+pre {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+code {
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    color: var(--circuit-green);
+}
+
+pre code {
+    color: var(--text-primary);
+}
+
+/* Formulas */
+.formula {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid var(--primary-500);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    font-size: 1.125rem;
+    color: var(--text-primary);
+    overflow-x: auto;
+}
+
+.formula-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--primary-400);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Info Boxes */
+.info-box {
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid;
+}
+
+.info-box.tip {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: var(--circuit-green);
+}
+
+.info-box.warning {
+    background: rgba(249, 115, 22, 0.1);
+    border-color: var(--power-orange);
+}
+
+.info-box.danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: var(--voltage-red);
+}
+
+.info-box.note {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--primary-500);
+}
+
+.info-box-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    background: var(--bg-card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+th,
+td {
+    padding: 0.875rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background: rgba(99, 102, 241, 0.1);
+    font-weight: 600;
+    color: var(--primary-300);
+}
+
+tr:hover {
+    background: rgba(99, 102, 241, 0.05);
+}
+
+/* Diagrams Container */
+.diagram-container {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.diagram-container svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-dark);
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-500) 0%, var(--electric-blue) 100%);
+    border-radius: 9999px;
+    transition: width 0.3s ease;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-secondary {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-500);
+}
+
+.btn-icon {
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+}
+
+/* ================================================
+   Footer
+   ================================================ */
+.footer {
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary-400);
+}
+
+/* ================================================
+   Animations
+   ================================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ================================================
+   Responsive Design
+   ================================================ */
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .chapter-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .chapter-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================================
+   Print Styles
+   ================================================ */
+@media print {
+
+    .sidebar,
+    .content-header,
+    .footer {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .article-content h1,
+    .article-content h2,
+    .article-content h3 {
+        -webkit-text-fill-color: black;
+        background: none;
+    }
+}

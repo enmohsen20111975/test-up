@@ -1,0 +1,74 @@
+<!-- Interactive Simulation Component -->
+<section class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6" aria-labelledby="simulation-heading">
+    <h2 id="simulation-heading" class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+        <i class="fas fa-flask mr-2 text-primary-600"></i>[[i18n.interactiveSimulation]]
+    </h2>
+
+    <div class="simulation-container border rounded-lg overflow-hidden" data-sim-type="{{simulationType}}">
+        <!-- Simulation Canvas -->
+        <div class="simulation-canvas bg-gray-100 dark:bg-gray-800 h-64 flex items-center justify-center"
+            id="simulation-canvas">
+            <canvas id="{{canvasId}}" width="800" height="300"></canvas>
+            <div class="text-center text-gray-500" id="simulation-placeholder">
+                <i class="{{placeholderIcon}} text-4xl mb-2"></i>
+                <p>{{placeholderTitle}}</p>
+                <p class="text-sm">{{placeholderDescription}}</p>
+            </div>
+        </div>
+
+        <!-- Simulation Controls -->
+        <div class="simulation-controls p-4 bg-gray-50 dark:bg-gray-900">
+            <div class="grid grid-cols-1 md:grid-cols-{{controls.length}} gap-4">
+                {{#each controls}}
+                <div class="control-group">
+                    <label for="{{id}}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        {{label}}: <span id="{{valueId}}">{{defaultValue}}</span>{{unit}}
+                    </label>
+                    <input type="{{type}}" id="{{id}}" min="{{min}}" max="{{max}}" value="{{defaultValue}}"
+                        step="{{step}}"
+                        class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
+                        oninput="updateSimulation('{{@root.simulationType}}', '{{id}}', this.value)">
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="mt-4 flex gap-2">
+                <button id="sim-start"
+                    class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+                    onclick="startSimulation('{{simulationType}}')">
+                    <i class="fas fa-play mr-1"></i> [[i18n.start]]
+                </button>
+                <button id="sim-pause"
+                    class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition"
+                    onclick="pauseSimulation('{{simulationType}}')">
+                    <i class="fas fa-pause mr-1"></i> [[i18n.pause]]
+                </button>
+                <button id="sim-reset" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition"
+                    onclick="resetSimulation('{{simulationType}}')">
+                    <i class="fas fa-redo mr-1"></i> [[i18n.reset]]
+                </button>
+            </div>
+        </div>
+
+        <!-- Real-time Feedback -->
+        <div id="simulation-feedback" class="p-4 bg-blue-50 dark:bg-blue-900/20 hidden">
+            <div class="flex items-start gap-3">
+                <i class="fas fa-lightbulb text-blue-600 mt-1"></i>
+                <div id="feedback-content">
+                    <p class="font-medium text-blue-800 dark:text-blue-300">[[i18n.calculatedResult]]:</p>
+                    <p class="text-blue-700 dark:text-blue-400" id="feedback-text">{{feedbackText}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Display -->
+        <div class="results-display p-4 bg-gray-50 dark:bg-gray-900 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {{#each results}}
+            <div class="result-card text-center p-3 bg-white dark:bg-gray-800 rounded-lg">
+                <p class="text-sm text-gray-500">{{label}}</p>
+                <p class="text-lg font-mono font-bold text-primary-600" id="{{id}}">{{value}}</p>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>

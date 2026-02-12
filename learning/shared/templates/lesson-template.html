@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="[[i18n.lang]]" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - EngiSuite Analytics</title>
+
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/lesson.css">
+    <link rel="stylesheet" href="../css/simulations.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- MathJax for formulas -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax" async></script>
+
+    <!-- Template Styles -->
+    <link rel="stylesheet" href="lesson-styles.css">
+</head>
+
+<body class="lesson-page bg-[var(--bg-primary)] min-h-screen">
+    <!-- Skip Navigation -->
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded">
+        [[i18n.skipToMain]]
+    </a>
+
+    <!-- Main Container -->
+    <div class="lesson-container flex flex-col min-h-screen">
+
+        <!-- Header Component -->
+        <header class="lesson-header bg-[var(--bg-secondary)] shadow-md sticky top-0 z-50" role="banner">
+            <div class="container mx-auto px-4 py-3">
+                <!-- Breadcrumb Navigation -->
+                <nav aria-label="Breadcrumb" class="text-sm mb-2">
+                    <ol class="flex items-center gap-2 text-gray-500 flex-wrap">
+                        <li><a href="../../index.html" class="hover:text-primary-600 transition-colors">
+                                <i class="fas fa-home"></i> [[i18n.home]]
+                            </a></li>
+                        <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                        <li><a href="../chapters/index.html"
+                                class="hover:text-primary-600 transition-colors">[[i18n.chapters]]</a></li>
+                        <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                        <li><span id="breadcrumb-chapter" class="text-gray-700">{{chapterName}}</span></li>
+                        <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                        <li id="breadcrumb-lesson" class="text-primary-600 font-medium" aria-current="page">
+                            {{lessonTitle}}</li>
+                    </ol>
+                </nav>
+
+                <!-- Lesson Header Info -->
+                <div class="header-content flex items-center justify-between flex-wrap gap-4">
+                    <div class="flex-1 min-w-0">
+                        <h1 id="lesson-title" class="text-2xl font-bold text-gray-800 dark:text-white truncate">
+                            {{lessonTitle}}</h1>
+                        <div class="flex items-center gap-4 mt-1 text-sm text-gray-500 flex-wrap">
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-clock"></i> <span id="lesson-duration">{{duration}}</span>
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-layer-group"></i> <span id="lesson-level">{{level}}</span>
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-book-open"></i> <span id="lesson-type">{{type}}</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Progress & Actions -->
+                    <div class="flex items-center gap-4">
+                        <!-- Progress Ring -->
+                        <div class="progress-ring-container" role="progressbar" aria-valuenow="{{progress}}"
+                            aria-valuemin="0" aria-valuemax="100" aria-label="Lesson progress">
+                            <svg class="w-12 h-12 transform -rotate-90" viewBox="0 0 44 44">
+                                <circle cx="22" cy="22" r="18" fill="none" stroke="var(--border-color)"
+                                    stroke-width="4" />
+                                <circle id="progress-ring" cx="22" cy="22" r="18" fill="none"
+                                    stroke="var(--primary-color)" stroke-width="4" stroke-dasharray="113.1"
+                                    stroke-dashoffset="{{progressOffset}}" stroke-linecap="round"
+                                    class="progress-ring transition-all duration-500" />
+                            </svg>
+                            <span id="progress-text" class="sr-only">{{progress}}%</span>
+                            <span class="absolute -mt-9 ml-2.5 text-xs font-medium">{{progress}}%</span>
+                        </div>
+
+                        <!-- Bookmark Button -->
+                        <button id="bookmark-btn"
+                            class="p-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                            aria-label="Bookmark this lesson" title="Bookmark">
+                            <i class="far fa-bookmark text-xl"></i>
+                        </button>
+
+                        <!-- Theme Toggle -->
+                        <button id="theme-toggle"
+                            class="p-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                            aria-label="Toggle dark mode" title="Toggle theme">
+                            <i class="fas fa-moon dark:hidden"></i>
+                            <i class="fas fa-sun hidden dark:inline text-yellow-400"></i>
+                        </button>
+
+                        <!-- Help Button -->
+                        <button id="help-btn"
+                            class="p-2.5 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                            aria-label="Get help" title="Help">
+                            <i class="fas fa-question-circle text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="flex-1 container mx-auto px-4 py-6">
+            <div class="lesson-grid grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+                <!-- Sidebar (Learning Objectives) -->
+                <aside class="lg:col-span-1 order-2 lg:order-1">
+                    <!-- Learning Objectives -->
+                    <div class="sidebar-section bg-[var(--bg-secondary)] rounded-xl shadow-md p-4 sticky top-24">
+                        <button id="objectives-toggle"
+                            class="flex items-center justify-between w-full text-left font-semibold text-gray-800 dark:text-white mb-3"
+                            aria-expanded="true" aria-controls="objectives-panel">
+                            <span class="flex items-center gap-2">
+                                <i class="fas fa-bullseye text-primary-600"></i>[[i18n.learningObjectives]]
+                            </span>
+                            <i class="fas fa-chevron-up transition-transform" id="objectives-icon"></i>
+                        </button>
+
+                        <div id="objectives-panel" class="transition-all duration-300">
+                            <ul class="space-y-2 text-sm" id="objectives-list">
+                                {{#each objectives}}
+                                <li class="flex items-start gap-2">
+                                    <input type="checkbox" id="obj-{{@index}}"
+                                        class="mt-1 w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer"
+                                        onchange="updateObjective('{{@index}}', this.checked)">
+                                    <label for="obj-{{@index}}"
+                                        class="text-gray-700 dark:text-gray-300 cursor-pointer">{{this}}</label>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Quick Navigation -->
+                    <div class="sidebar-section bg-[var(--bg-secondary)] rounded-xl shadow-md p-4 mt-4 sticky top-24">
+                        <h3 class="font-semibold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
+                            <i class="fas fa-list text-primary-600"></i>[[i18n.lessonContents]]
+                        </h3>
+                        <nav class="space-y-1" id="lesson-nav">
+                            {{#each sections}}
+                            <a href="#{{id}}"
+                                class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                                data-section="{{id}}">
+                                <i class="{{icon}} text-primary-600 w-5"></i>{{title}}
+                            </a>
+                            {{/each}}
+                        </nav>
+                    </div>
+
+                    <!-- Lesson Navigation (Prev/Next) -->
+                    <div class="sidebar-section bg-[var(--bg-secondary)] rounded-xl shadow-md p-4 mt-4">
+                        <div class="nav-buttons flex justify-between gap-2">
+                            <button id="prev-lesson"
+                                class="nav-btn prev flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition">
+                                <i class="fas fa-arrow-left"></i> [[i18n.previous]]
+                            </button>
+                            <button id="next-lesson"
+                                class="nav-btn next flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition">
+                                [[i18n.next]] <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Content Column -->
+                <div class="lg:col-span-3 order-1 lg:order-2">
+
+                    <!-- Theory Section -->
+                    <section id="theory-section" class="content-section mb-6" aria-labelledby="theory-heading">
+                        <div class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6">
+                            <h2 id="theory-heading"
+                                class="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+                                <i class="fas fa-book-open text-primary-600"></i>[[i18n.theory]]
+                            </h2>
+
+                            <div class="lesson-content prose dark:prose-invert max-w-none">
+                                <!-- Introduction -->
+                                {{#if content.introduction}}
+                                <div class="intro-text mb-6 text-lg text-gray-700 dark:text-gray-300">
+                                    {{content.introduction}}
+                                </div>
+                                {{/if}}
+
+                                <!-- Content Sections -->
+                                {{#each content.sections}}
+                                <div class="content-block mb-6">
+                                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">{{title}}</h3>
+                                    <p class="text-gray-700 dark:text-gray-300">{{content}}</p>
+                                </div>
+                                {{/each}}
+
+                                <!-- Key Concepts Box -->
+                                {{#if keyConcepts}}
+                                <div class="info-box my-6">
+                                    <i class="fas fa-lightbulb text-yellow-500 mt-1"></i>
+                                    <div>
+                                        <strong>[[i18n.keyConcepts]]</strong>
+                                        <ul class="list-disc list-inside mt-2">
+                                            {{#each keyConcepts}}
+                                            <li>{{this}}</li>
+                                            {{/each}}
+                                        </ul>
+                                    </div>
+                                </div>
+                                {{/if}}
+
+                                <!-- Formulas -->
+                                {{#if formulas.length}}
+                                <div class="formulas-container my-6">
+                                    <h3
+                                        class="text-lg font-semibold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
+                                        <i
+                                            class="fas fa-square-root-alt text-primary-600"></i>[[i18n.importantFormulas]]
+                                    </h3>
+                                    <div class="grid gap-4">
+                                        {{#each formulas}}
+                                        <div
+                                            class="formula-card {{#if accentColor}}{{accentColor}}{{else}}accent-blue{{/if}}">
+                                            <div class="formula">$${{formula}}$$</div>
+                                            {{#if description}}
+                                            <p class="description">{{description}}</p>
+                                            {{/if}}
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                                {{/if}}
+
+                                <!-- Step-by-Step Procedure -->
+                                {{#if steps}}
+                                <div class="steps-container my-6">
+                                    <h3
+                                        class="text-lg font-semibold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
+                                        <i class="fas fa-list-ol text-primary-600"></i>{{stepsTitle}}
+                                    </h3>
+                                    <div class="space-y-3">
+                                        {{#each steps}}
+                                        <div class="step-indicator">
+                                            <div class="step-dot step-{{status}}">{{stepNumber}}</div>
+                                            <div class="step-content">
+                                                <p class="font-medium text-gray-800 dark:text-white">{{title}}</p>
+                                                {{#if description}}
+                                                <p class="text-sm text-gray-500">{{description}}</p>
+                                                {{/if}}
+                                            </div>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Interactive Simulation Section -->
+                    {{#if simulations.length}}
+                    <section id="simulation-section" class="content-section mb-6" aria-labelledby="simulation-heading">
+                        <div class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6">
+                            <h2 id="simulation-heading"
+                                class="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+                                <i class="fas fa-flask text-primary-600"></i>[[i18n.interactiveSimulation]]
+                            </h2>
+
+                            {{#each simulations}}
+                            <div class="simulation-wrapper mb-6" data-sim-type="{{type}}" data-sim-id="{{canvasId}}">
+                                <!-- Simulation Canvas -->
+                                <div
+                                    class="simulation-canvas-container bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+                                    <canvas id="{{canvasId}}" class="w-full h-64 md:h-80" width="800"
+                                        height="320"></canvas>
+                                    <div id="{{canvasId}}-placeholder"
+                                        class="simulation-placeholder text-center py-12 text-gray-500">
+                                        <i class="fas fa-microchip text-4xl mb-3"></i>
+                                        <p class="font-medium">Interactive Simulation</p>
+                                        <p class="text-sm">Use the controls below to interact</p>
+                                    </div>
+                                </div>
+
+                                <!-- Simulation Controls -->
+                                <div class="simulation-controls p-4 bg-gray-50 dark:bg-gray-900 rounded-lg mt-4">
+                                    <div class="controls-grid grid grid-cols-1 md:grid-cols-{{controls.length}} gap-4">
+                                        {{#each controls}}
+                                        <div class="control-group">
+                                            <label for="{{id}}"
+                                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                {{label}}: <span id="{{valueId}}"
+                                                    class="text-primary-600 font-mono">{{defaultValue}}</span>{{unit}}
+                                            </label>
+                                            <input type="{{type}}" id="{{id}}" {{#if min}}min="{{min}}" {{/if}} {{#if
+                                                max}}max="{{max}}" {{/if}} value="{{defaultValue}}" {{#if
+                                                step}}step="{{step}}" {{/if}}
+                                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
+                                                oninput="updateSimulationParam('{{../type}}', '{{id}}', this.value)">
+                                        </div>
+                                        {{/each}}
+                                    </div>
+
+                                    <!-- Simulation Actions -->
+                                    <div class="simulation-actions mt-4 flex gap-2 flex-wrap">
+                                        <button
+                                            class="sim-btn start px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center gap-2"
+                                            onclick="startSimulation('{{type}}')">
+                                            <i class="fas fa-play"></i> [[i18n.start]]
+                                        </button>
+                                        <button
+                                            class="sim-btn pause px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition flex items-center gap-2"
+                                            onclick="pauseSimulation('{{type}}')">
+                                            <i class="fas fa-pause"></i> [[i18n.pause]]
+                                        </button>
+                                        <button
+                                            class="sim-btn reset px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition flex items-center gap-2"
+                                            onclick="resetSimulation('{{type}}')">
+                                            <i class="fas fa-redo"></i> [[i18n.reset]]
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Real-time Results -->
+                                <div class="simulation-results mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    {{#each results}}
+                                    <div class="result-card text-center p-3 bg-white dark:bg-gray-800 rounded-lg">
+                                        <p class="text-sm text-gray-500">{{label}}</p>
+                                        <p class="text-lg font-mono font-bold text-primary-600" id="{{id}}">{{value}}
+                                        </p>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </section>
+                    {{/if}}
+
+                    <!-- Practice Problems Section -->
+                    {{#if problems.length}}
+                    <section id="practice-section" class="content-section mb-6" aria-labelledby="practice-heading">
+                        <div class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6">
+                            <h2 id="practice-heading"
+                                class="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+                                <i class="fas fa-pencil-alt text-primary-600"></i>[[i18n.practiceProblems]]
+                            </h2>
+
+                            <div class="problems-container space-y-6">
+                                {{#each problems}}
+                                <div class="problem-card border border-gray-200 dark:border-gray-700 rounded-lg p-5"
+                                    id="problem-{{id}}">
+                                    <!-- Problem Header -->
+                                    <div class="flex items-start justify-between mb-3">
+                                        <h3 class="font-semibold text-gray-800 dark:text-white">{{title}}</h3>
+                                        <span
+                                            class="difficulty-badge {{difficultyColor}} px-2 py-1 rounded-full text-xs font-medium">
+                                            {{difficulty}}
+                                        </span>
+                                    </div>
+
+                                    <!-- Problem Description -->
+                                    <p class="text-gray-700 dark:text-gray-300 mb-4">{{description}}</p>
+
+                                    <!-- Multiple Choice -->
+                                    {{#if hasChoices}}
+                                    <div class="choices-container mb-4">
+                                        <div class="space-y-2" id="choices-{{id}}">
+                                            {{#each choices}}
+                                            <label
+                                                class="quiz-option flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+                                                onclick="selectChoice('{{../id}}', '{{value}}')">
+                                                <input type="radio" name="problem-{{../id}}" value="{{value}}"
+                                                    class="w-4 h-4 text-primary-600 focus:ring-primary-500"
+                                                    id="choice-{{../id}}-{{value}}">
+                                                <span class="text-gray-700 dark:text-gray-300">{{text}}</span>
+                                            </label>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="submit-answer px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition"
+                                        onclick="checkAnswer('{{id}}', '{{correctAnswer}}')">
+                                        [[i18n.submitAnswer]]
+                                    </button>
+                                    {{/if}}
+
+                                    <!-- Show Solution Button -->
+                                    <button
+                                        class="show-solution mt-3 text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1"
+                                        onclick="toggleSolution('solution-{{id}}')">
+                                        <i class="fas fa-eye"></i> [[i18n.showSolution]]
+                                    </button>
+
+                                    <!-- Solution Content -->
+                                    <div id="solution-{{id}}"
+                                        class="solution-content mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg hidden">
+                                        <h4
+                                            class="font-medium text-green-800 dark:text-green-300 mb-2 flex items-center gap-2">
+                                            <i class="fas fa-check-circle"></i>[[i18n.solution]]
+                                        </h4>
+                                        {{#if formula}}
+                                        <div class="math-formula bg-white dark:bg-gray-800 rounded p-3 my-3">
+                                            $${{formula}}$$</div>
+                                        {{/if}}
+                                        <ol
+                                            class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-1 mt-2">
+                                            {{#each steps}}<li>{{this}}</li>{{/each}}
+                                        </ol>
+                                        <p class="mt-3 text-sm font-medium text-green-800 dark:text-green-300">
+                                            [[i18n.finalAnswer]]: <span
+                                                class="font-mono bg-white dark:bg-gray-800 px-2 py-1 rounded">{{finalAnswer}}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Feedback -->
+                                    <div id="feedback-{{id}}" class="feedback mt-3 hidden"></div>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </section>
+                    {{/if}}
+
+                    <!-- Takeaway Summary -->
+                    {{#if takeaways}}
+                    <section id="takeaway-section" class="content-section mb-6" aria-labelledby="takeaway-heading">
+                        <div class="takeaway-card rounded-xl shadow-md p-6">
+                            <h2 id="takeaway-heading" class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                <i class="fas fa-star"></i>[[i18n.keyTakeaways]]
+                            </h2>
+                            <ul class="space-y-2 text-white">
+                                {{#each takeaways}}
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check mt-1 text-green-300"></i>
+                                    <span>{{this}}</span>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </section>
+                    {{/if}}
+
+                    <!-- Navigation Footer -->
+                    <nav class="lesson-navigation mt-8 pt-6 border-t border-gray-200 dark:border-gray-700"
+                        aria-label="Lesson navigation">
+                        <div class="nav-buttons flex justify-between gap-4">
+                            <a id="prev-link" href="#"
+                                class="nav-btn prev flex items-center gap-2 px-4 py-3 rounded-lg font-medium transition">
+                                <i class="fas fa-arrow-left"></i>
+                                <div class="text-left">
+                                    <p class="text-xs text-gray-500">[[i18n.previousLesson]]</p>
+                                    <p id="prev-title" class="text-sm font-semibold"></p>
+                                </div>
+                            </a>
+                            <a id="next-link" href="#"
+                                class="nav-btn next flex items-center gap-2 px-4 py-3 rounded-lg font-medium transition">
+                                <div class="text-right">
+                                    <p class="text-xs text-gray-500">[[i18n.nextLesson]]</p>
+                                    <p id="next-title" class="text-sm font-semibold"></p>
+                                </div>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-[var(--bg-secondary)] border-t border-gray-200 dark:border-gray-700 py-4 mt-auto">
+            <div class="container mx-auto px-4 text-center text-sm text-gray-500">
+                <p>&copy; 2024 EngiSuite Analytics. [[i18n.allRightsReserved]]</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center" role="dialog"
+        aria-modal="true" aria-labelledby="help-modal-title">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-lg w-full mx-4 max-h-[80vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 id="help-modal-title"
+                        class="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                        <i class="fas fa-question-circle text-primary-600"></i>[[i18n.help]]
+                    </h3>
+                    <button onclick="closeHelpModal()"
+                        class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="help-modal-content" class="prose dark:prose-invert">
+                    <!-- Help content loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50 space-y-2"></div>
+
+    <!-- Template Scripts -->
+    <script src="lesson-scripts.js"></script>
+</body>
+
+</html>

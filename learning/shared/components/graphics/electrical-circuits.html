@@ -1,0 +1,141 @@
+<!-- Interactive Electrical Circuit Graphics Component -->
+<!-- Contains SVG-based circuit diagrams and visualizations -->
+
+<!-- Ohm's Law Triangle Graphic -->
+<div class="ohms-law-triangle circuit-graphic" id="ohms-law-triangle" aria-label="Ohm's Law Triangle">
+    <svg viewBox="0 0 200 180" class="w-48 h-auto mx-auto">
+        <!-- Triangle -->
+        <polygon points="100,10 10,160 190,160" fill="none" stroke="#3b82f6" stroke-width="4" />
+        <!-- Labels -->
+        <text x="100" y="40" text-anchor="middle" class="text-xl font-bold fill-primary-600">V</text>
+        <text x="35" y="130" class="text-lg font-semibold fill-gray-700">I</text>
+        <text x="155" y="130" class="text-lg font-semibold fill-gray-700">R</text>
+        <!-- Division line -->
+        <line x1="45" y1="105" x2="155" y2="105" stroke="#3b82f6" stroke-width="2" />
+        <!-- Formulas on sides -->
+        <text x="100" y="90" text-anchor="middle" class="text-xs fill-gray-500">VOLTAGE</text>
+        <text x="25" y="145" class="text-xs fill-gray-500">CURRENT</text>
+        <text x="170" y="145" class="text-xs fill-gray-500">RESISTANCE</text>
+    </svg>
+    <p class="text-sm text-gray-600 mt-2 text-center">Ohm's Law Triangle</p>
+</div>
+
+<!-- Series Circuit Diagram -->
+<div class="series-circuit-diagram circuit-graphic" id="series-circuit-diagram" aria-label="Series Circuit Diagram">
+    <svg viewBox="0 0 400 200" class="w-full h-auto">
+        <!-- Battery -->
+        <rect x="20" y="70" width="30" height="60" fill="#64748b" rx="2" />
+        <rect x="15" y="80" width="10" height="15" fill="#ef4444" />
+        <rect x="45" y="95" width="10" height="15" fill="#64748b" />
+        <!-- Wires -->
+        <path d="M 50 100 L 100 100 L 100 60 L 300 60 L 300 100 L 350 100" stroke="#3b82f6" stroke-width="3"
+            fill="none" />
+        <path d="M 350 100 L 350 140 L 50 140 L 50 100" stroke="#3b82f6" stroke-width="3" fill="none" />
+        <!-- Resistors -->
+        <rect x="120" y="75" width="50" height="50" fill="#22c55e" rx="4" />
+        <text x="145" y="105" text-anchor="middle" class="text-sm fill-white font-medium">R₁</text>
+        <rect x="220" y="75" width="50" height="50" fill="#22c55e" rx="4" />
+        <text x="245" y="105" text-anchor="middle" class="text-sm fill-white font-medium">R₂</text>
+        <!-- Labels -->
+        <text x="35" y="55" class="text-sm fill-gray-600">+</text>
+        <text x="35" y="155" class="text-sm fill-gray-600">−</text>
+        <text x="375" y="105" class="text-sm fill-primary-600 font-medium">I</text>
+        <!-- Current flow arrows -->
+        <path d="M 80 85 L 95 85" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrowhead)" />
+    </svg>
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#f59e0b" />
+        </marker>
+    </defs>
+</div>
+
+<!-- Parallel Circuit Diagram -->
+<div class="parallel-circuit-diagram circuit-graphic" id="parallel-circuit-diagram"
+    aria-label="Parallel Circuit Diagram">
+    <svg viewBox="0 0 400 200" class="w-full h-auto">
+        <!-- Main wires -->
+        <path d="M 50 100 L 350 100" stroke="#3b82f6" stroke-width="3" fill="none" />
+        <path d="M 50 150 L 350 150" stroke="#3b82f6" stroke-width="3" fill="none" />
+        <!-- Branch wires -->
+        <path d="M 100 100 L 100 150" stroke="#3b82f6" stroke-width="3" fill="none" />
+        <path d="M 200 100 L 200 150" stroke="#3b82f6" stroke-width="3" fill="none" />
+        <path d="M 300 100 L 300 150" stroke="#3b82f6" stroke-width="3" fill="none" />
+        <!-- Resistors in parallel -->
+        <rect x="85" y="110" width="30" height="30" fill="#22c55e" rx="3" />
+        <text x="100" y="130" text-anchor="middle" class="text-xs fill-white font-medium">R₁</text>
+        <rect x="185" y="110" width="30" height="30" fill="#22c55e" rx="3" />
+        <text x="200" y="130" text-anchor="middle" class="text-xs fill-white font-medium">R₂</text>
+        <rect x="285" y="110" width="30" height="30" fill="#22c55e" rx="3" />
+        <text x="300" y="130" text-anchor="middle" class="text-xs fill-white font-medium">R₃</text>
+        <!-- Labels -->
+        <text x="35" y="130" class="text-sm fill-primary-600 font-medium">V</text>
+        <text x="365" y="130" class="text-sm fill-gray-600">I</text>
+        <!-- Current flow indicators -->
+        <circle cx="100" cy="75" r="4" fill="#f59e0b" />
+        <text x="100" y="65" text-anchor="middle" class="text-xs fill-gray-600">I₁</text>
+        <circle cx="200" cy="75" r="4" fill="#f59e0b" />
+        <text x="200" y="65" text-anchor="middle" class="text-xs fill-gray-600">I₂</text>
+        <circle cx="300" cy="75" r="4" fill="#f59e0b" />
+        <text x="300" y="65" text-anchor="middle" class="text-xs fill-gray-600">I₃</text>
+    </svg>
+</div>
+
+<!-- AC Phasor Diagram -->
+<div class="phasor-diagram circuit-graphic" id="phasor-diagram" aria-label="AC Phasor Diagram">
+    <svg viewBox="0 0 300 250" class="w-64 h-auto mx-auto">
+        <!-- Axes -->
+        <line x1="150" y1="220" x2="150" y2="30" stroke="#94a3b8" stroke-width="2" />
+        <line x1="20" y1="125" x2="280" y2="125" stroke="#94a3b8" stroke-width="2" />
+        <!-- Reference circle -->
+        <circle cx="150" cy="125" r="80" fill="none" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="4" />
+        <!-- Voltage phasor -->
+        <line x1="150" y1="125" x2="150" y2="45" stroke="#ef4444" stroke-width="3" marker-end="url(#phasor-arrow)" />
+        <text x="160" y="55" class="text-sm fill-red-600 font-medium">V</text>
+        <!-- Current phasor (lagging) -->
+        <line x1="150" y1="125" x2="220" y2="155" stroke="#3b82f6" stroke-width="3" marker-end="url(#phasor-arrow)" />
+        <text x="230" y="165" class="text-sm fill-blue-600 font-medium">I</text>
+        <!-- Phase angle arc -->
+        <path d="M 150 60 A 65 65 0 0 0 215 125" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3" />
+        <text x="185" y="85" class="text-xs fill-yellow-600">φ</text>
+        <!-- Labels -->
+        <text x="155" y="240" class="text-sm fill-gray-500">Real</text>
+        <text x="10" y="130" class="text-sm fill-gray-500">Imag</text>
+    </svg>
+    <p class="text-sm text-gray-600 mt-2 text-center">Phasor Diagram (Lagging Current)</p>
+</div>
+
+<!-- Kirchhoff's Laws Infographic -->
+<div class="kirchhoff-infographic circuit-graphic" id="kirchhoff-infographic" aria-label="Kirchhoff's Laws Summary">
+    <div class="grid grid-cols-2 gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+        <!-- KCL -->
+        <div class="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <h4 class="font-bold text-blue-600 mb-2">Kirchhoff's Current Law (KCL)</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Sum of currents at a node equals zero</p>
+            <div class="text-xl font-mono text-blue-700 dark:text-blue-300">ΣI = 0</div>
+            <svg viewBox="0 0 100 80" class="w-32 h-auto mx-auto mt-2">
+                <circle cx="50" cy="40" r="8" fill="#3b82f6" />
+                <line x1="20" y1="40" x2="42" y2="40" stroke="#3b82f6" stroke-width="2" />
+                <line x1="50" y1="20" x2="50" y2="32" stroke="#3b82f6" stroke-width="2" />
+                <line x1="50" y1="60" x2="50" y2="48" stroke="#3b82f6" stroke-width="2" />
+                <text x="25" y="35" class="text-xs fill-blue-600">I₁</text>
+                <text x="55" y="25" class="text-xs fill-blue-600">I₂</text>
+                <text x="55" y="70" class="text-xs fill-blue-600">I₃</text>
+            </svg>
+        </div>
+        <!-- KVL -->
+        <div class="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+            <h4 class="font-bold text-green-600 mb-2">Kirchhoff's Voltage Law (KVL)</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Sum of voltages around a loop equals zero</p>
+            <div class="text-xl font-mono text-green-700 dark:text-green-300">ΣV = 0</div>
+            <svg viewBox="0 0 100 80" class="w-32 h-auto mx-auto mt-2">
+                <rect x="15" y="30" width="20" height="20" fill="#64748b" />
+                <rect x="65" y="30" width="20" height="20" fill="#22c55e" />
+                <line x1="35" y1="40" x2="65" y2="40" stroke="#3b82f6" stroke-width="2" />
+                <line x1="15" y1="20" x2="15" y2="30" stroke="#ef4444" stroke-width="2" />
+                <text x="20" y="18" class="text-xs fill-red-600">+</text>
+                <text x="20" y="55" class="text-xs fill-gray-600">−</text>
+            </svg>
+        </div>
+    </div>
+</div>

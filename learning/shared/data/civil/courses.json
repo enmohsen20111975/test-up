@@ -1,0 +1,393 @@
+{
+    "discipline": "Civil Engineering",
+    "disciplineKey": "civil",
+    "icon": "fa-hard-hat",
+    "color": "#22c55e",
+    "description": "Master structural analysis, geotechnics, construction, and infrastructure design",
+    "chapters": [
+        {
+            "id": "01-fundamentals",
+            "title": "Civil Engineering Fundamentals",
+            "description": "Core principles of statics, materials, and structural analysis",
+            "icon": "fa-ruler-horizontal",
+            "order": 1,
+            "lessons": [
+                {
+                    "id": "01-intro-civil",
+                    "title": "Introduction to Civil Engineering",
+                    "slug": "intro-civil",
+                    "duration": "15 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "Understand civil engineering disciplines",
+                        "Identify major infrastructure types"
+                    ],
+                    "content": {
+                        "introduction": "Civil engineering is the oldest engineering discipline, focusing on design and construction of infrastructure.",
+                        "sections": [
+                            {
+                                "title": "Civil Engineering Disciplines",
+                                "content": "Major branches include structural, geotechnical, transportation, environmental, and construction engineering."
+                            },
+                            {
+                                "title": "Infrastructure Systems",
+                                "content": "Civil engineers design buildings, bridges, tunnels, dams, water treatment plants, and highways."
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "02-statics-review",
+                    "title": "Review of Statics",
+                    "slug": "statics-review",
+                    "duration": "25 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "Apply equilibrium equations to structures",
+                        "Calculate support reactions",
+                        "Analyze trusses using method of joints"
+                    ],
+                    "content": {
+                        "introduction": "Statics is the foundation of structural analysis.",
+                        "sections": [
+                            {
+                                "title": "Equilibrium Equations",
+                                "content": "For 2D: ΣFx = 0, ΣFy = 0, ΣM = 0."
+                            }
+                        ]
+                    },
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Support Reactions",
+                            "description": "A 10kN load is at midspan of a 6m simply supported beam. Find reactions.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "5 kN each"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "10 kN each"
+                                }
+                            ],
+                            "correctAnswer": "a",
+                            "steps": [
+                                "R_A = R_B = P/2 = 10/2 = 5 kN"
+                            ],
+                            "finalAnswer": "5 kN each"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "02-structural",
+            "title": "Structural Analysis",
+            "description": "Analysis of beams, frames, and trusses",
+            "icon": "fa-archway",
+            "order": 2,
+            "lessons": [
+                {
+                    "id": "01-beam-analysis",
+                    "title": "Analysis of Statically Determinate Beams",
+                    "slug": "beam-analysis",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Draw shear and moment diagrams",
+                        "Apply relationships between loads, shear, and moment"
+                    ],
+                    "content": {
+                        "introduction": "Beam analysis determines internal forces and deflections.",
+                        "sections": [
+                            {
+                                "title": "Shear and Moment",
+                                "content": "dV/dx = -w, dM/dx = V."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "M_{max} = \\frac{wL^2}{8}",
+                            "description": "Maximum moment for UDL beam"
+                        }
+                    ],
+                    "simulations": [
+                        {
+                            "type": "beam-analysis",
+                            "canvasId": "beam-canvas",
+                            "controls": [
+                                {
+                                    "id": "load-mag",
+                                    "label": "Load",
+                                    "valueId": "load-val",
+                                    "type": "range",
+                                    "min": 1,
+                                    "max": 20,
+                                    "defaultValue": 10,
+                                    "step": 1,
+                                    "unit": "kN/m"
+                                },
+                                {
+                                    "id": "span",
+                                    "label": "Span",
+                                    "valueId": "span-val",
+                                    "type": "range",
+                                    "min": 3,
+                                    "max": 12,
+                                    "defaultValue": 6,
+                                    "step": 0.5,
+                                    "unit": "m"
+                                }
+                            ],
+                            "results": [
+                                {
+                                    "id": "mmax-result",
+                                    "label": "Mmax",
+                                    "value": "45 kN·m"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "02-truss-analysis",
+                    "title": "Analysis of Trusses",
+                    "slug": "truss-analysis",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Classify truss types",
+                        "Apply method of joints for truss analysis"
+                    ],
+                    "content": {
+                        "introduction": "Trusses are efficient structural systems using triangular units.",
+                        "sections": [
+                            {
+                                "title": "Method of Joints",
+                                "content": "Start at a support joint, apply equilibrium."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\sum F_x = 0, \\quad \\sum F_y = 0",
+                            "description": "Equilibrium at a joint"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "03-geotechnical",
+            "title": "Geotechnical Engineering",
+            "description": "Soil mechanics, foundations, and earthworks",
+            "icon": "fa-mountain",
+            "order": 3,
+            "lessons": [
+                {
+                    "id": "01-soil-properties",
+                    "title": "Soil Properties and Classification",
+                    "slug": "soil-properties",
+                    "duration": "25 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Identify soil types and their properties",
+                        "Perform soil classification"
+                    ],
+                    "content": {
+                        "introduction": "Soil classification is fundamental to foundation design.",
+                        "sections": [
+                            {
+                                "title": "Soil Components",
+                                "content": "Soils contain solids, water, and air."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "e = \\frac{V_v}{V_s}",
+                            "description": "Void ratio"
+                        },
+                        {
+                            "formula": "n = \\frac{V_v}{V} \\times 100",
+                            "description": "Porosity percentage"
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Void Ratio",
+                            "description": "Total volume 100 cm³, solids 60 cm³. Find e and n.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "e = 0.67, n = 40%"
+                                }
+                            ],
+                            "correctAnswer": "a",
+                            "steps": [
+                                "Vv = 40 cm³",
+                                "e = 40/60 = 0.67",
+                                "n = 40%"
+                            ],
+                            "finalAnswer": "e = 0.67, n = 40%"
+                        }
+                    ]
+                },
+                {
+                    "id": "02-bearing-capacity",
+                    "title": "Foundation Bearing Capacity",
+                    "slug": "bearing-capacity",
+                    "duration": "30 min",
+                    "level": "Advanced",
+                    "type": "theory",
+                    "objectives": [
+                        "Apply Terzaghi's bearing capacity theory",
+                        "Calculate ultimate and allowable bearing capacity"
+                    ],
+                    "content": {
+                        "introduction": "Foundation bearing capacity determines maximum load soil can support.",
+                        "sections": [
+                            {
+                                "title": "Terzaghi's Equation",
+                                "content": "qu = cNc + γDfNq + 0.5γBNγ"
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "q_u = cN_c + \\gamma D_f N_q + 0.5 \\gamma B N_\\gamma",
+                            "description": "Terzaghi's ultimate bearing capacity"
+                        },
+                        {
+                            "formula": "q_a = \\frac{q_u}{FS}",
+                            "description": "Allowable bearing capacity"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "04-construction",
+            "title": "Construction Engineering",
+            "description": "Construction methods and management",
+            "icon": "fa-truck-loading",
+            "order": 4,
+            "lessons": [
+                {
+                    "id": "01-cpm-pert",
+                    "title": "Construction Scheduling (CPM/PERT)",
+                    "slug": "cpm-pert",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Create activity networks and precedence diagrams",
+                        "Identify critical path and float"
+                    ],
+                    "content": {
+                        "introduction": "CPM and PERT are essential for construction scheduling.",
+                        "sections": [
+                            {
+                                "title": "Critical Path",
+                                "content": "Critical path has zero float."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "T_e = \\frac{O + 4M + P}{6}",
+                            "description": "PERT expected time"
+                        }
+                    ],
+                    "simulations": [
+                        {
+                            "type": "cpm-scheduler",
+                            "canvasId": "cpm-canvas",
+                            "results": [
+                                {
+                                    "id": "project-duration",
+                                    "label": "Duration",
+                                    "value": "12 days"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "05-transportation",
+            "title": "Transportation Engineering",
+            "description": "Highway design and traffic analysis",
+            "icon": "fa-road",
+            "order": 5,
+            "lessons": [
+                {
+                    "id": "01-highway-design",
+                    "title": "Highway Geometric Design",
+                    "slug": "highway-design",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Understand design speed and its influence",
+                        "Calculate horizontal and vertical curves"
+                    ],
+                    "content": {
+                        "introduction": "Highway geometric design creates safe roadways.",
+                        "sections": [
+                            {
+                                "title": "Horizontal Curves",
+                                "content": "Radius R = V²/(127(e+f))"
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "R = \\frac{V^2}{127(e+f)}",
+                            "description": "Minimum radius for horizontal curve"
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Horizontal Curve",
+                            "description": "Design curve for 80 km/h with 6% superelevation, f=0.14.",
+                            "difficulty": "Medium",
+                            "difficultyColor": "yellow",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "b",
+                                    "text": "R = 300 m"
+                                }
+                            ],
+                            "correctAnswer": "b",
+                            "steps": [
+                                "R = 6400/(127×0.2) = 252 m, round to 300 m"
+                            ],
+                            "finalAnswer": "300 m"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

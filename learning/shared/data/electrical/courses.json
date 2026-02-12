@@ -1,0 +1,1247 @@
+{
+    "discipline": "Electrical Engineering",
+    "disciplineKey": "electrical",
+    "icon": "fa-bolt",
+    "color": "#f59e0b",
+    "description": "Master electrical circuits, power systems, electronics, and modern electrical technologies",
+    "chapters": [
+        {
+            "id": "01-fundamentals",
+            "title": "Electrical Fundamentals",
+            "description": "Core concepts of electricity, circuit analysis, and basic laws",
+            "icon": "fa-star",
+            "order": 1,
+            "lessons": [
+                {
+                    "id": "01-atomic-structure",
+                    "title": "Atomic Structure and Electricity",
+                    "slug": "atomic-structure-electricity",
+                    "duration": "15 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "Understand the structure of atoms and electron behavior",
+                        "Explain the concept of electrical charge",
+                        "Differentiate between conductors, semiconductors, and insulators",
+                        "Describe how current flows in materials"
+                    ],
+                    "content": {
+                        "introduction": "Electricity is fundamental to our modern world. To understand how electrical systems work, we must first explore the atomic structure of matter and how electrons behave.",
+                        "sections": [
+                            {
+                                "title": "Atomic Structure",
+                                "content": "Every atom consists of a nucleus containing protons (positively charged) and neutrons (neutral), surrounded by electrons (negatively charged) orbiting in energy shells."
+                            },
+                            {
+                                "title": "Electrical Charge",
+                                "content": "The elementary charge of an electron is -1.6 × 10^-19 coulombs. When electrons move from one atom to another, we get electric current."
+                            },
+                            {
+                                "title": "Conductors vs Insulators",
+                                "content": "Conductors have free electrons that can move easily (e.g., copper, aluminum). Insulators hold electrons tightly (e.g., rubber, plastic, glass)."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "Q = I \\cdot t",
+                            "description": "Charge (Q) equals current (I) multiplied by time (t)"
+                        },
+                        {
+                            "formula": "n = \\frac{Q}{e}",
+                            "description": "Number of electrons equals charge divided by elementary charge"
+                        }
+                    ],
+                    "simulations": [],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Calculate Electron Flow",
+                            "description": "A current of 2 amperes flows through a wire for 10 seconds. Calculate the total charge transferred.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": true,
+                            "inputType": "text",
+                            "inputPlaceholder": "Enter charge in coulombs",
+                            "inputAriaLabel": "Your answer for charge calculation",
+                            "correctAnswer": "20",
+                            "answerType": "numeric",
+                            "formula": "Q = I \\cdot t = 2A \\times 10s = 20C",
+                            "steps": [
+                                "Identify known values: I = 2A, t = 10s",
+                                "Apply the formula: Q = I × t",
+                                "Calculate: Q = 2 × 10 = 20 coulombs"
+                            ],
+                            "finalAnswer": "20 C"
+                        }
+                    ]
+                },
+                {
+                    "id": "02-voltage-current-resistance",
+                    "title": "Voltage, Current, and Resistance",
+                    "slug": "voltage-current-resistance",
+                    "duration": "20 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "Define voltage, current, and resistance",
+                        "Understand the relationship between these three quantities",
+                        "Identify common components and their values",
+                        "Apply units correctly in calculations"
+                    ],
+                    "content": {
+                        "introduction": "Voltage, current, and resistance are the three fundamental quantities in electrical circuits. Understanding their relationships is essential for circuit analysis.",
+                        "sections": [
+                            {
+                                "title": "Voltage (Potential Difference)",
+                                "content": "Voltage is the electrical pressure that pushes electrons through a conductor. It's measured in volts (V). Think of it as the 'pressure' in a water pipe system."
+                            },
+                            {
+                                "title": "Current",
+                                "content": "Current is the flow of electrons through a conductor, measured in amperes (A). One ampere equals one coulomb of charge passing a point per second."
+                            },
+                            {
+                                "title": "Resistance",
+                                "content": "Resistance opposes the flow of current, measured in ohms (Ω). Factors affecting resistance include material, length, cross-sectional area, and temperature."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "V = I \\cdot R",
+                            "description": "Ohm's Law: Voltage equals current times resistance"
+                        },
+                        {
+                            "formula": "R = \\rho \\cdot \\frac{L}{A}",
+                            "description": "Resistance of a conductor: resistivity × length ÷ cross-sectional area"
+                        }
+                    ],
+                    "simulations": [
+                        {
+                            "type": "ohms-law",
+                            "canvasId": "ohms-law-canvas",
+                            "controls": [
+                                {
+                                    "id": "voltage",
+                                    "label": "Voltage",
+                                    "valueId": "voltage-val",
+                                    "type": "range",
+                                    "min": 1,
+                                    "max": 24,
+                                    "defaultValue": 12,
+                                    "step": 1,
+                                    "unit": "V"
+                                },
+                                {
+                                    "id": "resistance",
+                                    "label": "Resistance",
+                                    "valueId": "resistance-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 1000,
+                                    "defaultValue": 100,
+                                    "step": 10,
+                                    "unit": "Ω"
+                                }
+                            ],
+                            "results": [
+                                {
+                                    "id": "current-result",
+                                    "label": "Current (I)",
+                                    "value": "0.12 A"
+                                }
+                            ]
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Basic Ohm's Law",
+                            "description": "Calculate the current flowing through a 100Ω resistor when connected to a 12V source.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": true,
+                            "inputType": "text",
+                            "inputPlaceholder": "Enter current in amperes",
+                            "inputAriaLabel": "Your answer for current calculation",
+                            "correctAnswer": "0.12",
+                            "answerType": "numeric",
+                            "formula": "I = \\frac{V}{R} = \\frac{12V}{100\\Omega} = 0.12A",
+                            "steps": [
+                                "Identify known values: V = 12V, R = 100Ω",
+                                "Apply Ohm's Law: I = V/R",
+                                "Calculate: I = 12/100 = 0.12A"
+                            ],
+                            "finalAnswer": "0.12 A or 120 mA"
+                        }
+                    ]
+                },
+                {
+                    "id": "03-ohms-law-power",
+                    "title": "Ohm's Law and Power",
+                    "slug": "ohms-law-power",
+                    "duration": "25 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "Master Ohm's Law and its applications",
+                        "Calculate power in electrical circuits",
+                        "Understand energy consumption and billing",
+                        "Select appropriate wire gauges based on current"
+                    ],
+                    "content": {
+                        "introduction": "Ohm's Law is the foundation of all electrical calculations. Combined with power formulas, it allows us to analyze any DC circuit.",
+                        "sections": [
+                            {
+                                "title": "The Ohm's Law Triangle",
+                                "content": "Use the Ohm's Law triangle to remember relationships: V at top, I and R at bottom. Cover the unknown quantity to see the formula."
+                            },
+                            {
+                                "title": "Electrical Power",
+                                "content": "Power is the rate of doing work, measured in watts (W). Higher power means more energy consumed per unit time."
+                            },
+                            {
+                                "title": "Power Formulas",
+                                "content": "Power can be calculated using: P = VI, P = I²R, or P = V²/R. Choose based on known quantities."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "V = I \\cdot R",
+                            "description": "Voltage = Current × Resistance"
+                        },
+                        {
+                            "formula": "P = V \\cdot I = \\frac{V^2}{R} = I^2 \\cdot R",
+                            "description": "Power relationships in electrical circuits"
+                        },
+                        {
+                            "formula": "E = P \\cdot t",
+                            "description": "Energy = Power × Time (watt-hours)"
+                        }
+                    ],
+                    "simulations": [
+                        {
+                            "type": "power-calculation",
+                            "canvasId": "power-canvas",
+                            "controls": [
+                                {
+                                    "id": "voltage",
+                                    "label": "Voltage",
+                                    "valueId": "voltage-val",
+                                    "type": "range",
+                                    "min": 1,
+                                    "max": 240,
+                                    "defaultValue": 120,
+                                    "step": 1,
+                                    "unit": "V"
+                                },
+                                {
+                                    "id": "current",
+                                    "label": "Current",
+                                    "valueId": "current-val",
+                                    "type": "range",
+                                    "min": 0.1,
+                                    "max": 20,
+                                    "defaultValue": 5,
+                                    "step": 0.1,
+                                    "unit": "A"
+                                }
+                            ],
+                            "results": [
+                                {
+                                    "id": "power-result",
+                                    "label": "Power",
+                                    "value": "600 W"
+                                },
+                                {
+                                    "id": "resistance-result",
+                                    "label": "Resistance",
+                                    "value": "24 Ω"
+                                }
+                            ]
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Power Calculation",
+                            "description": "A 60W light bulb operates at 120V. Calculate the current drawn by the bulb.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": true,
+                            "inputType": "text",
+                            "inputPlaceholder": "Enter current in amperes",
+                            "inputAriaLabel": "Your answer for current calculation",
+                            "correctAnswer": "0.5",
+                            "answerType": "numeric",
+                            "formula": "I = \\frac{P}{V} = \\frac{60W}{120V} = 0.5A",
+                            "steps": [
+                                "Identify known values: P = 60W, V = 120V",
+                                "Apply power formula: I = P/V",
+                                "Calculate: I = 60/120 = 0.5A"
+                            ],
+                            "finalAnswer": "0.5 A or 500 mA"
+                        },
+                        {
+                            "id": "p2",
+                            "title": "Energy Consumption",
+                            "description": "A 1500W electric heater runs for 4 hours. Calculate the energy consumed in kilowatt-hours (kWh).",
+                            "difficulty": "Medium",
+                            "difficultyColor": "yellow",
+                            "hasInput": true,
+                            "inputType": "text",
+                            "inputPlaceholder": "Enter energy in kWh",
+                            "inputAriaLabel": "Your answer for energy calculation",
+                            "correctAnswer": "6",
+                            "answerType": "numeric",
+                            "formula": "E = P \\times t = 1.5kW \\times 4h = 6kWh",
+                            "steps": [
+                                "Convert power to kilowatts: 1500W = 1.5kW",
+                                "Apply energy formula: E = P × t",
+                                "Calculate: E = 1.5 × 4 = 6kWh"
+                            ],
+                            "finalAnswer": "6 kWh"
+                        }
+                    ]
+                },
+                {
+                    "id": "04-series-circuits",
+                    "title": "Series Circuits",
+                    "slug": "series-circuits",
+                    "duration": "25 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Identify series circuit characteristics",
+                        "Calculate total resistance in series",
+                        "Apply voltage divider rule",
+                        "Analyze current flow in series circuits"
+                    ],
+                    "content": {
+                        "introduction": "Series circuits have components connected end-to-end, forming a single path for current flow. Understanding series circuits is essential for all circuit analysis.",
+                        "sections": [
+                            {
+                                "title": "Series Circuit Characteristics",
+                                "content": "In series circuits: current is the same through all components, total voltage divides across components, total resistance equals sum of individual resistances."
+                            },
+                            {
+                                "title": "Total Resistance",
+                                "content": "R_total = R1 + R2 + R3 + ... + Rn. The more resistors in series, the higher the total resistance."
+                            },
+                            {
+                                "title": "Voltage Divider Rule",
+                                "content": "The voltage across a resistor is proportional to its resistance: Vn = V_total × (Rn / R_total)"
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "R_{total} = R_1 + R_2 + R_3 + \\dots + R_n",
+                            "description": "Total resistance in series"
+                        },
+                        {
+                            "formula": "I = \\frac{V_{total}}{R_{total}}",
+                            "description": "Current in series circuit"
+                        },
+                        {
+                            "formula": "V_n = V_{total} \\times \\frac{R_n}{R_{total}}",
+                            "description": "Voltage across resistor n"
+                        }
+                    ],
+                    "simulations": [
+                        {
+                            "type": "series-circuit",
+                            "canvasId": "series-canvas",
+                            "controls": [
+                                {
+                                    "id": "vsource",
+                                    "label": "Source Voltage",
+                                    "valueId": "vsource-val",
+                                    "type": "range",
+                                    "min": 1,
+                                    "max": 24,
+                                    "defaultValue": 12,
+                                    "step": 1,
+                                    "unit": "V"
+                                },
+                                {
+                                    "id": "r1",
+                                    "label": "R1",
+                                    "valueId": "r1-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 1000,
+                                    "defaultValue": 100,
+                                    "step": 10,
+                                    "unit": "Ω"
+                                },
+                                {
+                                    "id": "r2",
+                                    "label": "R2",
+                                    "valueId": "r2-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 1000,
+                                    "defaultValue": 200,
+                                    "step": 10,
+                                    "unit": "Ω"
+                                },
+                                {
+                                    "id": "r3",
+                                    "label": "R3",
+                                    "valueId": "r3-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 1000,
+                                    "defaultValue": 300,
+                                    "step": 10,
+                                    "unit": "Ω"
+                                }
+                            ],
+                            "results": [
+                                {
+                                    "id": "rtotal-result",
+                                    "label": "Total R",
+                                    "value": "600 Ω"
+                                },
+                                {
+                                    "id": "current-result",
+                                    "label": "Current",
+                                    "value": "20 mA"
+                                },
+                                {
+                                    "id": "v1-result",
+                                    "label": "V1",
+                                    "value": "2 V"
+                                },
+                                {
+                                    "id": "v2-result",
+                                    "label": "V2",
+                                    "value": "4 V"
+                                },
+                                {
+                                    "id": "v3-result",
+                                    "label": "V3",
+                                    "value": "6 V"
+                                }
+                            ]
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Series Resistance",
+                            "description": "Three resistors of 100Ω, 200Ω, and 300Ω are connected in series. Calculate the total resistance.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "100 Ω"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "300 Ω"
+                                },
+                                {
+                                    "value": "c",
+                                    "text": "600 Ω"
+                                },
+                                {
+                                    "value": "d",
+                                    "text": "6000 Ω"
+                                }
+                            ],
+                            "correctAnswer": "c",
+                            "steps": [
+                                "Add all resistance values: R_total = R1 + R2 + R3",
+                                "R_total = 100 + 200 + 300 = 600Ω"
+                            ],
+                            "finalAnswer": "600 Ω"
+                        }
+                    ]
+                },
+                {
+                    "id": "05-parallel-circuits",
+                    "title": "Parallel Circuits",
+                    "slug": "parallel-circuits",
+                    "duration": "25 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Identify parallel circuit characteristics",
+                        "Calculate total resistance in parallel",
+                        "Apply current divider rule",
+                        "Compare series and parallel circuits"
+                    ],
+                    "content": {
+                        "introduction": "Parallel circuits provide multiple paths for current flow. This configuration is common in household wiring and electronic devices.",
+                        "sections": [
+                            {
+                                "title": "Parallel Circuit Characteristics",
+                                "content": "In parallel circuits: voltage is the same across all components, total current divides among branches, total resistance decreases as more branches are added."
+                            },
+                            {
+                                "title": "Total Resistance",
+                                "content": "1/R_total = 1/R1 + 1/R2 + 1/R3 + ... + 1/Rn. For two resistors: R_total = (R1 × R2) / (R1 + R2)"
+                            },
+                            {
+                                "title": "Current Divider Rule",
+                                "content": "Current through a branch is inversely proportional to its resistance: In = I_total × (R_total / Rn)"
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\frac{1}{R_{total}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\dots + \\frac{1}{R_n}",
+                            "description": "Total resistance in parallel"
+                        },
+                        {
+                            "formula": "R_{total} = \\frac{R_1 \\cdot R_2}{R_1 + R_2}",
+                            "description": "Two resistors in parallel"
+                        },
+                        {
+                            "formula": "I_n = I_{total} \\times \\frac{R_{total}}{R_n}",
+                            "description": "Current through branch n"
+                        }
+                    ],
+                    "simulations": [
+                        {
+                            "type": "parallel-circuit",
+                            "canvasId": "parallel-canvas",
+                            "controls": [
+                                {
+                                    "id": "vsource",
+                                    "label": "Source Voltage",
+                                    "valueId": "vsource-val",
+                                    "type": "range",
+                                    "min": 1,
+                                    "max": 24,
+                                    "defaultValue": 12,
+                                    "step": 1,
+                                    "unit": "V"
+                                },
+                                {
+                                    "id": "r1",
+                                    "label": "R1",
+                                    "valueId": "r1-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 1000,
+                                    "defaultValue": 100,
+                                    "step": 10,
+                                    "unit": "Ω"
+                                },
+                                {
+                                    "id": "r2",
+                                    "label": "R2",
+                                    "valueId": "r2-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 1000,
+                                    "defaultValue": 200,
+                                    "step": 10,
+                                    "unit": "Ω"
+                                },
+                                {
+                                    "id": "r3",
+                                    "label": "R3",
+                                    "valueId": "r3-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 1000,
+                                    "defaultValue": 300,
+                                    "step": 10,
+                                    "unit": "Ω"
+                                }
+                            ],
+                            "results": [
+                                {
+                                    "id": "rtotal-result",
+                                    "label": "Total R",
+                                    "value": "54.5 Ω"
+                                },
+                                {
+                                    "id": "itotal-result",
+                                    "label": "Total I",
+                                    "value": "220 mA"
+                                },
+                                {
+                                    "id": "i1-result",
+                                    "label": "I1",
+                                    "value": "120 mA"
+                                },
+                                {
+                                    "id": "i2-result",
+                                    "label": "I2",
+                                    "value": "60 mA"
+                                },
+                                {
+                                    "id": "i3-result",
+                                    "label": "I3",
+                                    "value": "40 mA"
+                                }
+                            ]
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Parallel Resistance",
+                            "description": "Two 100Ω resistors are connected in parallel. Calculate the total resistance.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "200 Ω"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "100 Ω"
+                                },
+                                {
+                                    "value": "c",
+                                    "text": "50 Ω"
+                                },
+                                {
+                                    "value": "d",
+                                    "text": "25 Ω"
+                                }
+                            ],
+                            "correctAnswer": "c",
+                            "steps": [
+                                "Apply parallel formula: R_total = (R1 × R2) / (R1 + R2)",
+                                "R_total = (100 × 100) / (100 + 100) = 10000/200 = 50Ω"
+                            ],
+                            "finalAnswer": "50 Ω"
+                        }
+                    ]
+                },
+                {
+                    "id": "06-series-parallel-circuits",
+                    "title": "Series-Parallel Circuits",
+                    "slug": "series-parallel-circuits",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Identify combined series-parallel configurations",
+                        "Simplify complex circuits step-by-step",
+                        "Apply equivalent resistance calculations",
+                        "Analyze real-world circuit combinations"
+                    ],
+                    "content": {
+                        "introduction": "Most practical circuits combine series and parallel elements. Learning to simplify these circuits is crucial for analysis.",
+                        "sections": [
+                            {
+                                "title": "Identifying Configurations",
+                                "content": "Look for components that share the same nodes. Group series and parallel elements separately before combining."
+                            },
+                            {
+                                "title": "Step-by-Step Simplification",
+                                "content": "1. Identify obvious series/parallel groups, 2. Calculate equivalent resistance of each group, 3. Redraw the simplified circuit, 4. Repeat until single equivalent resistance"
+                            },
+                            {
+                                "title": "Bridge Circuits",
+                                "content": "More complex configurations like Wheatstone bridges require additional analysis techniques like Kirchhoff's laws."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "R_{eq} = R_{series} + \\frac{1}{\\sum \\frac{1}{R_{parallel}}}",
+                            "description": "Combined series-parallel equivalent"
+                        }
+                    ],
+                    "simulations": [
+                        {
+                            "type": "series-parallel-circuit",
+                            "canvasId": "sp-canvas",
+                            "controls": [
+                                {
+                                    "id": "r1",
+                                    "label": "R1 (Series)",
+                                    "valueId": "r1-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 500,
+                                    "defaultValue": 100,
+                                    "step": 10,
+                                    "unit": "Ω"
+                                },
+                                {
+                                    "id": "r2",
+                                    "label": "R2 (Parallel)",
+                                    "valueId": "r2-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 500,
+                                    "defaultValue": 200,
+                                    "step": 10,
+                                    "unit": "Ω"
+                                },
+                                {
+                                    "id": "r3",
+                                    "label": "R3 (Parallel)",
+                                    "valueId": "r3-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 500,
+                                    "defaultValue": 300,
+                                    "step": 10,
+                                    "unit": "Ω"
+                                }
+                            ],
+                            "results": [
+                                {
+                                    "id": "rpara-result",
+                                    "label": "R Parallel",
+                                    "value": "120 Ω"
+                                },
+                                {
+                                    "id": "rtotal-result",
+                                    "label": "Total R",
+                                    "value": "220 Ω"
+                                }
+                            ]
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Combined Circuit",
+                            "description": "A 100Ω resistor in series with two 200Ω resistors in parallel. Calculate total resistance.",
+                            "difficulty": "Medium",
+                            "difficultyColor": "yellow",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "100 Ω"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "200 Ω"
+                                },
+                                {
+                                    "value": "c",
+                                    "text": "300 Ω"
+                                },
+                                {
+                                    "value": "d",
+                                    "text": "133 Ω"
+                                }
+                            ],
+                            "correctAnswer": "d",
+                            "steps": [
+                                "First, calculate parallel combination: R_parallel = (200 × 200) / (200 + 200) = 20000/400 = 100Ω",
+                                "Now add series resistor: R_total = R_series + R_parallel = 100 + 100 = 200Ω"
+                            ],
+                            "finalAnswer": "200 Ω"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "02-circuit-analysis",
+            "title": "Circuit Analysis Techniques",
+            "description": "Advanced methods for analyzing complex circuits",
+            "icon": "fa-wave-square",
+            "order": 2,
+            "lessons": [
+                {
+                    "id": "01-kirchhoffs-current-law",
+                    "title": "Kirchhoff's Current Law (KCL)",
+                    "slug": "kirchhoffs-current-law",
+                    "duration": "25 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "State and understand Kirchhoff's Current Law",
+                        "Apply KCL to circuit nodes",
+                        "Identify reference nodes and supernodes",
+                        "Solve circuits using KCL equations"
+                    ],
+                    "content": {
+                        "introduction": "Kirchhoff's Current Law (KCL) states that the algebraic sum of all currents entering and leaving a node is zero. It's essential for analyzing complex circuits.",
+                        "sections": [
+                            {
+                                "title": "KCL Fundamentals",
+                                "content": "Sum of currents entering = Sum of currents leaving. Alternatively, ΣI_in - ΣI_out = 0 or ΣI = 0 with sign convention."
+                            },
+                            {
+                                "title": "Sign Convention",
+                                "content": "Currents entering a node are positive, currents leaving are negative (or vice versa). Consistency is key."
+                            },
+                            {
+                                "title": "Practical Applications",
+                                "content": "KCL is used in node voltage analysis, current divider circuits, and analyzing parallel networks."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\sum_{k=1}^{n} I_k = 0",
+                            "description": "KCL: Sum of currents at a node equals zero"
+                        },
+                        {
+                            "formula": "\\sum I_{in} = \\sum I_{out}",
+                            "description": "Alternative form: currents in equals currents out"
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "KCL at a Node",
+                            "description": "At a circuit node, currents of 2A, 3A, and 1A are entering. If 4A is leaving through one branch, how much current is leaving through the other branch?",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": true,
+                            "inputType": "text",
+                            "inputPlaceholder": "Enter current in amperes",
+                            "inputAriaLabel": "Your answer",
+                            "correctAnswer": "2",
+                            "answerType": "numeric",
+                            "formula": "I_{out2} = I_{in1} + I_{in2} + I_{in3} - I_{out1} = 2 + 3 + 1 - 4 = 2A",
+                            "steps": [
+                                "Total current entering = 2A + 3A + 1A = 6A",
+                                "Total current leaving must equal 6A",
+                                "I_out2 = 6A - 4A = 2A"
+                            ],
+                            "finalAnswer": "2 A"
+                        }
+                    ]
+                },
+                {
+                    "id": "02-kirchhoffs-voltage-law",
+                    "title": "Kirchhoff's Voltage Law (KVL)",
+                    "slug": "kirchhoffs-voltage-law",
+                    "duration": "25 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "State and understand Kirchhoff's Voltage Law",
+                        "Apply KVL to circuit loops",
+                        "Use mesh analysis for complex circuits",
+                        "Combine KVL and KCL for complete analysis"
+                    ],
+                    "content": {
+                        "introduction": "Kirchhoff's Voltage Law (KVL) states that the algebraic sum of all voltages around any closed loop is zero. It's fundamental to loop and mesh analysis.",
+                        "sections": [
+                            {
+                                "title": "KVL Fundamentals",
+                                "content": "The sum of voltage rises equals the sum of voltage drops around any closed loop. ΣV_rise = ΣV_drop or ΣV = 0."
+                            },
+                            {
+                                "title": "Sign Convention",
+                                "content": "Moving from negative to positive through a source is a voltage rise. Moving through a resistor in the direction of current is a voltage drop."
+                            },
+                            {
+                                "title": "Mesh Analysis",
+                                "content": "Assign mesh currents to each independent loop, apply KVL to each mesh, solve the resulting system of equations."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\sum_{k=1}^{n} V_k = 0",
+                            "description": "KVL: Sum of voltages around a loop equals zero"
+                        },
+                        {
+                            "formula": "V_{rise} = V_{drop}",
+                            "description": "Alternative form: voltage rises equal voltage drops"
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "KVL in a Simple Loop",
+                            "description": "A 12V battery is connected to two resistors of 100Ω and 200Ω in series. Apply KVL to find the current.",
+                            "difficulty": "Medium",
+                            "difficultyColor": "yellow",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "0.04 A"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "0.06 A"
+                                },
+                                {
+                                    "value": "c",
+                                    "text": "0.12 A"
+                                },
+                                {
+                                    "value": "d",
+                                    "text": "0.02 A"
+                                }
+                            ],
+                            "correctAnswer": "b",
+                            "steps": [
+                                "Apply KVL: V_battery - V_R1 - V_R2 = 0",
+                                "12V - I(100) - I(200) = 0",
+                                "12V - I(300) = 0",
+                                "I = 12/300 = 0.04 A = 40 mA"
+                            ],
+                            "finalAnswer": "40 mA"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "03-power-systems",
+            "title": "Power Systems",
+            "description": "Generation, transmission, and distribution of electrical power",
+            "icon": "fa-plug",
+            "order": 3,
+            "lessons": [
+                {
+                    "id": "01-power-generation",
+                    "title": "Power Generation Fundamentals",
+                    "slug": "power-generation",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Understand different power generation methods",
+                        "Explain the working principle of generators",
+                        "Compare renewable and non-renewable energy sources",
+                        "Understand power plant efficiency considerations"
+                    ],
+                    "content": {
+                        "introduction": "Electrical power generation converts other forms of energy into electrical energy through various methods including thermal, hydro, nuclear, and renewable sources.",
+                        "sections": [
+                            {
+                                "title": "AC Power Generation",
+                                "content": "Alternators generate AC power through electromagnetic induction. The frequency is determined by rotational speed and number of poles."
+                            },
+                            {
+                                "title": "Power Plant Types",
+                                "content": "Thermal plants burn fossil fuels, nuclear plants use fission, hydro plants use falling water, and renewable plants use wind, solar, or tidal energy."
+                            },
+                            {
+                                "title": "Grid Connection",
+                                "content": "Generated power is synchronized to the grid at specific voltage and frequency levels before transmission."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "f = \\frac{P \\cdot n}{120}",
+                            "description": "Frequency of AC generator: poles × RPM ÷ 120"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "04-electronics",
+            "title": "Electronics",
+            "description": "Semiconductor devices and electronic circuits",
+            "icon": "fa-microchip",
+            "order": 4,
+            "lessons": [
+                {
+                    "id": "01-diodes",
+                    "title": "Semiconductor Diodes",
+                    "slug": "semiconductor-diodes",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Understand PN junction construction",
+                        "Explain diode operation and characteristics",
+                        "Identify different types of diodes",
+                        "Analyze diode circuits and applications"
+                    ],
+                    "content": {
+                        "introduction": "Diodes are semiconductor devices that allow current to flow in only one direction. They are fundamental components in electronic circuits.",
+                        "sections": [
+                            {
+                                "title": "PN Junction",
+                                "content": "A diode is formed by joining P-type and N-type semiconductors, creating a depletion region at the junction."
+                            },
+                            {
+                                "title": "Forward Bias",
+                                "content": "When anode is positive relative to cathode, the depletion region narrows and current flows. Typical forward voltage drop is 0.7V for silicon."
+                            },
+                            {
+                                "title": "Reverse Bias",
+                                "content": "When cathode is positive relative to anode, the depletion region widens and only a small leakage current flows until breakdown."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "I = I_s \\cdot (e^{V_d/nV_T} - 1)",
+                            "description": "Diode current equation (Shockley equation)"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "05-digital-electronics",
+            "title": "Digital Electronics",
+            "description": "Binary logic, digital circuits, and microprocessors",
+            "icon": "fa-binary",
+            "order": 5,
+            "lessons": [
+                {
+                    "id": "01-number-systems",
+                    "title": "Number Systems and Codes",
+                    "slug": "number-systems-codes",
+                    "duration": "25 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "Convert between decimal, binary, and hexadecimal",
+                        "Understand binary arithmetic",
+                        "Learn common binary codes (BCD, Gray)",
+                        "Apply number system knowledge to digital circuits"
+                    ],
+                    "content": {
+                        "introduction": "Digital electronics uses binary number system. Understanding number systems is essential for digital circuit design and programming.",
+                        "sections": [
+                            {
+                                "title": "Binary System",
+                                "content": "Binary uses only 0 and 1. Each position represents a power of 2. Computers use binary because it's easy to represent with two voltage levels."
+                            },
+                            {
+                                "title": "Hexadecimal",
+                                "content": "Base-16 system using digits 0-9 and letters A-F. Each hex digit represents 4 binary bits, making it a convenient shorthand for binary."
+                            },
+                            {
+                                "title": "Binary Arithmetic",
+                                "content": "Binary addition, subtraction, multiplication, and division follow similar rules to decimal but with simpler tables."
+                            }
+                        ]
+                    },
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Binary to Decimal Conversion",
+                            "description": "Convert the binary number 1011₂ to decimal.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "8"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "10"
+                                },
+                                {
+                                    "value": "c",
+                                    "text": "11"
+                                },
+                                {
+                                    "value": "d",
+                                    "text": "13"
+                                }
+                            ],
+                            "correctAnswer": "c",
+                            "steps": [
+                                "Write binary weights: 8, 4, 2, 1",
+                                "Calculate: 1×8 + 0×4 + 1×2 + 1×1 = 8 + 0 + 2 + 1 = 11"
+                            ],
+                            "finalAnswer": "11₁₀"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "06-electrical-machines",
+            "title": "Electrical Machines",
+            "description": "Motors, generators, and transformers",
+            "icon": "fa-cogs",
+            "order": 6,
+            "lessons": [
+                {
+                    "id": "01-dc-motors",
+                    "title": "DC Motors",
+                    "slug": "dc-motors",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Understand DC motor construction and operation",
+                        "Explain torque-speed characteristics",
+                        "Calculate motor performance parameters",
+                        "Identify different types of DC motors"
+                    ],
+                    "content": {
+                        "introduction": "DC motors convert electrical energy to mechanical energy through electromagnetic principles. They're widely used in applications requiring variable speed control.",
+                        "sections": [
+                            {
+                                "title": "Construction",
+                                "content": "DC motors have a stator (field windings or permanent magnets) and a rotor (armature) with commutator and brushes."
+                            },
+                            {
+                                "title": "Operation Principle",
+                                "content": "When current flows through armature conductors in a magnetic field, force (F = BIL) produces torque. The commutator reverses current direction each half turn."
+                            },
+                            {
+                                "title": "Types of DC Motors",
+                                "content": "Series motors have high starting torque, shunt motors have constant speed, compound motors combine both characteristics."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "E_b = K \\cdot \\phi \\cdot \\omega",
+                            "description": "Back EMF in DC motor"
+                        },
+                        {
+                            "formula": "T = K \\cdot \\phi \\cdot I_a",
+                            "description": "Torque produced by DC motor"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "07-control-systems",
+            "title": "Control Systems",
+            "description": "Feedback systems, PID controllers, and automation",
+            "icon": "fa-sliders-h",
+            "order": 7,
+            "lessons": [
+                {
+                    "id": "01-intro-control-systems",
+                    "title": "Introduction to Control Systems",
+                    "slug": "intro-control-systems",
+                    "duration": "25 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Define open-loop and closed-loop systems",
+                        "Understand block diagrams and transfer functions",
+                        "Identify control system components",
+                        "Analyze system stability concepts"
+                    ],
+                    "content": {
+                        "introduction": "Control systems manage the behavior of other systems. They're essential in industrial automation, robotics, and many other applications.",
+                        "sections": [
+                            {
+                                "title": "Open-Loop Systems",
+                                "content": "Open-loop systems operate without feedback. The control action is independent of the process output. Examples include washing machines and traffic lights."
+                            },
+                            {
+                                "title": "Closed-Loop Systems",
+                                "content": "Closed-loop (feedback) systems compare the output to a reference and use the error to adjust the control action. This provides better accuracy and disturbance rejection."
+                            },
+                            {
+                                "title": "Transfer Functions",
+                                "content": "Transfer functions represent the relationship between input and output in the Laplace domain. G(s) = Y(s)/X(s)"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "08-renewable-energy",
+            "title": "Renewable Energy",
+            "description": "Solar, wind, and sustainable energy systems",
+            "icon": "fa-leaf",
+            "order": 8,
+            "lessons": [
+                {
+                    "id": "01-solar-power",
+                    "title": "Solar Photovoltaic Systems",
+                    "slug": "solar-photovoltaic",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Understand photovoltaic cell operation",
+                        "Calculate system sizing and energy production",
+                        "Explain PV system configurations",
+                        "Identify components of solar installations"
+                    ],
+                    "content": {
+                        "introduction": "Solar photovoltaic systems convert sunlight directly into electricity using semiconductor materials. They're a clean, renewable energy source.",
+                        "sections": [
+                            {
+                                "title": "PV Cell Operation",
+                                "content": "When photons strike the semiconductor junction, electrons are freed and create a voltage potential. Multiple cells form modules, and modules form arrays."
+                            },
+                            {
+                                "title": "System Components",
+                                "content": "PV systems include panels, charge controllers, batteries (for off-grid), inverters (for grid-tied), and balance of system components."
+                            },
+                            {
+                                "title": "Performance Factors",
+                                "content": "Solar output depends on irradiance, temperature, shading, panel orientation, and system efficiency."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "P = A \\cdot r \\cdot \\eta",
+                            "description": "Power output: Area × irradiance × efficiency"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "09-safety-standards",
+            "title": "Electrical Safety Standards",
+            "description": "Safety practices, codes, and regulations",
+            "icon": "fa-shield-alt",
+            "order": 9,
+            "lessons": [
+                {
+                    "id": "01-electrical-safety",
+                    "title": "Electrical Safety Fundamentals",
+                    "slug": "electrical-safety",
+                    "duration": "30 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "Identify electrical hazards and their effects on the human body",
+                        "Understand safety standards and regulations",
+                        "Apply proper personal protective equipment (PPE)",
+                        "Implement safe work practices"
+                    ],
+                    "content": {
+                        "introduction": "Electrical safety is paramount when working with electricity. Understanding hazards and proper procedures prevents accidents and saves lives.",
+                        "sections": [
+                            {
+                                "title": "Electrical Hazards",
+                                "content": "Electric shock, arc flash, arc blast, and fire are the main electrical hazards. Effects range from minor sensation to cardiac arrest and burns."
+                            },
+                            {
+                                "title": "Safety Standards",
+                                "content": "NFPA 70E, OSHA, and IEC standards provide guidelines for electrical safety. Compliance is mandatory in most jurisdictions."
+                            },
+                            {
+                                "title": "Personal Protective Equipment",
+                                "content": "PPE includes insulated gloves, arc-rated clothing, safety glasses, hard hats, and dielectric footwear rated for the voltage level."
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

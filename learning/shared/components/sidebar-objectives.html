@@ -1,0 +1,39 @@
+<!-- Sidebar Learning Objectives Component -->
+<aside class="lg:col-span-1">
+    <div class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-4 sticky top-24">
+        <button id="objectives-toggle"
+            class="flex items-center justify-between w-full text-left font-semibold text-gray-800 dark:text-white mb-3"
+            aria-expanded="true" aria-controls="objectives-panel">
+            <span><i class="fas fa-bullseye mr-2 text-primary-600"></i>[[i18n.learningObjectives]]</span>
+            <i class="fas fa-chevron-up transition-transform" id="objectives-icon"></i>
+        </button>
+
+        <div id="objectives-panel" class="transition-all duration-300">
+            <ul class="space-y-2 text-sm" id="objectives-list">
+                {{#each objectives}}
+                <li class="flex items-start gap-2">
+                    <input type="checkbox" id="obj-{{@index}}"
+                        class="mt-1 w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500" {{#if
+                        completed}}checked{{/if}}>
+                    <label for="obj-{{@index}}" class="text-gray-700 dark:text-gray-300 cursor-pointer">{{this}}</label>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Quick Navigation -->
+    <div class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-4 mt-4 sticky top-24">
+        <h3 class="font-semibold text-gray-800 dark:text-white mb-3">
+            <i class="fas fa-list mr-2 text-primary-600"></i>[[i18n.lessonContents]]
+        </h3>
+        <nav class="space-y-1" id="lesson-nav">
+            {{#each sections}}
+            <a href="#{{id}}"
+                class="block px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                <i class="{{icon}} mr-2 text-primary-600"></i>{{title}}
+            </a>
+            {{/each}}
+        </nav>
+    </div>
+</aside>

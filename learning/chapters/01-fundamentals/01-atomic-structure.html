@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: Atomic Structure & Electric Charge | EE Mastery</title>
+    <meta name="description"
+        content="Learn about atomic structure, electrons, protons, neutrons, and how electric charge is created at the atomic level.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../../shared/css/styles.css">
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%236366f1' d='M50 10 L60 40 L90 50 L60 60 L50 90 L40 60 L10 50 L40 40 Z'/%3E%3C/svg%3E">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="../../../index.html"
+                        style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
+                        <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+                            <circle cx="20" cy="20" r="18" stroke="white" stroke-width="2" fill="none" />
+                            <path d="M20 8 L20 20 L28 28" stroke="#6366f1" stroke-width="3" stroke-linecap="round"
+                                fill="none" />
+                            <circle cx="20" cy="20" r="3" fill="white" />
+                        </svg>
+                        <h1 style="font-size: 1.25rem; margin: 0; color: white;">EE Mastery</h1>
+                    </a>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" id="sidebarNav"></nav>
+
+            <div class="p-4 mt-auto border-t border-gray-700">
+                <div class="text-xs text-gray-400 mb-2">Course Progress</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="text-xs text-gray-400 mt-2" id="progressText">0% Complete</div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <div class="container">
+                    <div class="flex items-center justify-between">
+                        <button class="menu-toggle lg:hidden btn btn-icon" id="menuToggle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M3 12h18M3 6h18M3 18h18" />
+                            </svg>
+                        </button>
+
+                        <div class="breadcrumb">
+                            <a href="../../../index.html">Home</a>
+                            <span>/</span>
+                            <a href="index.html">Chapter 1</a>
+                            <span>/</span>
+                            <span>Lesson 1</span>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <a href="02-voltage-current-resistance.html" class="btn btn-secondary">
+                                Next Lesson
+                                <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <div class="container">
+                    <article class="article-content">
+                        <h1>Atomic Structure & Electric Charge</h1>
+
+                        <!-- Learning Objectives -->
+                        <div class="info-box note">
+                            <div class="info-box-title">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 16v-4M12 8h.01" />
+                                </svg>
+                                Learning Objectives
+                            </div>
+                            <p>By the end of this lesson, you will be able to:</p>
+                            <ul>
+                                <li>Describe the structure of an atom and its subatomic particles</li>
+                                <li>Explain the difference between conductors, semiconductors, and insulators</li>
+                                <li>Define electric charge and understand its quantized nature</li>
+                                <li>Explain how electric current flows through materials</li>
+                            </ul>
+                        </div>
+
+                        <!-- Introduction -->
+                        <section id="introduction">
+                            <h2>Introduction</h2>
+                            <p>Everything electrical starts at the atomic level. To understand electricity, we must
+                                first understand the atom—the building block of all matter. The behavior of electrons
+                                within atoms determines whether a material conducts electricity or insulates against it.
+                            </p>
+                            <p>In this lesson, we'll explore the atomic structure, learn about electric charge, and
+                                understand why some materials allow electric current to flow while others resist it.</p>
+                        </section>
+
+                        <!-- The Atom -->
+                        <section id="atom-structure">
+                            <h2>The Structure of the Atom</h2>
+                            <p>An atom is the smallest unit of matter that retains the properties of an element. Atoms
+                                consist of three main particles:</p>
+
+                            <div class="diagram-container">
+                                <svg viewBox="0 0 400 300" width="400" height="300">
+                                    <!-- Electron Orbits -->
+                                    <ellipse cx="200" cy="150" rx="150" ry="80" fill="none" stroke="#4f46e5"
+                                        stroke-width="2" stroke-dasharray="5,5" />
+                                    <ellipse cx="200" cy="150" rx="100" ry="50" fill="none" stroke="#6366f1"
+                                        stroke-width="2" />
+                                    <ellipse cx="200" cy="150" rx="60" ry="30" fill="none" stroke="#818cf8"
+                                        stroke-width="2" />
+
+                                    <!-- Nucleus -->
+                                    <circle cx="200" cy="150" r="25" fill="#ef4444" />
+                                    <circle cx="190" cy="145" r="8" fill="#fca5a5" />
+                                    <circle cx="210" cy="155" r="8" fill="#fca5a5" />
+                                    <circle cx="200" cy="150" r="8" fill="#fecaca" />
+
+                                    <!-- Protons (+) -->
+                                    <text x="200" y="153" font-size="10" fill="#7f1d1d" text-anchor="middle"
+                                        font-weight="bold">+</text>
+
+                                    <!-- Electrons -->
+                                    <circle cx="350" cy="150" r="8" fill="#0ea5e9" />
+                                    <text x="350" y="153" font-size="10" fill="#fff" text-anchor="middle"
+                                        font-weight="bold">-</text>
+
+                                    <circle cx="100" cy="150" r="8" fill="#0ea5e9" />
+                                    <text x="100" y="153" font-size="10" fill="#fff" text-anchor="middle"
+                                        font-weight="bold">-</text>
+
+                                    <circle cx="200" cy="90" r="8" fill="#0ea5e9" />
+                                    <text x="200" y="93" font-size="10" fill="#fff" text-anchor="middle"
+                                        font-weight="bold">-</text>
+
+                                    <circle cx="200" cy="210" r="8" fill="#0ea5e9" />
+                                    <text x="200" y="213" font-size="10" fill="#fff" text-anchor="middle"
+                                        font-weight="bold">-</text>
+
+                                    <circle cx="270" cy="120" r="8" fill="#0ea5e9" />
+                                    <text x="270" y="123" font-size="10" fill="#fff" text-anchor="middle"
+                                        font-weight="bold">-</text>
+
+                                    <circle cx="130" cy="180" r="8" fill="#0ea5e9" />
+                                    <text x="130" y="183" font-size="10" fill="#fff" text-anchor="middle"
+                                        font-weight="bold">-</text>
+
+                                    <!-- Labels -->
+                                    <text x="200" y="280" font-size="12" fill="#94a3b8" text-anchor="middle">Electron
+                                        orbit paths</text>
+                                    <text x="200" y="30" font-size="12" fill="#94a3b8" text-anchor="middle">Nucleus
+                                        (Protons + Neutrons)</text>
+                                </svg>
+                            </div>
+
+                            <h3>Subatomic Particles</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Particle</th>
+                                        <th>Symbol</th>
+                                        <th>Charge</th>
+                                        <th>Mass</th>
+                                        <th>Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Proton</strong></td>
+                                        <td>p⁺</td>
+                                        <td>+1.602 × 10⁻¹⁹ C</td>
+                                        <td>1.673 × 10⁻²⁷ kg</td>
+                                        <td>Nucleus</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Neutron</strong></td>
+                                        <td>n⁰</td>
+                                        <td>0 (Neutral)</td>
+                                        <td>1.675 × 10⁻²⁷ kg</td>
+                                        <td>Nucleus</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Electron</strong></td>
+                                        <td>e⁻</td>
+                                        <td>−1.602 × 10⁻¹⁹ C</td>
+                                        <td>9.109 × 10⁻³¹ kg</td>
+                                        <td>Orbitals</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="info-box tip">
+                                <div class="info-box-title">💡 Key Insight</div>
+                                <p>Electrons are much lighter than protons (about 1/1836th the mass), but they can move
+                                    freely between atoms, which is why they are responsible for electrical current!</p>
+                            </div>
+                        </section>
+
+                        <!-- Electric Charge -->
+                        <section id="electric-charge">
+                            <h2>Electric Charge</h2>
+                            <p>Electric charge is a fundamental property of matter. It comes in two varieties:
+                                <strong>positive</strong> and <strong>negative</strong>. Like charges repel each other,
+                                while opposite charges attract.</p>
+
+                            <div class="formula">
+                                <span class="formula-label">Elementary Charge</span>
+                                e = 1.602 × 10⁻¹⁹ Coulombs
+                            </div>
+
+                            <h3>Charged Objects</h3>
+                            <p>Objects become charged through the transfer of electrons:</p>
+                            <ul>
+                                <li><strong>Positively Charged</strong>: When an atom loses electrons (more protons than
+                                    electrons)</li>
+                                <li><strong>Negatively Charged</strong>: When an atom gains electrons (more electrons
+                                    than protons)</li>
+                                <li><strong>Neutral</strong>: Equal number of protons and electrons</li>
+                            </ul>
+
+                            <h3>Coulomb's Law</h3>
+                            <p>The force between two charged particles is given by Coulomb's Law:</p>
+
+                            <div class="formula">
+                                <span class="formula-label">Coulomb's Law</span>
+                                F = k × (q₁ × q₂) / r²
+                            </div>
+
+                            <p>Where:</p>
+                            <ul>
+                                <li><strong>F</strong> = Force in Newtons (N)</li>
+                                <li><strong>k</strong> = Coulomb's constant (8.99 × 10⁹ N·m²/C²)</li>
+                                <li><strong>q₁, q₂</strong> = Charges in Coulombs (C)</li>
+                                <li><strong>r</strong> = Distance between charges in meters (m)</li>
+                            </ul>
+
+                            <div class="info-box warning">
+                                <div class="info-box-title">⚠️ Important</div>
+                                <p>Coulomb's Law shows that electrical force decreases rapidly with distance (inverse
+                                    square law). Doubling the distance reduces the force to 1/4 of its original value.
+                                </p>
+                            </div>
+                        </section>
+
+                        <!-- Conductors vs Insulators -->
+                        <section id="conductors-insulators">
+                            <h2>Conductors, Semiconductors, and Insulators</h2>
+                            <p>Materials are classified by how easily electrons can move through them:</p>
+
+                            <h3>Conductors</h3>
+                            <p>Materials with free electrons that can move easily. Examples include:</p>
+                            <ul>
+                                <li>Copper (most common conductor)</li>
+                                <li>Aluminum</li>
+                                <li>Silver (best conductor)</li>
+                                <li>Gold (corrosion-resistant)</li>
+                            </ul>
+
+                            <h3>Insulators</h3>
+                            <p>Materials that hold electrons tightly, preventing current flow:</p>
+                            <ul>
+                                <li>Rubber</li>
+                                <li>Plastic (PVC)</li>
+                                <li>Glass</li>
+                                <li>Ceramic</li>
+                                <li>Dry air</li>
+                            </ul>
+
+                            <h3>Semiconductors</h3>
+                            <p>Materials whose conductivity can be controlled:</p>
+                            <ul>
+                                <li>Silicon (most common)</li>
+                                <li>Germanium</li>
+                                <li>Gallium Arsenide</li>
+                            </ul>
+
+                            <div class="diagram-container">
+                                <svg viewBox="0 0 600 200" width="600" height="200">
+                                    <!-- Conductor -->
+                                    <rect x="20" y="40" width="160" height="80" rx="8" fill="#10b981" opacity="0.3"
+                                        stroke="#10b981" stroke-width="2" />
+                                    <text x="100" y="75" font-size="12" fill="#10b981" text-anchor="middle"
+                                        font-weight="bold">CONDUCTOR</text>
+                                    <text x="100" y="95" font-size="10" fill="#94a3b8" text-anchor="middle">Free
+                                        electrons move</text>
+                                    <text x="100" y="110" font-size="10" fill="#94a3b8" text-anchor="middle">easily
+                                        between atoms</text>
+
+                                    <!-- Electrons in conductor -->
+                                    <circle cx="50" cy="80" r="6" fill="#0ea5e9" />
+                                    <circle cx="80" cy="70" r="6" fill="#0ea5e9" />
+                                    <circle cx="110" cy="90" r="6" fill="#0ea5e9" />
+                                    <circle cx="140" cy="75" r="6" fill="#0ea5e9" />
+
+                                    <!-- Arrow -->
+                                    <path d="M190 80 L210 80" stroke="#94a3b8" stroke-width="2"
+                                        marker-end="url(#arrowhead)" />
+
+                                    <!-- Semiconductor -->
+                                    <rect x="220" y="40" width="160" height="80" rx="8" fill="#8b5cf6" opacity="0.3"
+                                        stroke="#8b5cf6" stroke-width="2" />
+                                    <text x="300" y="75" font-size="12" fill="#8b5cf6" text-anchor="middle"
+                                        font-weight="bold">SEMICONDUCTOR</text>
+                                    <text x="300" y="95" font-size="10" fill="#94a3b8" text-anchor="middle">Conductivity
+                                        can be</text>
+                                    <text x="300" y="110" font-size="10" fill="#94a3b8" text-anchor="middle">controlled
+                                        (doping)</text>
+
+                                    <!-- Doped atoms -->
+                                    <circle cx="250" cy="80" r="8" fill="#f97316" />
+                                    <circle cx="280" cy="70" r="8" fill="#f97316" />
+                                    <circle cx="310" cy="90" r="8" fill="#f97316" />
+                                    <circle cx="340" cy="75" r="8" fill="#f97316" />
+
+                                    <!-- Arrow -->
+                                    <path d="M390 80 L410 80" stroke="#94a3b8" stroke-width="2" />
+
+                                    <!-- Insulator -->
+                                    <rect x="420" y="40" width="160" height="80" rx="8" fill="#ef4444" opacity="0.3"
+                                        stroke="#ef4444" stroke-width="2" />
+                                    <text x="500" y="75" font-size="12" fill="#ef4444" text-anchor="middle"
+                                        font-weight="bold">INSULATOR</text>
+                                    <text x="500" y="95" font-size="10" fill="#94a3b8" text-anchor="middle">Electrons
+                                        tightly</text>
+                                    <text x="500" y="110" font-size="10" fill="#94a3b8" text-anchor="middle">bound to
+                                        atoms</text>
+
+                                    <!-- Tethered electrons -->
+                                    <circle cx="450" cy="60" r="5" fill="#0ea5e9" />
+                                    <circle cx="470" cy="70" r="5" fill="#0ea5e9" />
+                                    <circle cx="490" cy="60" r="5" fill="#0ea5e9" />
+                                    <circle cx="510" cy="70" r="5" fill="#0ea5e9" />
+                                    <circle cx="530" cy="60" r="5" fill="#0ea5e9" />
+                                    <circle cx="550" cy="70" r="5" fill="#0ea5e9" />
+
+                                    <!-- Defs for arrow -->
+                                    <defs>
+                                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5"
+                                            orient="auto">
+                                            <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8" />
+                                        </marker>
+                                    </defs>
+                                </svg>
+                            </div>
+                        </section>
+
+                        <!-- Electron Flow -->
+                        <section id="electron-flow">
+                            <h2>How Electric Current Flows</h2>
+                            <p>When we connect a voltage source (like a battery) to a conductor, we create an electric
+                                field that pushes free electrons through the material.</p>
+
+                            <h3>Conventional Current vs Electron Flow</h3>
+                            <p>There are two ways to describe current flow:</p>
+                            <ul>
+                                <li><strong>Electron Flow</strong>: Electrons move from negative to positive terminal
+                                </li>
+                                <li><strong>Conventional Current</strong>: Positive charge "flows" from positive to
+                                    negative</li>
+                            </ul>
+
+                            <div class="info-box note">
+                                <div class="info-box-title">📝 Note</div>
+                                <p>In most engineering contexts, we use conventional current (positive to negative).
+                                    However, remember that electrons actually flow in the opposite direction!</p>
+                            </div>
+
+                            <h3>Current Formula</h3>
+                            <p>Current is the rate of charge flow:</p>
+
+                            <div class="formula">
+                                <span class="formula-label">Current (I)</span>
+                                I = Q / t
+                            </div>
+
+                            <p>Where:</p>
+                            <ul>
+                                <li><strong>I</strong> = Current in Amperes (A)</li>
+                                <li><strong>Q</strong> = Charge in Coulombs (C)</li>
+                                <li><strong>t</strong> = Time in seconds (s)</li>
+                            </ul>
+
+                            <h3>Example Calculation</h3>
+                            <pre><code>// Calculate the current when 10 Coulombs of charge
+// flows through a conductor in 2 seconds
+
+const charge = 10;    // Q = 10 C
+const time = 2;       // t = 2 s
+
+const current = charge / time;  // I = 5 A
+
+console.log(`Current = ${current} Amperes`);</code></pre>
+
+                            <p>If 6.242 × 10¹⁸ electrons flow past a point in 1 second, that's 1 Ampere of current!</p>
+                        </section>
+
+                        <!-- Practice Problems -->
+                        <section id="practice">
+                            <h2>Practice Problems</h2>
+
+                            <div class="card p-6 mb-4">
+                                <h4 class="font-semibold mb-3">Problem 1: Calculate Electron Charge</h4>
+                                <p class="text-gray-400 mb-4">How many electrons make up a charge of 1 Coulomb?</p>
+                                <details>
+                                    <summary class="cursor-pointer text-indigo-400 hover:text-indigo-300">Show Solution
+                                    </summary>
+                                    <div class="mt-4 p-4 bg-gray-800 rounded">
+                                        <p><strong>Solution:</strong></p>
+                                        <pre><code>// Number of electrons = Total charge / Elementary charge
+const elementaryCharge = 1.602e-19;  // 1.602 × 10⁻¹⁹ C
+const totalCharge = 1;               // 1 C
+
+const numElectrons = totalCharge / elementaryCharge;
+console.log(`Number of electrons = ${numElectrons.toExponential(3)}`);
+console.log(`= 6.242 × 10¹⁸ electrons`);</code></pre>
+                                        <p class="mt-2"><strong>Answer:</strong> 6.242 × 10¹⁸ electrons</p>
+                                    </div>
+                                </details>
+                            </div>
+
+                            <div class="card p-6 mb-4">
+                                <h4 class="font-semibold mb-3">Problem 2: Calculate Current</h4>
+                                <p class="text-gray-400 mb-4">If 50 Coulombs of charge flows through a wire in 10
+                                    seconds, what is the current?</p>
+                                <details>
+                                    <summary class="cursor-pointer text-indigo-400 hover:text-indigo-300">Show Solution
+                                    </summary>
+                                    <div class="mt-4 p-4 bg-gray-800 rounded">
+                                        <p><strong>Solution:</strong></p>
+                                        <pre><code>const charge = 50;   // Q = 50 C
+const time = 10;      // t = 10 s
+
+const current = charge / time;
+console.log(`Current = ${current} A`);</code></pre>
+                                        <p class="mt-2"><strong>Answer:</strong> 5 Amperes</p>
+                                    </div>
+                                </details>
+                            </div>
+
+                            <div class="card p-6">
+                                <h4 class="font-semibold mb-3">Problem 3: Coulomb's Law</h4>
+                                <p class="text-gray-400 mb-4">Two charges of 2 µC and -3 µC are separated by 0.1 meters.
+                                    Calculate the force between them.</p>
+                                <details>
+                                    <summary class="cursor-pointer text-indigo-400 hover:text-indigo-300">Show Solution
+                                    </summary>
+                                    <div class="mt-4 p-4 bg-gray-800 rounded">
+                                        <p><strong>Solution:</strong></p>
+                                        <pre><code>const k = 8.99e9;      // Coulomb's constant
+const q1 = 2e-6;        // 2 µC = 2 × 10⁻⁶ C
+const q2 = -3e-6;       // -3 µC = -3 × 10⁻⁶ C
+const r = 0.1;          // 0.1 m
+
+const force = k * (Math.abs(q1 * q2)) / (r * r);
+console.log(`Force = ${force.toFixed(2)} N`);</code></pre>
+                                        <p class="mt-2"><strong>Answer:</strong> 53.94 N (attractive force)</p>
+                                    </div>
+                                </details>
+                            </div>
+                        </section>
+
+                        <!-- Summary -->
+                        <section id="summary">
+                            <h2>Summary</h2>
+                            <ul>
+                                <li>Atoms consist of protons (positive), neutrons (neutral), and electrons (negative)
+                                </li>
+                                <li>Electric charge is quantized in units of the elementary charge e = 1.602 × 10⁻¹⁹ C
+                                </li>
+                                <li>Like charges repel, opposite charges attract</li>
+                                <li>Conductors have free electrons; insulators tightly bound electrons</li>
+                                <li>Semiconductors have conductivity that can be controlled</li>
+                                <li>Current I = Q/t (Charge divided by time)</li>
+                            </ul>
+                        </section>
+
+                        <!-- Navigation -->
+                        <section class="mt-12 pt-8 border-t border-gray-700">
+                            <div class="flex justify-between">
+                                <a href="index.html" class="btn btn-secondary">
+                                    <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                                    </svg>
+                                    Chapter Overview
+                                </a>
+                                <a href="02-voltage-current-resistance.html" class="btn btn-primary">
+                                    Next: Voltage, Current & Resistance
+                                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="text-sm text-gray-400">© 2024 Electrical Engineering Mastery</div>
+                        <div class="footer-links">
+                            <a href="#">About</a>
+                            <a href="#">Contact</a>
+                            <a href="#">Privacy</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="../../shared/js/state.js"></script>
+    <script src="../../shared/js/navigation.js"></script>
+    <script src="../../shared/js/router.js"></script>
+    <script src="../../shared/js/app.js"></script>
+</body>
+
+</html>

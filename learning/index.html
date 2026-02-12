@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Engineering Mastery | Zero to Hero Course</title>
+    <meta name="description" content="Comprehensive electrical engineering course from fundamentals to advanced concepts. Master circuits, power systems, electronics, and more.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="shared/css/styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%236366f1' d='M50 10 L60 40 L90 50 L60 60 L50 90 L40 60 L10 50 L40 40 Z'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <svg viewBox="0 0 40 40" fill="none">
+                        <circle cx="20" cy="20" r="18" stroke="white" stroke-width="2" fill="none"/>
+                        <path d="M20 8 L20 20 L28 28" stroke="#6366f1" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <circle cx="20" cy="20" r="3" fill="white"/>
+                    </svg>
+                    <h1>EE Mastery</h1>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav" id="sidebarNav">
+                <!-- Navigation will be rendered by JS -->
+            </nav>
+            
+            <!-- Progress Section -->
+            <div class="p-4 mt-auto border-t border-gray-700">
+                <div class="text-xs text-gray-400 mb-2">Course Progress</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="text-xs text-gray-400 mt-2" id="progressText">0% Complete</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <div class="container">
+                    <div class="flex items-center justify-between">
+                        <button class="menu-toggle lg:hidden btn btn-icon" id="menuToggle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 12h18M3 6h18M3 18h18"/>
+                            </svg>
+                        </button>
+                        
+                        <div class="breadcrumb">
+                            <a href="index.html">Home</a>
+                            <span>/</span>
+                            <span>Course Overview</span>
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <button class="btn btn-secondary btn-icon" id="bookmarksBtn" title="Bookmarks">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                                </svg>
+                            </button>
+                            <button class="btn btn-secondary btn-icon" id="themeToggle" title="Toggle Theme">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="5"/>
+                                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <div class="content-body">
+                <div class="container">
+                    <!-- Hero Section -->
+                    <section class="content-section">
+                        <div class="text-center mb-12">
+                            <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-500/20 text-indigo-300 text-sm mb-6">
+                                <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                </svg>
+                                Complete Electrical Engineering Course
+                            </div>
+                            <h1 class="text-4xl md:text-5xl font-bold mb-4">Master Electrical Engineering</h1>
+                            <p class="lead max-w-2xl mx-auto">From atomic physics to power systems, become a professional electrical engineer through hands-on learning with real-world applications.</p>
+                        </div>
+                        
+                        <!-- Stats -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                            <div class="card p-6 text-center">
+                                <div class="text-3xl font-bold text-indigo-400">09</div>
+                                <div class="text-sm text-gray-400">Chapters</div>
+                            </div>
+                            <div class="card p-6 text-center">
+                                <div class="text-3xl font-bold text-cyan-400">45+</div>
+                                <div class="text-sm text-gray-400">Lessons</div>
+                            </div>
+                            <div class="card p-6 text-center">
+                                <div class="text-3xl font-bold text-emerald-400">100+</div>
+                                <div class="text-sm text-gray-400">Topics</div>
+                            </div>
+                            <div class="card p-6 text-center">
+                                <div class="text-3xl font-bold text-orange-400">∞</div>
+                                <div class="text-sm text-gray-400">Practice</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Course Chapters Grid -->
+                    <section class="content-section">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center">
+                            <svg class="w-6 h-6 mr-2 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                            </svg>
+                            Course Curriculum
+                        </h2>
+                        
+                        <div class="chapter-grid">
+                            <!-- Chapter 1 -->
+                            <a href="chapters/01-fundamentals/index.html" class="chapter-card">
+                                <div class="chapter-icon fundamentals">
+                                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="M12 6v6l4 2"/>
+                                    </svg>
+                                </div>
+                                <h3>Chapter 1: Fundamentals of Electricity</h3>
+                                <p>Master the basic concepts: atomic structure, voltage, current, resistance, and the fundamental laws of electricity.</p>
+                                <div class="chapter-meta">
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                        </svg>
+                                        6 Lessons
+                                    </span>
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12,6 12,12 16,14"/>
+                                        </svg>
+                                        4-6 Hours
+                                    </span>
+                                </div>
+                            </a>
+
+                            <!-- Chapter 2 -->
+                            <a href="chapters/02-circuit-analysis/index.html" class="chapter-card">
+                                <div class="chapter-icon circuits">
+                                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                                    </svg>
+                                </div>
+                                <h3>Chapter 2: Circuit Analysis</h3>
+                                <p>Learn Kirchhoff's laws, Thevenin's theorem, Norton equivalents, and advanced circuit solving techniques.</p>
+                                <div class="chapter-meta">
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                        </svg>
+                                        6 Lessons
+                                    </span>
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12,6 12,12 16,14"/>
+                                        </svg>
+                                        6-8 Hours
+                                    </span>
+                                </div>
+                            </a>
+
+                            <!-- Chapter 3 -->
+                            <a href="chapters/03-power-systems/index.html" class="chapter-card">
+                                <div class="chapter-icon power">
+                                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                                    </svg>
+                                </div>
+                                <h3>Chapter 3: Power Systems</h3>
+                                <p>Explore generation, transmission, distribution, and the modern electrical grid infrastructure.</p>
+                                <div class="chapter-meta">
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                        </svg>
+                                        5 Lessons
+                                    </span>
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12,6 12,12 16,14"/>
+                                        </svg>
+                                        5-7 Hours
+                                    </span>
+                                </div>
+                            </a>
+
+                            <!-- Chapter 4 -->
+                            <a href="chapters/04-electronics/index.html" class="chapter-card">
+                                <div class="chapter-icon electronics">
+                                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="4" y="4" width="16" height="16" rx="2"/>
+                                        <path d="M9 9h6v6H9z"/>
+                                    </svg>
+                                </div>
+                                <h3>Chapter 4: Electronics</h3>
+                                <p>Master diodes, transistors, op-amps, and integrated circuits for modern electronic applications.</p>
+                                <div class="chapter-meta">
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                        </svg>
+                                        6 Lessons
+                                    </span>
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12,6 12,12 16,14"/>
+                                        </svg>
+                                        6-8 Hours
+                                    </span>
+                                </div>
+                            </a>
+
+                            <!-- Chapter 5 -->
+                            <a href="chapters/05-digital-electronics/index.html" class="chapter-card">
+                                <div class="chapter-icon digital">
+                                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                        <path d="M8 21h8M12 17v4"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                </div>
+                                <h3>Chapter 5: Digital Electronics</h3>
+                                <p>From binary logic to microcontrollers, learn the foundations of modern digital systems.</p>
+                                <div class="chapter-meta">
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                        </svg>
+                                        5 Lessons
+                                    </span>
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12,6 12,12 16,14"/>
+                                        </svg>
+                                        5-7 Hours
+                                    </span>
+                                </div>
+                            </a>
+
+                            <!-- Chapter 6 -->
+                            <a href="chapters/06-electrical-machines/index.html" class="chapter-card">
+                                <div class="chapter-icon machines">
+                                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="3"/>
+                                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                                    </svg>
+                                </div>
+                                <h3>Chapter 6: Electrical Machines</h3>
+                                <p>Understand transformers, DC motors, AC motors, and generators in detail.</p>
+                                <div class="chapter-meta">
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                        </svg>
+                                        5 Lessons
+                                    </span>
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12,6 12,12 16,14"/>
+                                        </svg>
+                                        5-7 Hours
+                                    </span>
+                                </div>
+                            </a>
+
+                            <!-- Chapter 7 -->
+                            <a href="chapters/07-control-systems/index.html" class="chapter-card">
+                                <div class="chapter-icon control">
+                                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                    </svg>
+                                </div>
+                                <h3>Chapter 7: Control Systems</h3>
+                                <p>Master PID controllers, stability analysis, and modern control theory techniques.</p>
+                                <div class="chapter-meta">
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                        </svg>
+                                        4 Lessons
+                                    </span>
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12,6 12,12 16,14"/>
+                                        </svg>
+                                        4-6 Hours
+                                    </span>
+                                </div>
+                            </a>
+
+                            <!-- Chapter 8 -->
+                            <a href="chapters/08-renewable-energy/index.html" class="chapter-card">
+                                <div class="chapter-icon renewable">
+                                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="5"/>
+                                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                                    </svg>
+                                </div>
+                                <h3>Chapter 8: Renewable Energy</h3>
+                                <p>Explore solar, wind, hydro, and emerging sustainable energy technologies.</p>
+                                <div class="chapter-meta">
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                        </svg>
+                                        4 Lessons
+                                    </span>
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12,6 12,12 16,14"/>
+                                        </svg>
+                                        4-5 Hours
+                                    </span>
+                                </div>
+                            </a>
+
+                            <!-- Chapter 9 -->
+                            <a href="chapters/09-safety-standards/index.html" class="chapter-card">
+                                <div class="chapter-icon safety">
+                                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                        <path d="M12 8v4M12 16h.01"/>
+                                    </svg>
+                                </div>
+                                <h3>Chapter 9: Safety & Standards</h3>
+                                <p>Learn electrical safety practices, codes, regulations, and professional standards.</p>
+                                <div class="chapter-meta">
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                        </svg>
+                                        4 Lessons
+                                    </span>
+                                    <span>
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12,6 12,12 16,14"/>
+                                        </svg>
+                                        3-4 Hours
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </section>
+
+                    <!-- Learning Path -->
+                    <section class="content-section">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center">
+                            <svg class="w-6 h-6 mr-2 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                                <polyline points="2 17 12 22 22 17"/>
+                                <polyline points="2 12 12 17 22 12"/>
+                            </svg>
+                            Your Learning Path
+                        </h2>
+                        
+                        <div class="card p-6">
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 font-bold">1</div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Foundation (Chapters 1-2)</h4>
+                                        <p class="text-gray-400 text-sm">Master the fundamentals of electricity and circuit analysis. This is your base for everything else.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center flex-shrink-0 font-bold">2</div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Core Specialization (Chapters 3-6)</h4>
+                                        <p class="text-gray-400 text-sm">Dive into power systems, electronics, digital systems, and electrical machines.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0 font-bold">3</div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Advanced Topics (Chapters 7-8)</h4>
+                                        <p class="text-gray-400 text-sm">Master control systems and renewable energy technologies.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0 font-bold">4</div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Professional Skills (Chapter 9)</h4>
+                                        <p class="text-gray-400 text-sm">Complete your training with essential safety practices and industry standards.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- CTA Section -->
+                    <section class="content-section">
+                        <div class="card bg-gradient-to-r from-indigo-600/20 to-purple-600/20 border-indigo-500/30 p-8 text-center">
+                            <h2 class="text-2xl font-bold mb-4">Ready to Start Your Journey?</h2>
+                            <p class="text-gray-400 mb-6 max-w-xl mx-auto">Begin with Chapter 1 - Fundamentals of Electricity and build your way up to becoming a professional electrical engineer.</p>
+                            <a href="chapters/01-fundamentals/index.html" class="btn btn-primary inline-flex items-center">
+                                <span>Start Learning</span>
+                                <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="text-sm text-gray-400">
+                            © 2024 Electrical Engineering Mastery. All rights reserved.
+                        </div>
+                        <div class="footer-links">
+                            <a href="#">About</a>
+                            <a href="#">Contact</a>
+                            <a href="#">Privacy</a>
+                            <a href="#">Terms</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="shared/js/state.js"></script>
+    <script src="shared/js/navigation.js"></script>
+    <script src="shared/js/router.js"></script>
+    <script src="shared/js/app.js"></script>
+</body>
+</html>

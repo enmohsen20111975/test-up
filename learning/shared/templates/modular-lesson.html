@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modular Lesson Template - EngiSuite Analytics Learning</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- MathJax for LaTeX formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="../shared/css/styles.css">
+    <link rel="stylesheet" href="../shared/css/lesson.css">
+    <link rel="stylesheet" href="../shared/css/simulations.css">
+
+    <!-- Theme Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+                        secondary: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen transition-colors duration-300">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded">
+        Skip to main content
+    </a>
+
+    <!-- Header Component -->
+    <header class="bg-[var(--bg-secondary)] shadow-md sticky top-0 z-50" role="banner">
+        <div class="container mx-auto px-4 py-3">
+            <nav aria-label="Breadcrumb" class="text-sm mb-2">
+                <ol class="flex items-center gap-2 text-gray-500">
+                    <li><a href="../../index.html" class="hover:text-primary-600">
+                            <i class="fas fa-home"></i> Home
+                        </a></li>
+                    <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                    <li><a href="../chapters/index.html" class="hover:text-primary-600">Chapters</a></li>
+                    <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                    <li><span id="breadcrumb-chapter" class="text-gray-700">Chapter Name</span></li>
+                    <li><i class="fas fa-chevron-right text-gray-400"></i></li>
+                    <li id="breadcrumb-lesson" class="text-primary-600 font-medium" aria-current="page">Lesson Title
+                    </li>
+                </ol>
+            </nav>
+
+            <div class="lesson-header flex items-center justify-between flex-wrap gap-4">
+                <div class="flex-1">
+                    <h1 id="lesson-title" class="text-2xl font-bold text-gray-800 dark:text-white">Lesson Title</h1>
+                    <div class="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                        <span><i class="fas fa-clock"></i> <span id="lesson-duration">15 min</span></span>
+                        <span><i class="fas fa-layer-group"></i> <span id="lesson-level">Beginner</span></span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                        aria-valuemax="100" aria-label="Lesson progress">
+                        <svg class="w-10 h-10 transform -rotate-90">
+                            <circle cx="20" cy="20" r="16" fill="none" stroke="#e5e7eb" stroke-width="3" />
+                            <circle id="progress-ring" cx="20" cy="20" r="16" fill="none" stroke="#3b82f6"
+                                stroke-width="3" stroke-dasharray="100.48" stroke-dashoffset="100.48"
+                                class="progress-ring" />
+                        </svg>
+                        <span id="progress-text" class="text-sm font-medium">0%</span>
+                    </div>
+
+                    <button id="bookmark-btn" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                        aria-label="Bookmark this lesson" title="Bookmark">
+                        <i class="far fa-bookmark text-xl"></i>
+                    </button>
+
+                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                        aria-label="Toggle dark mode" title="Toggle theme">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline text-yellow-400"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container mx-auto px-4 py-6" role="main">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- Sidebar Component -->
+            <aside class="lg:col-span-1">
+                <div class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-4 sticky top-24">
+                    <button id="objectives-toggle"
+                        class="flex items-center justify-between w-full text-left font-semibold text-gray-800 dark:text-white mb-3"
+                        aria-expanded="true" aria-controls="objectives-panel">
+                        <span><i class="fas fa-bullseye mr-2 text-primary-600"></i>Learning Objectives</span>
+                        <i class="fas fa-chevron-up transition-transform" id="objectives-icon"></i>
+                    </button>
+
+                    <div id="objectives-panel" class="transition-all duration-300">
+                        <ul class="space-y-2 text-sm" id="objectives-list">
+                            <!-- Populated by JS -->
+                            <li class="flex items-start gap-2">
+                                <input type="checkbox" id="obj-1"
+                                    class="mt-1 w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                <label for="obj-1" class="text-gray-700 dark:text-gray-300 cursor-pointer">
+                                    Understand the fundamental concepts
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Course Navigation -->
+                <div class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-4 mt-4 sticky top-24">
+                    <h3 class="font-semibold text-gray-800 dark:text-white mb-3">
+                        <i class="fas fa-book mr-2 text-primary-600"></i>Course Content
+                    </h3>
+                    <nav id="course-navigation" class="max-h-96 overflow-y-auto">
+                        <!-- Populated by JS -->
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3 space-y-6" id="lesson-content">
+                <!-- Theory Section -->
+                <section class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6" aria-labelledby="theory-heading">
+                    <h2 id="theory-heading" class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+                        <i class="fas fa-book-open mr-2 text-primary-600"></i>Theory
+                    </h2>
+                    <div id="theory-content" class="lesson-content prose dark:prose-invert max-w-none">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+
+                <!-- Interactive Simulation Section -->
+                <section class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6" aria-labelledby="simulation-heading"
+                    id="simulation-section">
+                    <h2 id="simulation-heading" class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+                        <i class="fas fa-flask mr-2 text-primary-600"></i>Interactive Simulation
+                    </h2>
+                    <div id="simulation-container" class="simulation-container border rounded-lg overflow-hidden">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+
+                <!-- Practice Problems Section -->
+                <section class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6" aria-labelledby="practice-heading">
+                    <h2 id="practice-heading" class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+                        <i class="fas fa-pencil-alt mr-2 text-primary-600"></i>Practice Problems
+                    </h2>
+                    <div id="problems-container" class="space-y-6">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+
+                <!-- Takeaway Summary -->
+                <section class="bg-[var(--bg-secondary)] rounded-xl shadow-md p-6" aria-labelledby="takeaway-heading">
+                    <h2 id="takeaway-heading" class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+                        <i class="fas fa-lightbulb mr-2 text-yellow-500"></i>Key Takeaways
+                    </h2>
+                    <div
+                        class="takeaway-card bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl p-6 text-white">
+                        <ul class="space-y-2" id="takeaway-list">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between items-center pt-4" id="lesson-navigation">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[var(--bg-secondary)] shadow-md mt-8 py-6">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>&copy; 2024 EngiSuite Analytics. All rights reserved.</p>
+            <p class="mt-2">
+                <a href="#" class="hover:text-primary-600">Privacy Policy</a> |
+                <a href="#" class="hover:text-primary-600">Terms of Service</a> |
+                <a href="#" class="hover:text-primary-600">Help Center</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Lesson Renderer Module -->
+    <script src="../shared/js/lesson-renderer.js"></script>
+
+    <!-- Initialize Lesson -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Parse URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const lessonId = urlParams.get('lesson') || 'default';
+            const chapterId = urlParams.get('chapter') || '01-fundamentals';
+            const discipline = urlParams.get('discipline') || 'electrical';
+
+            // Initialize lesson renderer
+            LessonRenderer.init({
+                lessonId: lessonId,
+                chapterId: chapterId,
+                disciplineKey: discipline
+            });
+        });
+    </script>
+</body>
+
+</html>

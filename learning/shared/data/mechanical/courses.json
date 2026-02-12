@@ -1,0 +1,1002 @@
+{
+    "discipline": "Mechanical Engineering",
+    "disciplineKey": "mechanical",
+    "icon": "fa-cogs",
+    "color": "#3b82f6",
+    "description": "Master mechanics, thermodynamics, materials, and mechanical systems design",
+    "chapters": [
+        {
+            "id": "01-fundamentals",
+            "title": "Mechanical Fundamentals",
+            "description": "Core principles of mechanics, forces, and energy",
+            "icon": "fa-ruler-combined",
+            "order": 1,
+            "lessons": [
+                {
+                    "id": "01-units-dimensions",
+                    "title": "Units and Dimensions",
+                    "slug": "units-dimensions",
+                    "duration": "15 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "Understand SI and Imperial unit systems",
+                        "Convert between different units",
+                        "Apply dimensional analysis",
+                        "Identify fundamental and derived quantities"
+                    ],
+                    "content": {
+                        "introduction": "Proper understanding of units and dimensions is essential for all engineering calculations. This lesson covers the fundamental and derived quantities used in mechanical engineering.",
+                        "sections": [
+                            {
+                                "title": "SI Fundamental Units",
+                                "content": "The International System (SI) uses 7 fundamental units: meter (length), kilogram (mass), second (time), ampere (electric current), kelvin (temperature), mole (amount), candela (luminous intensity)."
+                            },
+                            {
+                                "title": "Mechanical Derived Units",
+                                "content": "Force (Newton = kg·m/s²), Pressure (Pascal = N/m²), Energy (Joule = N·m), Power (Watt = J/s)"
+                            },
+                            {
+                                "title": "Dimensional Analysis",
+                                "content": "Use dimensional analysis to check equations and convert units. Dimensions of both sides must match for a valid equation."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "1 \\text{ N} = 1 \\text{ kg} \\cdot \\text{m/s}^2",
+                            "description": "Definition of Newton in SI units"
+                        },
+                        {
+                            "formula": "1 \\text{ Pa} = 1 \\text{ N/m}^2",
+                            "description": "Definition of Pascal"
+                        },
+                        {
+                            "formula": "1 \\text{ kip} = 1000 \\text{ lb}_f",
+                            "description": "Conversion for force units"
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Unit Conversion",
+                            "description": "Convert 500 mm to meters.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "0.5 m"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "5 m"
+                                },
+                                {
+                                    "value": "c",
+                                    "text": "0.05 m"
+                                },
+                                {
+                                    "value": "d",
+                                    "text": "50 m"
+                                }
+                            ],
+                            "correctAnswer": "a",
+                            "steps": [
+                                "Divide by 1000: 500 ÷ 1000 = 0.5"
+                            ],
+                            "finalAnswer": "0.5 m"
+                        }
+                    ]
+                },
+                {
+                    "id": "02-vectors-forces",
+                    "title": "Vectors and Forces",
+                    "slug": "vectors-forces",
+                    "duration": "25 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "Understand vector vs scalar quantities",
+                        "Add and subtract vectors graphically and analytically",
+                        "Resolve forces into components",
+                        "Apply equilibrium conditions"
+                    ],
+                    "content": {
+                        "introduction": "Forces are vector quantities - they have both magnitude and direction. Understanding vector operations is fundamental to all mechanical engineering analysis.",
+                        "sections": [
+                            {
+                                "title": "Scalars vs Vectors",
+                                "content": "Scalars have magnitude only (mass, time, energy). Vectors have magnitude and direction (force, velocity, acceleration)."
+                            },
+                            {
+                                "title": "Vector Addition",
+                                "content": "Vectors can be added using head-to-tail method, parallelogram method, or component method. Resultant is the vector sum."
+                            },
+                            {
+                                "title": "Force Components",
+                                "content": "A force can be resolved into rectangular components: F_x = F·cos(θ), F_y = F·sin(θ)"
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\vec{R} = \\vec{F_1} + \\vec{F_2}",
+                            "description": "Resultant force vector"
+                        },
+                        {
+                            "formula": "F_x = F \\cdot \\cos\\theta, \\quad F_y = F \\cdot \\sin\\theta",
+                            "description": "Force components in rectangular coordinates"
+                        },
+                        {
+                            "formula": "R = \\sqrt{F_x^2 + F_y^2}, \\quad \\theta = \\tan^{-1}\\left(\\frac{F_y}{F_x}\\right)",
+                            "description": "Resultant magnitude and direction"
+                        }
+                    ],
+                    "simulations": [
+                        {
+                            "type": "vector-addition",
+                            "canvasId": "vector-canvas",
+                            "controls": [
+                                {
+                                    "id": "f1-mag",
+                                    "label": "Force 1",
+                                    "valueId": "f1-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 100,
+                                    "defaultValue": 50,
+                                    "step": 5,
+                                    "unit": "N"
+                                },
+                                {
+                                    "id": "f1-angle",
+                                    "label": "Angle 1",
+                                    "valueId": "f1-angle-val",
+                                    "type": "range",
+                                    "min": 0,
+                                    "max": 360,
+                                    "defaultValue": 0,
+                                    "step": 5,
+                                    "unit": "°"
+                                },
+                                {
+                                    "id": "f2-mag",
+                                    "label": "Force 2",
+                                    "valueId": "f2-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 100,
+                                    "defaultValue": 50,
+                                    "step": 5,
+                                    "unit": "N"
+                                },
+                                {
+                                    "id": "f2-angle",
+                                    "label": "Angle 2",
+                                    "valueId": "f2-angle-val",
+                                    "type": "range",
+                                    "min": 0,
+                                    "max": 360,
+                                    "defaultValue": 90,
+                                    "step": 5,
+                                    "unit": "°"
+                                }
+                            ],
+                            "results": [
+                                {
+                                    "id": "rx-result",
+                                    "label": "Rx",
+                                    "value": "50 N"
+                                },
+                                {
+                                    "id": "ry-result",
+                                    "label": "Ry",
+                                    "value": "50 N"
+                                },
+                                {
+                                    "id": "rmag-result",
+                                    "label": "R",
+                                    "value": "70.7 N"
+                                },
+                                {
+                                    "id": "rangle-result",
+                                    "label": "Angle",
+                                    "value": "45°"
+                                }
+                            ]
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Force Components",
+                            "description": "A 100N force acts at 30° to the horizontal. Calculate its x and y components.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "Fx = 87 N, Fy = 50 N"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "Fx = 50 N, Fy = 87 N"
+                                },
+                                {
+                                    "value": "c",
+                                    "text": "Fx = 87 N, Fy = 87 N"
+                                },
+                                {
+                                    "value": "d",
+                                    "text": "Fx = 100 N, Fy = 50 N"
+                                }
+                            ],
+                            "correctAnswer": "b",
+                            "steps": [
+                                "Fx = F·cos(30°) = 100 × 0.866 = 86.6 N ≈ 87 N",
+                                "Fy = F·sin(30°) = 100 × 0.5 = 50 N"
+                            ],
+                            "finalAnswer": "Fx ≈ 87 N, Fy = 50 N"
+                        }
+                    ]
+                },
+                {
+                    "id": "03-equilibrium",
+                    "title": "Equilibrium of Particles",
+                    "slug": "equilibrium",
+                    "duration": "25 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "State conditions for equilibrium",
+                        "Draw free-body diagrams",
+                        "Apply equilibrium equations",
+                        "Solve problems with unknown forces"
+                    ],
+                    "content": {
+                        "introduction": "A particle is in equilibrium when the resultant of all forces acting on it is zero. This is fundamental to structural analysis and machine design.",
+                        "sections": [
+                            {
+                                "title": "Equilibrium Conditions",
+                                "content": "For 2D: ΣFx = 0 and ΣFy = 0. For 3D: Add ΣMz = 0."
+                            },
+                            {
+                                "title": "Free-Body Diagrams",
+                                "content": "A FBD shows all forces acting on a body. Include known forces, reactions, and weight (if significant)."
+                            },
+                            {
+                                "title": "Solving Equilibrium Problems",
+                                "content": "Draw FBD, apply equilibrium equations, solve for unknowns. Check results by substituting back."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\sum F_x = 0, \\quad \\sum F_y = 0",
+                            "description": "2D equilibrium conditions"
+                        },
+                        {
+                            "formula": "\\sum F_z = 0, \\quad \\sum M_x = 0, \\quad \\sum M_y = 0, \\quad \\sum M_z = 0",
+                            "description": "3D equilibrium conditions"
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Simple Equilibrium",
+                            "description": "A 100N weight hangs from two cables at 45° angles. Find the tension in each cable.",
+                            "difficulty": "Medium",
+                            "difficultyColor": "yellow",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "50 N each"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "70.7 N each"
+                                },
+                                {
+                                    "value": "c",
+                                    "text": "100 N each"
+                                },
+                                {
+                                    "value": "d",
+                                    "text": "141.4 N each"
+                                }
+                            ],
+                            "correctAnswer": "b",
+                            "steps": [
+                                "Vertical equilibrium: 2·T·sin(45°) = 100N",
+                                "T = 100/(2×0.707) = 100/1.414 = 70.7N"
+                            ],
+                            "finalAnswer": "70.7 N each"
+                        }
+                    ]
+                },
+                {
+                    "id": "04-moments-couples",
+                    "title": "Moments and Couples",
+                    "slug": "moments-couples",
+                    "duration": "25 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Define moment of a force",
+                        "Calculate moments using scalar and vector methods",
+                        "Understand couples and their effects",
+                        "Reduce force systems using moments"
+                    ],
+                    "content": {
+                        "introduction": "Moment (torque) measures the turning effect of a force. Understanding moments is essential for analyzing rotating machinery and structural stability.",
+                        "sections": [
+                            {
+                                "title": "Moment of a Force",
+                                "content": "Moment = Force × perpendicular distance (M = F × d). Units: N·m or lb·ft."
+                            },
+                            {
+                                "title": "Varignon's Theorem",
+                                "content": "The moment of a force about a point equals the sum of moments of its components about the same point."
+                            },
+                            {
+                                "title": "Couples",
+                                "content": "A couple is two equal, opposite, parallel forces. The moment of a couple is M = F × d, independent of reference point."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "M_O = F \\cdot d = F \\cdot r \\cdot \\sin\\theta",
+                            "description": "Moment about point O"
+                        },
+                        {
+                            "formula": "\\vec{M_O} = \\vec{r} \\times \\vec{F}",
+                            "description": "Vector cross product form"
+                        },
+                        {
+                            "formula": "M_{couple} = F \\cdot d",
+                            "description": "Moment of a couple"
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Moment Calculation",
+                            "description": "A 50N force is applied at the end of a 0.8m wrench. Calculate the moment about the bolt.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "40 N·m"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "62.5 N·m"
+                                },
+                                {
+                                    "value": "c",
+                                    "text": "30 N·m"
+                                },
+                                {
+                                    "value": "d",
+                                    "text": "0.625 N·m"
+                                }
+                            ],
+                            "correctAnswer": "a",
+                            "steps": [
+                                "M = F × d = 50N × 0.8m = 40 N·m"
+                            ],
+                            "finalAnswer": "40 N·m"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "02-thermodynamics",
+            "title": "Thermodynamics",
+            "description": "Heat, energy, and power systems",
+            "icon": "fa-fire",
+            "order": 2,
+            "lessons": [
+                {
+                    "id": "01-basic-concepts",
+                    "title": "Basic Thermodynamic Concepts",
+                    "slug": "basic-thermo-concepts",
+                    "duration": "20 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "Define system, surroundings, and boundary",
+                        "Understand properties and states of matter",
+                        "Differentiate between heat and temperature",
+                        "Apply the concept of equilibrium"
+                    ],
+                    "content": {
+                        "introduction": "Thermodynamics studies energy, heat, and their transformations. It's fundamental to engines, refrigerators, HVAC systems, and power plants.",
+                        "sections": [
+                            {
+                                "title": "System and Surroundings",
+                                "content": "System: the region of interest. Surroundings: everything else. Boundary: separates them (can be real or imaginary, fixed or moving)."
+                            },
+                            {
+                                "title": "Properties and State",
+                                "content": "Properties describe a system's condition (pressure, temperature, volume). State is defined by property values."
+                            },
+                            {
+                                "title": "Processes and Cycles",
+                                "content": "Process: change from one state to another. Cycle: series of processes returning to initial state."
+                            }
+                        ]
+                    },
+                    "formulas": []
+                },
+                {
+                    "id": "02-first-law",
+                    "title": "First Law of Thermodynamics",
+                    "slug": "first-law-thermo",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "State and apply the First Law",
+                        "Calculate heat, work, and internal energy changes",
+                        "Analyze closed and open systems",
+                        "Understand energy conservation"
+                    ],
+                    "content": {
+                        "introduction": "The First Law (Conservation of Energy) states that energy cannot be created or destroyed, only transformed. For thermodynamic systems: ΔU = Q - W.",
+                        "sections": [
+                            {
+                                "title": "Energy Balance",
+                                "content": "For a closed system: ΔU = Q - W, where ΔU is internal energy change, Q is heat added to system, W is work done by system."
+                            },
+                            {
+                                "title": "Work and Heat",
+                                "content": "Work: energy transfer by force across boundary (PdV work). Heat: energy transfer due to temperature difference."
+                            },
+                            {
+                                "title": "Specific Forms",
+                                "content": "For ideal gases: ΔU = m·cv·ΔT, W = ∫PdV. For steady flow: Q̇ - Ẇ = ṁ·Δh + ΔKE + ΔPE"
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\Delta U = Q - W",
+                            "description": "First Law for closed system"
+                        },
+                        {
+                            "formula": "W = \\int P \\, dV",
+                            "description": "Boundary work"
+                        },
+                        {
+                            "formula": "\\Delta U = m \\cdot c_v \\cdot \\Delta T",
+                            "description": "Internal energy change for ideal gas"
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "First Law Application",
+                            "description": "2000J of heat is added to a gas while it does 500J of work. Find the change in internal energy.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "2500 J"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "1500 J"
+                                },
+                                {
+                                    "value": "c",
+                                    "text": "-1500 J"
+                                },
+                                {
+                                    "value": "d",
+                                    "text": "1000 J"
+                                }
+                            ],
+                            "correctAnswer": "b",
+                            "steps": [
+                                "ΔU = Q - W = 2000J - 500J = 1500J"
+                            ],
+                            "finalAnswer": "1500 J"
+                        }
+                    ]
+                },
+                {
+                    "id": "03-second-law",
+                    "title": "Second Law of Thermodynamics",
+                    "slug": "second-law-thermo",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "State the Second Law in various forms",
+                        "Understand entropy and its significance",
+                        "Analyze heat engine and refrigerator cycles",
+                        "Calculate Carnot efficiency"
+                    ],
+                    "content": {
+                        "introduction": "The Second Law establishes limits on energy conversions and defines entropy. It explains why heat flows spontaneously from hot to cold and why perfect efficiency is impossible.",
+                        "sections": [
+                            {
+                                "title": "Second Law Statements",
+                                "content": "Kelvin-Planck: No heat engine can convert all heat to work. Clausius: No refrigerator can transfer heat from cold to hot without work input."
+                            },
+                            {
+                                "title": "Entropy",
+                                "content": "Entropy (S) measures disorder. For reversible processes: ΔS = Q/T. Total entropy of isolated system always increases."
+                            },
+                            {
+                                "title": "Carnot Cycle",
+                                "content": "Maximum theoretical efficiency for a heat engine operating between two temperatures: η = 1 - Tc/Th"
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\eta_{Carnot} = 1 - \\frac{T_C}{T_H}",
+                            "description": "Carnot efficiency"
+                        },
+                        {
+                            "formula": "\\Delta S \\geq \\frac{Q}{T}",
+                            "description": "Entropy change inequality"
+                        },
+                        {
+                            "formula": "COP_{refrigerator} = \\frac{T_C}{T_H - T_C}",
+                            "description": "Coefficient of performance"
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Carnot Efficiency",
+                            "description": "A heat engine operates between 400K and 300K. Calculate the maximum theoretical efficiency.",
+                            "difficulty": "Easy",
+                            "difficultyColor": "green",
+                            "hasInput": false,
+                            "hasChoices": true,
+                            "choices": [
+                                {
+                                    "value": "a",
+                                    "text": "25%"
+                                },
+                                {
+                                    "value": "b",
+                                    "text": "75%"
+                                },
+                                {
+                                    "value": "c",
+                                    "text": "100%"
+                                },
+                                {
+                                    "value": "d",
+                                    "text": "50%"
+                                }
+                            ],
+                            "correctAnswer": "a",
+                            "steps": [
+                                "η = 1 - Tc/Th = 1 - 300/400 = 1 - 0.75 = 0.25 = 25%"
+                            ],
+                            "finalAnswer": "25%"
+                        }
+                    ]
+                },
+                {
+                    "id": "04-heat-transfer",
+                    "title": "Heat Transfer Mechanisms",
+                    "slug": "heat-transfer",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Differentiate conduction, convection, and radiation",
+                        "Apply Fourier's Law for conduction",
+                        "Use Newton's Law of Cooling",
+                        "Calculate heat transfer for composite walls"
+                    ],
+                    "content": {
+                        "introduction": "Heat transfer occurs through three mechanisms: conduction (molecular contact), convection (fluid motion), and radiation (electromagnetic waves).",
+                        "sections": [
+                            {
+                                "title": "Conduction",
+                                "content": "Fourier's Law: q = -k·A·dT/dx. Heat flows from hot to cold through materials."
+                            },
+                            {
+                                "title": "Convection",
+                                "content": "Newton's Law: q = h·A·ΔT. Depends on fluid properties, flow velocity, and surface geometry."
+                            },
+                            {
+                                "title": "Radiation",
+                                "content": "Stefan-Boltzmann Law: q = ε·σ·A·T⁴. All objects above absolute zero emit thermal radiation."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "q = k \\cdot A \\cdot \\frac{\\Delta T}{L}",
+                            "description": "Conduction heat transfer"
+                        },
+                        {
+                            "formula": "q = h \\cdot A \\cdot \\Delta T",
+                            "description": "Convection heat transfer"
+                        },
+                        {
+                            "formula": "q = \\varepsilon \\cdot \\sigma \\cdot A \\cdot T^4",
+                            "description": "Radiation from black body"
+                        }
+                    ],
+                    "simulations": [
+                        {
+                            "type": "heat-transfer",
+                            "canvasId": "heat-canvas",
+                            "controls": [
+                                {
+                                    "id": "thot",
+                                    "label": "Hot Side",
+                                    "valueId": "thot-val",
+                                    "type": "range",
+                                    "min": 50,
+                                    "max": 500,
+                                    "defaultValue": 100,
+                                    "step": 5,
+                                    "unit": "°C"
+                                },
+                                {
+                                    "id": "tcold",
+                                    "label": "Cold Side",
+                                    "valueId": "tcold-val",
+                                    "type": "range",
+                                    "min": 0,
+                                    "max": 100,
+                                    "defaultValue": 25,
+                                    "step": 5,
+                                    "unit": "°C"
+                                },
+                                {
+                                    "id": "k",
+                                    "label": "Thermal Conductivity",
+                                    "valueId": "k-val",
+                                    "type": "range",
+                                    "min": 0.1,
+                                    "max": 400,
+                                    "defaultValue": 50,
+                                    "step": 5,
+                                    "unit": "W/m·K"
+                                },
+                                {
+                                    "id": "thickness",
+                                    "label": "Thickness",
+                                    "valueId": "th-val",
+                                    "type": "range",
+                                    "min": 0.01,
+                                    "max": 0.5,
+                                    "defaultValue": 0.1,
+                                    "step": 0.01,
+                                    "unit": "m"
+                                }
+                            ],
+                            "results": [
+                                {
+                                    "id": "q-result",
+                                    "label": "Heat Flux",
+                                    "value": "37500 W/m²"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "03-mechanics",
+            "title": "Mechanics of Materials",
+            "description": "Stress, strain, and deformation analysis",
+            "icon": "fa-puzzle-piece",
+            "order": 3,
+            "lessons": [
+                {
+                    "id": "01-stress-strain",
+                    "title": "Stress and Strain",
+                    "slug": "stress-strain",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Define stress and strain tensors",
+                        "Calculate normal and shear stresses",
+                        "Understand Hooke's Law",
+                        "Analyze material properties from stress-strain curves"
+                    ],
+                    "content": {
+                        "introduction": "Mechanics of materials studies how components deform and fail under loads. Understanding stress and strain is essential for safe structural design.",
+                        "sections": [
+                            {
+                                "title": "Stress",
+                                "content": "Stress (σ) = Force/Area. Normal stress acts perpendicular to surface, shear stress acts parallel. Units: Pa (N/m²) or psi."
+                            },
+                            {
+                                "title": "Strain",
+                                "content": "Strain (ε) = deformation/original dimension. Normal strain is elongation, shear strain is angular distortion."
+                            },
+                            {
+                                "title": "Hooke's Law",
+                                "content": "Within elastic limit: σ = E·ε, where E is Young's modulus. For shear: τ = G·γ"
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\sigma = \\frac{F}{A}",
+                            "description": "Normal stress"
+                        },
+                        {
+                            "formula": "\\tau = \\frac{V}{A}",
+                            "description": "Shear stress"
+                        },
+                        {
+                            "formula": "\\varepsilon = \\frac{\\Delta L}{L_0}",
+                            "description": "Normal strain"
+                        },
+                        {
+                            "formula": "\\sigma = E \\cdot \\varepsilon",
+                            "description": "Hooke's Law"
+                        }
+                    ],
+                    "simulations": [
+                        {
+                            "type": "stress-strain",
+                            "canvasId": "stress-strain-canvas",
+                            "controls": [
+                                {
+                                    "id": "force",
+                                    "label": "Applied Force",
+                                    "valueId": "force-val",
+                                    "type": "range",
+                                    "min": 100,
+                                    "max": 10000,
+                                    "defaultValue": 1000,
+                                    "step": 100,
+                                    "unit": "N"
+                                },
+                                {
+                                    "id": "area",
+                                    "label": "Cross-Section",
+                                    "valueId": "area-val",
+                                    "type": "range",
+                                    "min": 10,
+                                    "max": 500,
+                                    "defaultValue": 100,
+                                    "step": 10,
+                                    "unit": "mm²"
+                                }
+                            ],
+                            "results": [
+                                {
+                                    "id": "stress-result",
+                                    "label": "Stress",
+                                    "value": "10 MPa"
+                                },
+                                {
+                                    "id": "strain-result",
+                                    "label": "Strain",
+                                    "value": "0.0005"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "02-bending",
+                    "title": "Bending of Beams",
+                    "slug": "beam-bending",
+                    "duration": "30 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Understand beam bending theory",
+                        "Calculate bending stress distribution",
+                        "Find maximum bending moment",
+                        "Design beams for strength"
+                    ],
+                    "content": {
+                        "introduction": "Beams are structural members that carry transverse loads. Bending causes compression on one side and tension on the other.",
+                        "sections": [
+                            {
+                                "title": "Bending Theory",
+                                "content": "Pure bending: M = σ·I/y = E·I/R. Stress varies linearly from neutral axis. Maximum stress at outermost fibers."
+                            },
+                            {
+                                "title": "Section Modulus",
+                                "content": "Section modulus Z = I/y_max. Required section modulus: Z_required = M_max/σ_allowable."
+                            },
+                            {
+                                "title": "Shear and Moment Diagrams",
+                                "content": "Draw shear and moment diagrams to find maximum values. Use area-moment method or differential relationships."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\sigma = \\frac{M \\cdot y}{I}",
+                            "description": "Bending stress"
+                        },
+                        {
+                            "formula": "M = \\frac{\\sigma \\cdot I}{y}",
+                            "description": "Bending moment"
+                        },
+                        {
+                            "formula": "\\frac{M}{I} = \\frac{\\sigma}{y} = \\frac{E}{R}",
+                            "description": "Flexure formula"
+                        }
+                    ]
+                },
+                {
+                    "id": "03-torsion",
+                    "title": "Torsion of Shafts",
+                    "slug": "torsion-shafts",
+                    "duration": "25 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Analyze circular shafts under torsion",
+                        "Calculate shear stress in shafts",
+                        "Determine angle of twist",
+                        "Design shafts for power transmission"
+                    ],
+                    "content": {
+                        "introduction": "Torsion occurs when a shaft transmits torque. Circular shafts experience pure shear stress, with maximum stress at the outer surface.",
+                        "sections": [
+                            {
+                                "title": "Torsion Formula",
+                                "content": "For circular shafts: τ = T·r/J. J is polar moment of inertia. Maximum at r = outer radius."
+                            },
+                            {
+                                "title": "Angle of Twist",
+                                "content": "θ = T·L/(G·J). L is length, G is shear modulus. Twist varies along shaft length."
+                            },
+                            {
+                                "title": "Power Transmission",
+                                "content": "Power P = T·ω, where ω = 2πN/60. For design, use rated torque and service factor."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\tau_{max} = \\frac{T \\cdot r}{J}",
+                            "description": "Maximum shear stress in shaft"
+                        },
+                        {
+                            "formula": "\\theta = \\frac{T \\cdot L}{G \\cdot J}",
+                            "description": "Angle of twist"
+                        },
+                        {
+                            "formula": "P = T \\cdot \\omega = \\frac{2 \\pi N T}{60}",
+                            "description": "Power transmission"
+                        }
+                    ],
+                    "problems": [
+                        {
+                            "id": "p1",
+                            "title": "Shaft Design",
+                            "description": "A solid shaft transmits 5 kN·m torque. If allowable shear stress is 40 MPa, find minimum diameter.",
+                            "difficulty": "Medium",
+                            "difficultyColor": "yellow",
+                            "hasInput": true,
+                            "inputType": "text",
+                            "inputPlaceholder": "Enter diameter in mm",
+                            "inputAriaLabel": "Minimum diameter answer",
+                            "correctAnswer": "158",
+                            "answerType": "numeric",
+                            "formula": "J = \\pi d^4/32, \\quad \\tau = 16T/(\\pi d^3)",
+                            "steps": [
+                                "τ = 16T/(πd³) → d³ = 16T/(πτ)",
+                                "d³ = 16×5000/(π×40) = 200000/(125.66) = 1591.5",
+                                "d = 11.7 cm = 117 mm"
+                            ],
+                            "finalAnswer": "117 mm minimum"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "04-materials",
+            "title": "Engineering Materials",
+            "description": "Material properties, selection, and testing",
+            "icon": "fa-cubes",
+            "order": 4,
+            "lessons": [
+                {
+                    "id": "01-material-properties",
+                    "title": "Mechanical Properties of Materials",
+                    "slug": "mechanical-properties",
+                    "duration": "25 min",
+                    "level": "Beginner",
+                    "type": "theory",
+                    "objectives": [
+                        "Identify key mechanical properties",
+                        "Interpret stress-strain curves",
+                        "Understand material testing methods",
+                        "Compare properties of different material classes"
+                    ],
+                    "content": {
+                        "introduction": "Material properties determine how a material behaves under various conditions. Understanding these properties is crucial for proper material selection.",
+                        "sections": [
+                            {
+                                "title": "Key Properties",
+                                "content": "Strength (yield, ultimate), ductility, toughness, hardness, stiffness (Young's modulus), fatigue strength, creep resistance."
+                            },
+                            {
+                                "title": "Stress-Strain Curve Regions",
+                                "content": "Elastic region (linear, recoverable), yield point, plastic region (permanent deformation), ultimate tensile strength, fracture."
+                            },
+                            {
+                                "title": "Testing Methods",
+                                "content": "Tensile test gives stress-strain curve. Hardness tests (Brinell, Rockwell) correlate with strength. Impact test measures toughness."
+                            }
+                        ]
+                    },
+                    "formulas": [
+                        {
+                            "formula": "\\sigma_{UTS} = \\frac{P_{max}}{A_0}",
+                            "description": "Ultimate tensile strength"
+                        },
+                        {
+                            "formula": "\\%El = \\frac{L_f - L_0}{L_0} \\times 100",
+                            "description": "Percent elongation"
+                        }
+                    ]
+                },
+                {
+                    "id": "02-material-selection",
+                    "title": "Materials Selection",
+                    "slug": "material-selection",
+                    "duration": "25 min",
+                    "level": "Intermediate",
+                    "type": "theory",
+                    "objectives": [
+                        "Apply Ashby selection methodology",
+                        "Use material property charts",
+                        "Balance performance and cost",
+                        "Consider manufacturing and environmental factors"
+                    ],
+                    "content": {
+                        "introduction": "Material selection balances performance requirements with cost, manufacturability, and sustainability. Systematic approaches improve decision-making.",
+                        "sections": [
+                            {
+                                "title": "Selection Criteria",
+                                "content": "Mechanical requirements (strength, stiffness), environmental exposure, cost constraints, availability, and recyclability."
+                            },
+                            {
+                                "title": "Ashby Charts",
+                                "content": "Material property charts show performance indices. Plot candidate materials to identify the optimal choice."
+                            },
+                            {
+                                "title": "Trade-offs",
+                                "content": "Strength vs weight, cost vs performance, stiffness vs damping. No single material excels in all properties."
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
